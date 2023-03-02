@@ -1,5 +1,5 @@
 import React from 'react';
-import { IconBrandGithub, IconBrandTwitter, IconEye } from '@tabler/icons-react';
+import { IconEye } from '@tabler/icons-react';
 
 function SignUpCard() {
     return (
