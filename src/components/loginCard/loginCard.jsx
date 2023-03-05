@@ -20,7 +20,7 @@ function LoginCard() {
                                 <label className="form-label">
                                     Password
                                     <span className="form-label-description">
-                                        <a href="./forgot-password.html">Forgotten password?</a>
+                                        <a href="./forgot-password.html">Forgot password?</a>
                                     </span>
                                 </label>
                                 <div className="input-group input-group-flat">
