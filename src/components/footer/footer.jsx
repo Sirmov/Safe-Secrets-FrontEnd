@@ -1,5 +1,5 @@
-import { IconHeart } from '@tabler/icons-react';
 import React from 'react';
+import { IconHeart } from '@tabler/icons-react';
 
 function Footer() {
     return (
@@ -9,31 +9,44 @@ function Footer() {
                     <div className="col-lg-auto ms-lg-auto">
                         <ul className="list-inline list-inline-dots mb-0">
                             <li className="list-inline-item">
-                                <a href="./docs/" className="link-secondary">
+                                <a
+                                    href="https://github.com/Sirmov/Safe-Secrets-FrontEnd/blob/main/README.md"
+                                    className="link-secondary"
+                                    target="_blank"
+                                    rel="noreferrer">
                                     Documentation
                                 </a>
                             </li>
                             <li className="list-inline-item">
-                                <a href="./license.html" className="link-secondary">
+                                <a
+                                    href="https://github.com/Sirmov/Safe-Secrets-FrontEnd/blob/main/LICENSE"
+                                    className="link-secondary"
+                                    target="_blank"
+                                    rel="noreferrer">
                                     License
                                 </a>
                             </li>
                             <li className="list-inline-item">
                                 <a
-                                    href="https://github.com/tabler/tabler"
-                                    target="_blank"
+                                    href="https://github.com/Sirmov/Safe-Secrets-FrontEnd"
                                     className="link-secondary"
-                                    rel="noopener">
+                                    target="_blank"
+                                    rel="noreferrer">
                                     Source code
                                 </a>
                             </li>
                             <li className="list-inline-item">
                                 <a
-                                    href="https://github.com/sponsors/codecalm"
-                                    target="_blank"
+                                    href="https://www.buymeacoffee.com/sirmov"
                                     className="link-secondary"
-                                    rel="noopener">
-                                    <IconHeart className="icon" color="currentColor" stroke={2} size={24} />
+                                    target="_blank"
+                                    rel="noreferrer">
+                                    <IconHeart
+                                        className="icon icon-filled text-pink"
+                                        color="currentColor"
+                                        stroke={2}
+                                        size={24}
+                                    />
                                     Sponsor
                                 </a>
                             </li>
@@ -41,18 +54,7 @@ function Footer() {
                     </div>
                     <div className="col-12 col-lg-auto mt-3 mt-lg-0">
                         <ul className="list-inline list-inline-dots mb-0">
-                            <li className="list-inline-item">
-                                Copyright © 2023
-                                <a href="." className="link-secondary">
-                                    Tabler
-                                </a>
-                                . All rights reserved.
-                            </li>
-                            <li className="list-inline-item">
-                                <a href="./changelog.html" className="link-secondary" rel="noopener">
-                                    v1.0.0-beta17
-                                </a>
-                            </li>
+                            <li className="list-inline-item">Copyright © 2023 Safe Secrets. All rights reserved.</li>
                         </ul>
                     </div>
                 </div>
