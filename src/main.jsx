@@ -1,9 +1,9 @@
+import './main.module.scss';
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import './main.module.scss';
 
-import App from './App';
 import SignUpPage from './pages/signUp/signUpPage';
 import LoginPage from './pages/login/loginPage';
 import NotFoundPage from './pages/notFound/notFoundPage';
