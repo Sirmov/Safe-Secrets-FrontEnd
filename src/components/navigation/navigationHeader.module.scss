@@ -1,0 +1,9 @@
+.nav-link-active::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.6rem;
+    border: 0 var(--tblr-border-style) var(--tblr-navbar-active-border-color);
+    border-bottom-width: 2px;
+}

@@ -1,5 +1,8 @@
-import { IconBell, IconMoon, IconStar, IconSun } from '@tabler/icons-react';
+import styles from './navigationHeader.module.scss';
+
 import React from 'react';
+import { Link, NavLink } from 'react-router-dom';
+import { IconBell, IconHome, IconLock, IconMoon, IconStar, IconSun } from '@tabler/icons-react';
 
 function NavigationHeader() {
     return (
@@ -15,8 +18,9 @@ function NavigationHeader() {
                     aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon" />
                 </button>
+                {/* Logo */}
                 <h1 className="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
-                    <a href=".">
+                    <Link to="/">
                         <img
                             src="../../assets/images/logo.png"
                             width={110}
@@ -24,28 +28,31 @@ function NavigationHeader() {
                             alt="Safe Secrets"
                             className="navbar-brand-image"
                         />
-                    </a>
+                    </Link>
                 </h1>
+                {/* Right section */}
                 <div className="navbar-nav flex-row order-md-last">
                     <div className="d-none d-md-flex">
-                        <a
-                            href="?theme=dark"
+                        {/* Theme change */}
+                        <Link
+                            to="?theme=dark"
                             className="nav-link px-0 hide-theme-dark"
                             data-bs-toggle="tooltip"
                             data-bs-placement="bottom"
                             aria-label="Enable dark mode"
                             data-bs-original-title="Enable dark mode">
                             <IconMoon className="icon" color="currentColor" stroke={2} size={24} />
-                        </a>
-                        <a
-                            href="?theme=light"
+                        </Link>
+                        <Link
+                            to="?theme=light"
                             className="nav-link px-0 hide-theme-light"
                             data-bs-toggle="tooltip"
                             data-bs-placement="bottom"
                             aria-label="Enable light mode"
                             data-bs-original-title="Enable light mode">
                             <IconSun className="icon" color="currentColor" stroke={2} size={24} />
-                        </a>
+                        </Link>
+                        {/* Notifications */}
                         <div className="nav-item dropdown d-none d-md-flex me-3">
                             <a
                                 href="#"
@@ -167,6 +174,7 @@ function NavigationHeader() {
                             </div>
                         </div>
                     </div>
+                    {/* Avatar */}
                     <div className="nav-item dropdown">
                         <a
                             href="#"
@@ -202,58 +210,33 @@ function NavigationHeader() {
                         </div>
                     </div>
                 </div>
+                {/* Navigation links */}
                 <div className="collapse navbar-collapse" id="navbar-menu">
                     <div className="d-flex flex-column flex-md-row flex-fill align-items-stretch align-items-md-center">
                         <ul className="navbar-nav">
-                            <li className="nav-item active">
-                                <a className="nav-link" href="./#">
+                            <li className="nav-item">
+                                <NavLink
+                                    to="/"
+                                    className={({ isActive }) =>
+                                        isActive ? `nav-link ${styles['nav-link-active']}` : 'nav-link'
+                                    }>
                                     <span className="nav-link-icon d-md-none d-lg-inline-block">
-                                        <IconStar className="icon" color="currentColor" stroke={2} size={24} />
+                                        <IconHome className="icon" color="currentColor" stroke={2} size={24} />
                                     </span>
-                                    <span className="nav-link-title">First</span>
-                                </a>
+                                    <span className="nav-link-title">Home</span>
+                                </NavLink>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="./#">
+                                <NavLink
+                                    to="/secrets"
+                                    className={({ isActive }) =>
+                                        isActive ? `nav-link ${styles['nav-link-active']}` : 'nav-link'
+                                    }>
                                     <span className="nav-link-icon d-md-none d-lg-inline-block">
-                                        <IconStar className="icon" color="currentColor" stroke={2} size={24} />
+                                        <IconLock className="icon" color="currentColor" stroke={2} size={24} />
                                     </span>
-                                    <span className="nav-link-title">Second</span>
-                                    <span className="badge badge-sm bg-red">2</span>
-                                </a>
-                            </li>
-                            <li className="nav-item dropdown">
-                                <a
-                                    className="nav-link dropdown-toggle"
-                                    href="#navbar-third"
-                                    data-bs-toggle="dropdown"
-                                    data-bs-auto-close="outside"
-                                    role="button"
-                                    aria-expanded="false">
-                                    <span className="nav-link-icon d-md-none d-lg-inline-block">
-                                        <IconStar className="icon" color="currentColor" stroke={2} size={24} />
-                                    </span>
-                                    <span className="nav-link-title">Third</span>
-                                </a>
-                                <div className="dropdown-menu">
-                                    <a className="dropdown-item" href="./#">
-                                        First
-                                    </a>
-                                    <a className="dropdown-item" href="./#">
-                                        Second
-                                    </a>
-                                    <a className="dropdown-item" href="./#">
-                                        Third
-                                    </a>
-                                </div>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link disabled" href="./#">
-                                    <span className="nav-link-icon d-md-none d-lg-inline-block">
-                                        <IconStar className="icon" color="currentColor" stroke={2} size={24} />
-                                    </span>
-                                    <span className="nav-link-title">Disabled</span>
-                                </a>
+                                    <span className="nav-link-title">Secrets</span>
+                                </NavLink>
                             </li>
                         </ul>
                     </div>
