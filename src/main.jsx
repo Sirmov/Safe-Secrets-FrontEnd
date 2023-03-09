@@ -8,12 +8,14 @@ import SignUpPage from './pages/signUp/signUpPage';
 import LoginPage from './pages/login/loginPage';
 import NotFoundPage from './pages/notFound/notFoundPage';
 import HomePage from './pages/home/homePage';
+import SecretsPage from './pages/secrets/secretsPage';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<HomePage />} />
+                <Route path="/secrets" element={<SecretsPage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/sign-up" element={<SignUpPage />} />
                 <Route path="*" element={<NotFoundPage />} />
