@@ -1,5 +1,7 @@
-import { IconPlus } from '@tabler/icons-react';
+import { IconFlask, IconFlask2, IconKey, IconShield, IconShieldCheck, IconShieldFilled } from '@tabler/icons-react';
 import React from 'react';
+import Feature from '../../components/feature/feature';
+
 import Footer from '../../components/footer/footer';
 import NavigationHeader from '../../components/navigation/navigationHeader';
 
@@ -7,40 +9,42 @@ function HomePage() {
     return (
         <>
             <NavigationHeader />
+
             <div className="page-wrapper">
-                {/* Page header */}
-                <div className="page-header">
-                    <div className="container-xl">
-                        <div className="row align-items-center">
-                            <div className="col">
-                                <h2 className="page-title">Gallery</h2>
-                                <div className="text-muted mt-1">1-12 of 241 photos</div>
-                            </div>
-                            <div className="col-auto ms-auto d-print-none">
-                                <div className="d-flex">
-                                    <div className="me-3 d-none d-md-block">
-                                        <div className="input-icon">
-                                            <input type="text" className="form-control" placeholder="Search…" />
-                                            <span className="input-icon-addon">
-                                                <IconPlus className="icon" color="currentColor" stroke={2} size={24} />
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <a href="#" className="btn btn-primary">
-                                        <IconPlus className="icon" color="currentColor" stroke={2} size={24} />
-                                        Add photo
-                                    </a>
-                                </div>
-                            </div>
+                <div className="container-xl py-4">
+                    <div className="row">
+                        <div className="col-lg-6 g-3">
+                            <h1 className="display-4 text-primary fw-semibold lh-1 mb-3">Safe Secrets</h1>
+                            <p className="display-6 lh-sm fw-light">
+                                The place where you can forget. Store all of your passwords and any other sensitive
+                                data.
+                            </p>
+                        </div>
+                        <div className="col-10 col-sm-8 col-lg-6">
+                            <img
+                                src="../../assets/images/logo.png"
+                                className="d-block mx-lg-auto img-fluid"
+                                alt="Safe secrets"
+                                width={300}
+                                height={200}
+                                loading="lazy"
+                            />
                         </div>
                     </div>
                 </div>
-                {/* Page body */}
-                <div className="page-body">
-                    <div className="container-xl">{/* Content here */}</div>
+                <div className="container-xl">
+                    <div className="row justify-content-around text-center mt-3">
+                        <Feature
+                            icon={<IconShieldCheck color="#3b8acb" size={70} />}
+                            description="Excellent Cybersecurity"
+                        />
+                        <Feature icon={<IconKey color="#6A0DAD" size={70} />} description="Encryption Algorithms" />
+                        <Feature icon={<IconFlask2 color="#50C878" size={70} />} description="Newest Technology" />
+                    </div>
                 </div>
-                <Footer />
             </div>
+
+            <Footer />
         </>
     );
 }
