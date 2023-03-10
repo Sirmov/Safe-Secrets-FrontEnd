@@ -1,0 +1,21 @@
+.feature {
+    width: 220px;
+    height: 200px;
+    position: relative;
+
+    svg {
+        position: absolute;
+        top: 30%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .feature-description {
+        position: absolute;
+        top: 65%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-weight: 600;
+        font-size: 1.25rem;
+    }
+}
