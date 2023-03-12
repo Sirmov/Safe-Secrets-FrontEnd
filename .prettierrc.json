@@ -15,6 +15,7 @@
     "embeddedLanguageFormatting": "auto",
     "singleAttributePerLine": false,
     "importOrder": [
+        "^react$",
         "<THIRD_PARTY_MODULES>",
         "^@assets/(.*)$",
         "^@services/(.*)$",
