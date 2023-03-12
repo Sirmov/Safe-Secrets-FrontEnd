@@ -1,8 +1,9 @@
-import styles from './navigationHeader.module.scss';
-
 import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+
 import { IconBell, IconHome, IconLock, IconMoon, IconStar, IconSun } from '@tabler/icons-react';
+import { Link, NavLink } from 'react-router-dom';
+
+import styles from './navigationHeader.module.scss';
 
 function NavigationHeader() {
     return (

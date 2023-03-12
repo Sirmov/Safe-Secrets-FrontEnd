@@ -1,6 +1,8 @@
 import React from 'react';
+
 import { Link } from 'react-router-dom';
-import LoginCard from '../../components/loginCard/loginCard';
+
+import LoginCard from '@components/loginCard/loginCard';
 
 function Login() {
     return (

@@ -1,10 +1,11 @@
 import React from 'react';
 
 import { IconPlus, IconSearch } from '@tabler/icons-react';
-import NavigationHeader from '../../components/navigation/navigationHeader';
-import PageHeader from '../../components/pageHeader/pageHeader';
-import PageBody from '../../components/pageBody/pageBody';
-import Footer from '../../components/footer/footer';
+
+import Footer from '@components/footer/footer';
+import NavigationHeader from '@components/navigation/navigationHeader';
+import PageBody from '@components/pageBody/pageBody';
+import PageHeader from '@components/pageHeader/pageHeader';
 
 function SecretsPage() {
     return (

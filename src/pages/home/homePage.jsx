@@ -1,9 +1,10 @@
-import { IconFlask, IconFlask2, IconKey, IconShield, IconShieldCheck, IconShieldFilled } from '@tabler/icons-react';
 import React from 'react';
-import Feature from '../../components/feature/feature';
 
-import Footer from '../../components/footer/footer';
-import NavigationHeader from '../../components/navigation/navigationHeader';
+import { IconFlask2, IconKey, IconShieldCheck } from '@tabler/icons-react';
+
+import Feature from '@components/feature/feature';
+import Footer from '@components/footer/footer';
+import NavigationHeader from '@components/navigation/navigationHeader';
 
 function HomePage() {
     return (

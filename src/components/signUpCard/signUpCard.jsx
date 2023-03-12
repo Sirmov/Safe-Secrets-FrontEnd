@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { IconEye } from '@tabler/icons-react';
 
 function SignUpCard() {

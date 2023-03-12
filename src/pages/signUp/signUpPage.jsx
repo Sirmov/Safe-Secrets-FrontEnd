@@ -1,6 +1,8 @@
 import React from 'react';
+
 import { Link } from 'react-router-dom';
-import SignUpCard from '../../components/signUpCard/signUpCard';
+
+import SignUpCard from '@components/signUpCard/signUpCard';
 
 function SignUpPage() {
     return (
