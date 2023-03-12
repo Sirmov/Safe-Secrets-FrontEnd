@@ -13,5 +13,17 @@
     "htmlWhitespaceSensitivity": "css",
     "endOfLine": "crlf",
     "embeddedLanguageFormatting": "auto",
-    "singleAttributePerLine": false
+    "singleAttributePerLine": false,
+    "importOrder": [
+        "<THIRD_PARTY_MODULES>",
+        "^@assets/(.*)$",
+        "^@services/(.*)$",
+        "^@pages/(.*)$",
+        "^@components/(.*)$",
+        "^@hooks/(.*)$",
+        "^[./]"
+    ],
+    "importOrderSeparation": true,
+    "importOrderSortSpecifiers": true,
+    "importOrderGroupNamespaceSpecifiers": true
 }
