@@ -4,6 +4,8 @@ import { IconEye, IconEyeOff } from '@tabler/icons-react';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 
+import { validateData } from '@utils/validation';
+
 function LoginCard() {
     const allowedData = ['email', 'password'];
 
@@ -36,46 +38,9 @@ function LoginCard() {
     function handleDataValidation(event) {
         const dataKey = event.currentTarget.name;
         const dataValue = event.currentTarget.value;
-        validateData(dataKey, dataValue);
-    }
+        const error = validateData(dataKey, dataValue);
 
-    function validateData(dataKey, dataValue) {
-        let validationFunction = () => '';
-
-        if (dataKey === 'email') {
-            validationFunction = validateEmail;
-        } else if (dataKey === 'password') {
-            validationFunction = validatePassword;
-        }
-
-        const error = validationFunction(dataValue);
         setErrors({ ...errors, [dataKey]: error });
-
-        return error;
-    }
-
-    function validateEmail(email) {
-        const errors = [];
-
-        if (/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email) === false) {
-            errors.push('Email is invalid.');
-        }
-
-        return errors.join(' ');
-    }
-
-    function validatePassword(password) {
-        const errors = [];
-
-        if (password.length < 8 || password.length > 32) {
-            errors.push('Password length should be between 8 and 32 characters long.');
-        } else if (/\d/.test(password) === false) {
-            errors.push('Password should include at least one number.');
-        } else if (/[A-Z]/.test(password) === false) {
-            errors.push('Password should include at least one uppercase character.');
-        }
-
-        return errors.join(' ');
     }
 
     function handleRevealPassword() {
