@@ -20,7 +20,7 @@ function NavigationHeader() {
                     <span className="navbar-toggler-icon" />
                 </button>
                 {/* Logo */}
-                <h1 className="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
+                <h1 className="navbar-brand d-none-navbar-horizontal pe-0 pe-md-3">
                     <Link to="/">
                         <img
                             src="../../assets/images/logo.png"
