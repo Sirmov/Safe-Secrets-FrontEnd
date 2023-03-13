@@ -8,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.min.css';
 import HomePage from '@pages/home/homePage';
 import LoginPage from '@pages/login/loginPage';
 import NotFoundPage from '@pages/notFound/notFoundPage';
+import NotImplementedPage from '@pages/notImplemented/notImplementedPage';
 import SecretsPage from '@pages/secrets/secretsPage';
 import SignUpPage from '@pages/signUp/signUpPage';
 
@@ -21,6 +22,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                 <Route path="/secrets" element={<SecretsPage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/sign-up" element={<SignUpPage />} />
+                <Route path="/not-implemented" element={<NotImplementedPage />} />
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>
         </BrowserRouter>
