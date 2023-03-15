@@ -6,6 +6,7 @@ import Footer from '@components/footer/footer';
 import NavigationHeader from '@components/navigation/navigationHeader';
 import PageBody from '@components/pageBody/pageBody';
 import PageHeader from '@components/pageHeader/pageHeader';
+import SecretsList from '@components/secretsList/secretsList';
 
 function SecretsPage() {
     return (
@@ -32,7 +33,9 @@ function SecretsPage() {
                     </div>
                 </PageHeader>
 
-                <PageBody></PageBody>
+                <PageBody>
+                    <SecretsList />
+                </PageBody>
             </div>
 
             <Footer />
