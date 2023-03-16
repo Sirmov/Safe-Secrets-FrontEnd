@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { IconBell, IconHome, IconLock, IconMoon, IconStar, IconSun } from '@tabler/icons-react';
 import { Link, NavLink } from 'react-router-dom';
 
+import ThemeContext from '@contexts/themeContext.js';
+
 import styles from './navigationHeader.module.scss';
 
 function NavigationHeader() {
+    const { theme, setTheme } = useContext(ThemeContext);
+
     return (
         <header className="navbar navbar-expand-md navbar-light d-print-none">
             <div className="container-xl">
@@ -35,24 +39,30 @@ function NavigationHeader() {
                 <div className="navbar-nav flex-row order-md-last">
                     <div className="d-none d-md-flex">
                         {/* Theme change */}
-                        <Link
-                            to="?theme=dark"
-                            className="nav-link px-0 hide-theme-dark"
-                            data-bs-toggle="tooltip"
-                            data-bs-placement="bottom"
-                            aria-label="Enable dark mode"
-                            data-bs-original-title="Enable dark mode">
-                            <IconMoon className="icon" color="currentColor" stroke={2} size={24} />
-                        </Link>
-                        <Link
-                            to="?theme=light"
-                            className="nav-link px-0 hide-theme-light"
-                            data-bs-toggle="tooltip"
-                            data-bs-placement="bottom"
-                            aria-label="Enable light mode"
-                            data-bs-original-title="Enable light mode">
-                            <IconSun className="icon" color="currentColor" stroke={2} size={24} />
-                        </Link>
+                        {String(theme).toLowerCase() === 'light' ? (
+                            <Link
+                                to="?theme=dark"
+                                onClick={() => setTheme('dark')}
+                                className="nav-link px-0"
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="bottom"
+                                aria-label="Enable dark mode"
+                                data-bs-original-title="Enable dark mode">
+                                <IconMoon className="icon" color="currentColor" stroke={2} size={24} />
+                            </Link>
+                        ) : (
+                            <Link
+                                to="?theme=light"
+                                onClick={() => setTheme('light')}
+                                className="nav-link px-0"
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="bottom"
+                                aria-label="Enable light mode"
+                                data-bs-original-title="Enable light mode">
+                                <IconSun className="icon" color="currentColor" stroke={2} size={24} />
+                            </Link>
+                        )}
+
                         {/* Notifications */}
                         <div className="nav-item dropdown d-none d-md-flex me-3">
                             <a
