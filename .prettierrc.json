@@ -18,6 +18,7 @@
         "^react$",
         "<THIRD_PARTY_MODULES>",
         "^@assets/(.*)$",
+        "^@contexts/(.*)$",
         "^@services/(.*)$",
         "^@pages/(.*)$",
         "^@components/(.*)$",
