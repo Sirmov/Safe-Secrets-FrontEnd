@@ -24,7 +24,7 @@ function App() {
                     <BrowserRouter>
                         <Routes>
                             <Route path="/" element={<HomePage />} />
-                            <Route path="/secrets" element={<SecretsPage />} />
+                            <Route path="/secrets/*" element={<SecretsPage />} />
                             <Route path="/login" element={<LoginPage />} />
                             <Route path="/sign-up" element={<SignUpPage />} />
                             <Route path="/not-implemented" element={<NotImplementedPage />} />
