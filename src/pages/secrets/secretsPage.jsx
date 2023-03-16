@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { IconPlus, IconSearch } from '@tabler/icons-react';
+import { Link, Route, Routes } from 'react-router-dom';
+
+import SecretsContext from '@contexts/secretsContext';
 
 import Footer from '@components/footer/footer';
 import NavigationHeader from '@components/navigation/navigationHeader';
 import PageBody from '@components/pageBody/pageBody';
 import PageHeader from '@components/pageHeader/pageHeader';
+import SecretDeleteModal from '@components/secretDeleteModal/secretDeleteModal';
 import SecretsList from '@components/secretsList/secretsList';
 
 function SecretsPage() {
+    const [secrets, setSecrets] = useState([]);
+
     return (
         <>
             <NavigationHeader />
@@ -34,7 +40,15 @@ function SecretsPage() {
                 </PageHeader>
 
                 <PageBody>
-                    <SecretsList />
+                    <Link to="delete/1">
+                        <button className="btn btn-primary">Delete</button>
+                    </Link>
+                    <SecretsContext.Provider value={{ secrets, setSecrets }}>
+                        <SecretsList />
+                        <Routes>
+                            <Route path="/delete/:secretId" element={<SecretDeleteModal />} />
+                        </Routes>
+                    </SecretsContext.Provider>
                 </PageBody>
             </div>
 
