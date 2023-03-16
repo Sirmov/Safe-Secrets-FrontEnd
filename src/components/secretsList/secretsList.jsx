@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import { toast } from 'react-toastify';
+
+import SecretsContext from '@contexts/secretsContext';
 
 import * as secretsService from '@services/secretsService.js';
 
 function SecretsList() {
-    const [secrets, setSecrets] = useState([]);
+    const { secrets, setSecrets } = useContext(SecretsContext);
 
     useEffect(() => {
         secretsService
@@ -27,7 +29,7 @@ function SecretsList() {
                 <h3 className="card-title">{secret.title}</h3>
             </div>
             <div className="card-body">{secret.text}</div>
-            <div class="card-footer">{secret.isEncrypted ? 'Secrets is encrypted.' : 'Secret is visible.'}</div>
+            <div className="card-footer">{secret.isEncrypted ? 'Secrets is encrypted.' : 'Secret is visible.'}</div>
         </div>
     ));
 }
