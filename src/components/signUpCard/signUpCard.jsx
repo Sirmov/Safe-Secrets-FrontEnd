@@ -2,44 +2,25 @@ import React, { useState } from 'react';
 
 import { IconEye, IconEyeOff } from '@tabler/icons-react';
 import classNames from 'classnames';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-import { stringToBoolean } from '@utils/_';
-import { validateData } from '@utils/validation';
+import usersService from '@services/usersService.js';
+
+import { useForm } from '@hooks/useForm';
+import { useLocalStorage } from '@hooks/useLocalStorage';
 
 function SignUpCard() {
     const allowedData = ['username', 'email', 'password', 'terms'];
 
+    const navigate = useNavigate();
     const [revealPassword, setRevealPassword] = useState(false);
-    const [data, setData] = useState(allowedData.reduce((acc, curr) => Object.assign(acc, { [curr]: '' }), {}));
-    const [errors, setErrors] = useState(allowedData.reduce((acc, curr) => Object.assign(acc, { [curr]: '' }), {}));
+    const { values, errors, handleChange, handleValidation, handleSubmit } = useForm(allowedData, handleRegister);
+    const [, setAccessToken] = useLocalStorage('accessToken', null);
 
-    function handleRegister(event) {
-        event.preventDefault();
-
-        let errors = Object.entries(data).reduce((acc, [k, v]) => Object.assign(acc, { [k]: validateData(k, v) }), {});
-        let isValid = !Object.values(errors).some((e) => e.length > 0);
-
-        if (!isValid) {
-            setErrors(errors);
-        } else {
-            // ToDo send request
-        }
-    }
-
-    function handleDataChange(event) {
-        const dataKey = event.currentTarget.name;
-        const dataValue = event.currentTarget.value;
-
-        setData({ ...data, [dataKey]: dataValue });
-    }
-
-    function handleDataValidation(event) {
-        const dataKey = event.currentTarget.name;
-        const dataValue = event.currentTarget.value;
-        const error = validateData(dataKey, dataValue);
-
-        setErrors({ ...errors, [dataKey]: error });
+    async function handleRegister(_event, data) {
+        const userData = await usersService.registerEmail(data.email, data.password);
+        setAccessToken(userData.accessToken);
+        navigate('/');
     }
 
     function handleRevealPassword() {
@@ -50,7 +31,7 @@ function SignUpCard() {
         <article className="card card-md">
             <div className="card-body">
                 <h2 className="h2 text-center mb-4">Create new account</h2>
-                <form onSubmit={handleRegister} autoComplete="off" noValidate>
+                <form onSubmit={handleSubmit} autoComplete="off" noValidate>
                     <div className="mb-3">
                         <label htmlFor="register-username" className="form-label">
                             Name
@@ -59,13 +40,13 @@ function SignUpCard() {
                             id="register-username"
                             name="username"
                             type="text"
-                            onChange={handleDataChange}
-                            onBlur={handleDataValidation}
+                            onChange={handleChange}
+                            onBlur={handleValidation}
                             className={classNames({
                                 'form-control': true,
                                 'is-invalid': errors.username,
                             })}
-                            value={data.username}
+                            value={values.username}
                             placeholder="Enter username"
                         />
                         <div className="invalid-feedback">{errors.username}</div>
@@ -78,13 +59,13 @@ function SignUpCard() {
                             id="register-email"
                             name="email"
                             type="email"
-                            onChange={handleDataChange}
-                            onBlur={handleDataValidation}
+                            onChange={handleChange}
+                            onBlur={handleValidation}
                             className={classNames({
                                 'form-control': true,
                                 'is-invalid': errors.email,
                             })}
-                            value={data.email}
+                            value={values.email}
                             placeholder="Enter email"
                         />
                         <div className="invalid-feedback">{errors.email}</div>
@@ -99,13 +80,13 @@ function SignUpCard() {
                                     id="register-password"
                                     name="password"
                                     type={revealPassword ? 'text' : 'password'}
-                                    onChange={handleDataChange}
-                                    onBlur={handleDataValidation}
+                                    onChange={handleChange}
+                                    onBlur={handleValidation}
                                     className={classNames({
                                         'form-control': true,
                                         'is-invalid': errors.password,
                                     })}
-                                    value={data.password}
+                                    value={values.password}
                                     placeholder="Enter password"
                                     autoComplete="off"
                                 />
@@ -131,10 +112,10 @@ function SignUpCard() {
                         <label className="form-check">
                             <input
                                 type="checkbox"
-                                value={data.terms}
-                                checked={stringToBoolean(data.terms)}
-                                onChange={() => setData({ ...data, terms: !stringToBoolean(data.terms) })}
-                                onBlur={handleDataValidation}
+                                value={values.terms}
+                                checked={values.terms}
+                                onChange={handleChange}
+                                onBlur={handleValidation}
                                 name="terms"
                                 className="form-check-input"
                             />

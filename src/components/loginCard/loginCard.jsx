@@ -2,45 +2,25 @@ import React, { useState } from 'react';
 
 import { IconEye, IconEyeOff } from '@tabler/icons-react';
 import classNames from 'classnames';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-import { validateData } from '@utils/validation';
+import usersService from '@services/usersService.js';
+
+import { useForm } from '@hooks/useForm';
+import { useLocalStorage } from '@hooks/useLocalStorage';
 
 function LoginCard() {
     const allowedData = ['email', 'password'];
 
+    const navigate = useNavigate();
     const [revealPassword, setRevealPassword] = useState(false);
-    const [data, setData] = useState(allowedData.reduce((acc, curr) => Object.assign(acc, { [curr]: '' }), {}));
-    const [errors, setErrors] = useState(allowedData.reduce((acc, curr) => Object.assign(acc, { [curr]: '' }), {}));
+    const { values, errors, handleChange, handleValidation, handleSubmit } = useForm(allowedData, handleLogin);
+    const [, setAccessToken] = useLocalStorage('accessToken', null);
 
-    function handleLogin(event) {
-        event.preventDefault();
-
-        event.preventDefault();
-
-        let errors = Object.entries(data).reduce((acc, [k, v]) => Object.assign(acc, { [k]: validateData(k, v) }), {});
-        let isValid = !Object.values(errors).some((e) => e.length > 0);
-
-        if (!isValid) {
-            setErrors(errors);
-        } else {
-            // ToDo send request
-        }
-    }
-
-    function handleDataChange(event) {
-        const dataKey = event.currentTarget.name;
-        const dataValue = event.currentTarget.value;
-
-        setData({ ...data, [dataKey]: dataValue });
-    }
-
-    function handleDataValidation(event) {
-        const dataKey = event.currentTarget.name;
-        const dataValue = event.currentTarget.value;
-        const error = validateData(dataKey, dataValue);
-
-        setErrors({ ...errors, [dataKey]: error });
+    async function handleLogin(_event, data) {
+        const userData = await usersService.loginEmail(data.email, data.password);
+        setAccessToken(userData.accessToken);
+        navigate('/');
     }
 
     function handleRevealPassword() {
@@ -51,7 +31,7 @@ function LoginCard() {
         <article className="card card-md">
             <div className="card-body">
                 <h2 className="h2 text-center mb-4">Login to your account</h2>
-                <form onSubmit={handleLogin} autoComplete="off" noValidate>
+                <form onSubmit={handleSubmit} autoComplete="off" noValidate>
                     <div className="mb-3">
                         <label htmlFor="login-email" className="form-label">
                             Email address
@@ -60,13 +40,13 @@ function LoginCard() {
                             id="login-email"
                             name="email"
                             type="email"
-                            onChange={handleDataChange}
-                            onBlur={handleDataValidation}
+                            onChange={handleChange}
+                            onBlur={handleValidation}
                             className={classNames({
                                 'form-control': true,
                                 'is-invalid': errors.email,
                             })}
-                            value={data.email}
+                            value={values.email}
                             placeholder="your@email.com"
                             autoComplete="off"
                         />
@@ -85,13 +65,13 @@ function LoginCard() {
                                     id="login-password"
                                     name="password"
                                     type={revealPassword ? 'text' : 'password'}
-                                    onChange={handleDataChange}
-                                    onBlur={handleDataValidation}
+                                    onChange={handleChange}
+                                    onBlur={handleValidation}
                                     className={classNames({
                                         'form-control': true,
                                         'is-invalid': errors.password,
                                     })}
-                                    value={data.password}
+                                    value={values.password}
                                     placeholder="your_secret_password"
                                     autoComplete="off"
                                 />
