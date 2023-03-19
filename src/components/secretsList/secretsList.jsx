@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 
 import classNames from 'classnames';
-import { toast } from 'react-toastify';
 
 import SecretsContext from '@contexts/secretsContext';
 
@@ -11,17 +10,11 @@ function SecretsList() {
     const { secrets, setSecrets } = useContext(SecretsContext);
 
     useEffect(() => {
-        secretsService
-            .getAllSecrets()
-            .then((res) => {
-                const secrets = Object.values(res.data);
-                secrets.forEach((s) => (s.isEncrypted = true));
-                setSecrets(secrets);
-            })
-            .catch((error) => {
-                toast.error('Something went wrong.');
-                console.log(error);
-            });
+        secretsService.getAllSecrets().then((res) => {
+            const secrets = Object.values(res.data);
+            secrets.forEach((s) => (s.isEncrypted = true));
+            setSecrets(secrets);
+        });
     }, []);
 
     return (
@@ -46,15 +39,15 @@ function SecretsList() {
                             <h3 className="card-title">{secret.title}</h3>
                         </div>
                         <div className="card-body">
-                            <div className="row align-items-center">
+                            <div className="row flex-column align-items-center flex-md-row">
                                 <div className="col">{secret.text}</div>
-                                <div className="col-auto">
+                                <div className="col-auto mt-2 mt-md-0">
                                     <button className="btn btn-warning me-2">Update</button>
                                     <button className="btn btn-danger">Delete</button>
                                 </div>
                             </div>
                         </div>
-                        <div className="card-footer">
+                        <div className="card-footer bg-light">
                             <div className="row align-items-center">
                                 {secret.isEncrypted ? (
                                     <>
