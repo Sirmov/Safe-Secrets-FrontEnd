@@ -20,9 +20,7 @@ function SecretsPage() {
             <NavigationHeader />
 
             <div className="page-wrapper">
-                <PageHeader
-                    title="Your secrets"
-                    subtitle="Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere, ullam?">
+                <PageHeader title="Your secrets" subtitle="Manage your information comfortably.">
                     <div className="d-flex">
                         <div className="me-3 d-none d-md-block">
                             <div className="input-icon">
