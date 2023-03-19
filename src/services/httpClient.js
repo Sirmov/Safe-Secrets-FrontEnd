@@ -2,14 +2,15 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 const host = 'http://localhost:3030';
+const storage = window.localStorage;
 const axiosInstance = axios.create({ baseURL: host });
 
 axiosInstance.interceptors.request.use(requestInterceptor, requestErrorHandler);
 
 function requestInterceptor(requestConfig) {
-    const accessToken = null; // ToDo get access token from storage
+    const accessToken = storage.getItem('accessToken');
 
-    if (accessToken !== undefined) {
+    if (accessToken !== null) {
         requestConfig.headers['X-Authorization'] = accessToken;
     }
 
@@ -27,6 +28,9 @@ function responseInterceptor(response) {
 }
 
 function responseErrorHandler(responseError) {
+    console.error(responseError);
+    console.error(responseError.message);
+
     if (responseError.status === 403) {
         toast.info('Your session has expired.');
     } else {
