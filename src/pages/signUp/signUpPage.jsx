@@ -9,7 +9,7 @@ function SignUpPage() {
         <div className="page page-center">
             <div className="container container-tight py-5">
                 <div className="text-center mb-4">
-                    <Link to="/" className="navbar-brand navbar-brand-autodark">
+                    <Link to="/" className="navbar-brand">
                         <img src="/assets/images/logo.png" height={52} alt="" />
                         <h1 className="ms-2">Safe Secrets</h1>
                     </Link>
