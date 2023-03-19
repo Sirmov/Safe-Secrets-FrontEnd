@@ -12,6 +12,7 @@ function PageHeader({ title, subtitle, children }) {
                     <div className="col-auto ms-auto d-print-none">{children}</div>
                 </div>
             </div>
+            <hr />
         </div>
     );
 }
