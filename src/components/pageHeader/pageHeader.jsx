@@ -7,7 +7,7 @@ function PageHeader({ title, subtitle, children }) {
                 <div className="row align-items-center">
                     <div className="col">
                         <h2 className="page-title">{title}</h2>
-                        <div className="text-muted mt-1">{subtitle}</div>
+                        <div className="mt-1">{subtitle}</div>
                     </div>
                     <div className="col-auto ms-auto d-print-none">{children}</div>
                 </div>
