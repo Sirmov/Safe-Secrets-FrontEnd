@@ -13,7 +13,7 @@ import SecretDeleteModal from '@components/secretDeleteModal/secretDeleteModal';
 import SecretsList from '@components/secretsList/secretsList';
 
 function SecretsPage() {
-    const [secrets, setSecrets] = useState([]);
+    const [secrets, setSecrets] = useState(null);
 
     return (
         <>
@@ -40,9 +40,6 @@ function SecretsPage() {
                 </PageHeader>
 
                 <PageBody>
-                    <Link to="delete/1">
-                        <button className="btn btn-primary">Delete</button>
-                    </Link>
                     <SecretsContext.Provider value={{ secrets, setSecrets }}>
                         <SecretsList />
                         <Routes>
