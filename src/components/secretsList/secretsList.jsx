@@ -45,9 +45,33 @@ function SecretsList() {
                         <div className="card-header card-header-light">
                             <h3 className="card-title">{secret.title}</h3>
                         </div>
-                        <div className="card-body">{secret.text}</div>
+                        <div className="card-body">
+                            <div className="row align-items-center">
+                                <div className="col">{secret.text}</div>
+                                <div className="col-auto">
+                                    <button className="btn btn-warning me-2">Update</button>
+                                    <button className="btn btn-danger">Delete</button>
+                                </div>
+                            </div>
+                        </div>
                         <div className="card-footer">
-                            {secret.isEncrypted ? 'Secrets is encrypted.' : 'Secret is visible.'}
+                            <div className="row align-items-center">
+                                {secret.isEncrypted ? (
+                                    <>
+                                        <div className="col">Secrets is encrypted.</div>
+                                        <div className="col-auto">
+                                            <button className="btn btn-success">Decrypt</button>
+                                        </div>
+                                    </>
+                                ) : (
+                                    <>
+                                        <div className="col">Secret is visible.</div>
+                                        <div className="col-auto">
+                                            <button className="btn btn-info">Hide</button>
+                                        </div>
+                                    </>
+                                )}
+                            </div>
                         </div>
                     </div>
                 ))
@@ -65,10 +89,21 @@ function SecretSkeleton() {
                 <div className="placeholder col-3"></div>
             </div>
             <div className="card-body">
-                <div className="placeholder col-11"></div>
+                <div className="row">
+                    <div className="placeholder col"></div>
+                    <div className="col-auto">
+                        <button className="btn btn-warning me-2">Update</button>
+                        <button className="btn btn-danger">Delete</button>
+                    </div>
+                </div>
             </div>
             <div className="card-footer">
-                <div className="placeholder placeholder-xs col-6"></div>
+                <div className="row align-items-center justify-content-between">
+                    <div className="placeholder placeholder-xs col-6"></div>
+                    <div className="col-auto">
+                        <button className="btn btn-success">Decrypt</button>
+                    </div>
+                </div>
             </div>
         </div>
     );
