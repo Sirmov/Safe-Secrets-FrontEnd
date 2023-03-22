@@ -1,26 +1,49 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 
 import { IconEye, IconEyeOff } from '@tabler/icons-react';
 import classNames from 'classnames';
 import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
-import usersService from '@services/usersService.js';
+import AuthContext from '@contexts/authContext.js';
 
-import { useForm } from '@hooks/useForm';
-import { useLocalStorage } from '@hooks/useLocalStorage';
+import * as usersService from '@services/usersService.js';
+
+import useForm from '@hooks/useForm';
+
+import { isStatusOk } from '@utils/_';
 
 function LoginCard() {
-    const allowedData = ['email', 'password'];
+    const initialValues = { email: '', password: '' };
 
     const navigate = useNavigate();
     const [revealPassword, setRevealPassword] = useState(false);
-    const { values, errors, handleChange, handleValidation, handleSubmit } = useForm(allowedData, handleLogin);
-    const [, setAccessToken] = useLocalStorage('accessToken', null);
+    const { setAuth } = useContext(AuthContext);
+
+    const { values, setValues, errors, handleChange, handleValidation, handleSubmit } = useForm(
+        initialValues,
+        handleLogin
+    );
 
     async function handleLogin(_event, data) {
-        const userData = await usersService.loginEmail(data.email, data.password);
-        setAccessToken(userData.accessToken);
-        navigate('/');
+        const response = await usersService.loginEmail(data.email, data.password);
+        let isSuccessful = true;
+
+        if (response.status === 403) {
+            isSuccessful = false;
+            toast.warn('Invalid email or password.');
+        } else if (!isStatusOk(response.status)) {
+            isSuccessful = true;
+            toast.error('Something went wrong.');
+        }
+
+        if (isSuccessful) {
+            const { _createdOn, ...userData } = response.data;
+            setAuth(userData);
+            navigate('/');
+        } else {
+            setValues(initialValues);
+        }
     }
 
     function handleRevealPassword() {
