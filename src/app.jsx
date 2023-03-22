@@ -43,7 +43,7 @@ function App() {
                     newestOnTop={false}
                     closeOnClick={true}
                     rtl={false}
-                    pauseOnFocusLoss={true}
+                    pauseOnFocusLoss={false}
                     draggable={false}
                     pauseOnHover={true}
                     theme={theme}
