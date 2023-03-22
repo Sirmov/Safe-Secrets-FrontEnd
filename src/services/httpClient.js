@@ -8,10 +8,14 @@ const axiosInstance = axios.create({ baseURL: host });
 axiosInstance.interceptors.request.use(requestInterceptor, requestErrorHandler);
 
 function requestInterceptor(requestConfig) {
-    const accessToken = storage.getItem('accessToken');
+    const auth = storage.getItem('auth');
 
-    if (accessToken !== null) {
-        requestConfig.headers['X-Authorization'] = accessToken;
+    if (auth !== null) {
+        const accessToken = JSON.parse(auth)?.accessToken;
+
+        if (accessToken !== undefined) {
+            requestConfig.headers['X-Authorization'] = accessToken;
+        }
     }
 
     return requestConfig;
@@ -30,6 +34,12 @@ function responseInterceptor(response) {
 function responseErrorHandler(responseError) {
     console.error(responseError);
     console.error(responseError.message);
+
+    if (responseError.status === 403) {
+        toast.warn('Your session expired. Please logout and sign in.');
+    }
+
+    return responseError.response;
 }
 
 export default axiosInstance;
