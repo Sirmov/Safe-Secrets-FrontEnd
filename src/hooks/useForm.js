@@ -3,9 +3,11 @@ import { useState } from 'react';
 import { stringToBoolean } from '@utils/_';
 import { validateData } from '@utils/validation';
 
-function useForm(allowedData, onSubmitHandler) {
-    const [values, setValues] = useState(allowedData.reduce((acc, curr) => Object.assign(acc, { [curr]: '' }), {}));
-    const [errors, setErrors] = useState(allowedData.reduce((acc, curr) => Object.assign(acc, { [curr]: '' }), {}));
+function useForm(initialData, onSubmitHandler) {
+    const [values, setValues] = useState(initialData);
+    const [errors, setErrors] = useState(
+        Object.keys(initialData).reduce((acc, curr) => Object.assign(acc, { [curr]: '' }), {})
+    );
 
     function handleChange(event) {
         const dataKey = event.currentTarget.name;
@@ -46,6 +48,7 @@ function useForm(allowedData, onSubmitHandler) {
 
     return {
         values,
+        setValues,
         errors,
         handleChange,
         handleValidation,
