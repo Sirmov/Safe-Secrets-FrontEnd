@@ -3,6 +3,7 @@ import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
+import AuthContext from '@contexts/authContext';
 import ThemeContext from '@contexts/themeContext.js';
 
 import HomePage from '@pages/home/homePage';
@@ -16,20 +17,23 @@ import useLocalStorage from '@hooks/useLocalStorage';
 
 function App() {
     const [theme, setTheme] = useLocalStorage('theme', 'light');
+    const [auth, setAuth] = useLocalStorage('auth', {});
 
     return (
         <React.StrictMode>
             <ThemeContext.Provider value={{ theme, setTheme }}>
                 <div className={`page theme-${theme}`}>
                     <BrowserRouter>
-                        <Routes>
-                            <Route path="/" element={<HomePage />} />
-                            <Route path="/secrets/*" element={<SecretsPage />} />
-                            <Route path="/login" element={<LoginPage />} />
-                            <Route path="/sign-up" element={<SignUpPage />} />
-                            <Route path="/not-implemented" element={<NotImplementedPage />} />
-                            <Route path="*" element={<NotFoundPage />} />
-                        </Routes>
+                        <AuthContext.Provider value={{ auth, setAuth }}>
+                            <Routes>
+                                <Route path="/" element={<HomePage />} />
+                                <Route path="/secrets/*" element={<SecretsPage />} />
+                                <Route path="/login" element={<LoginPage />} />
+                                <Route path="/sign-up" element={<SignUpPage />} />
+                                <Route path="/not-implemented" element={<NotImplementedPage />} />
+                                <Route path="*" element={<NotFoundPage />} />
+                            </Routes>
+                        </AuthContext.Provider>
                     </BrowserRouter>
                 </div>
                 <ToastContainer
