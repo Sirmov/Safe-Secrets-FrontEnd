@@ -30,12 +30,6 @@ function responseInterceptor(response) {
 function responseErrorHandler(responseError) {
     console.error(responseError);
     console.error(responseError.message);
-
-    if (responseError.status === 403) {
-        toast.info('Your session has expired.');
-    } else {
-        toast.warning('Something went wrong.');
-    }
 }
 
 export default axiosInstance;
