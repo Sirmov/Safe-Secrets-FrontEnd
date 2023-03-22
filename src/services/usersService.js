@@ -4,6 +4,8 @@ const endpoints = {
     login: '/users/login',
     register: '/users/register',
     logout: '/users/logout',
+    user: (userId) => `/users/${userId}`,
+    me: '/users/me',
 };
 
 export async function login(data) {
@@ -28,6 +30,10 @@ export async function loginUsername(username, password) {
 
 export async function registerUsername(username, password) {
     return await httpClient.post(endpoints.register, { username, password });
+}
+
+export async function getMe() {
+    return await httpClient.get(endpoints.me);
 }
 
 export async function logout() {
