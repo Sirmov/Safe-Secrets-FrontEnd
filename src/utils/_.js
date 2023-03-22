@@ -7,3 +7,11 @@ export function stringToBoolean(string) {
 
     return Boolean(string);
 }
+
+export function isStatusOk(status) {
+    return status < 300;
+}
+
+export function isAuthenticated(accessToken) {
+    return !!accessToken;
+}
