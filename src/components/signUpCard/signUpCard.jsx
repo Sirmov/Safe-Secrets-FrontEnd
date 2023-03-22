@@ -14,29 +14,40 @@ import useForm from '@hooks/useForm';
 import { isStatusOk } from '@utils/_';
 
 function SignUpCard() {
-    const allowedData = ['username', 'email', 'password', 'terms'];
+    const initialValues = { username: '', email: '', password: '', terms: false };
 
     const navigate = useNavigate();
     const [revealPassword, setRevealPassword] = useState(false);
-    const { values, errors, handleChange, handleValidation, handleSubmit } = useForm(allowedData, handleRegister);
     const { setAuth } = useContext(AuthContext);
 
+    const { values, setValues, errors, handleChange, handleValidation, handleSubmit } = useForm(
+        initialValues,
+        handleRegister
+    );
+
     async function handleRegister(_event, data) {
-        const response = await usersService.register(data);
+        const { terms, ...user } = data;
+        const response = await usersService.register(user);
+        let isSuccessful = true;
 
         if (response.status === 400) {
+            isSuccessful = false;
             toast.error('Invalid data.');
         } else if (response.status === 409) {
+            isSuccessful = false;
             toast.error('A user with this email exists already.');
         } else if (!isStatusOk(response.status)) {
+            isSuccessful = false;
             toast.error('Something went wrong.');
         }
 
-        const { _createdOn, ...userData } = response.data;
-        const auth = { ...userData, username: data.username };
-
-        setAuth(auth);
-        navigate('/');
+        if (isSuccessful) {
+            const { _createdOn, ...userData } = response.data;
+            setAuth(userData);
+            navigate('/');
+        } else {
+            setValues(initialValues);
+        }
     }
 
     function handleRevealPassword() {
