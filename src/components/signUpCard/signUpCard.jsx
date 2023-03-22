@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 
 import { IconEye, IconEyeOff } from '@tabler/icons-react';
 import classNames from 'classnames';
 import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
-import usersService from '@services/usersService.js';
+import AuthContext from '@contexts/authContext.js';
 
-import { useForm } from '@hooks/useForm';
-import { useLocalStorage } from '@hooks/useLocalStorage';
+import * as usersService from '@services/usersService.js';
+
+import useForm from '@hooks/useForm';
+
+import { isStatusOk } from '@utils/_';
 
 function SignUpCard() {
     const allowedData = ['username', 'email', 'password', 'terms'];
@@ -15,11 +19,23 @@ function SignUpCard() {
     const navigate = useNavigate();
     const [revealPassword, setRevealPassword] = useState(false);
     const { values, errors, handleChange, handleValidation, handleSubmit } = useForm(allowedData, handleRegister);
-    const [, setAccessToken] = useLocalStorage('accessToken', null);
+    const { setAuth } = useContext(AuthContext);
 
     async function handleRegister(_event, data) {
-        const userData = await usersService.registerEmail(data.email, data.password);
-        setAccessToken(userData.accessToken);
+        const response = await usersService.register(data);
+
+        if (response.status === 400) {
+            toast.error('Invalid data.');
+        } else if (response.status === 409) {
+            toast.error('A user with this email exists already.');
+        } else if (!isStatusOk(response.status)) {
+            toast.error('Something went wrong.');
+        }
+
+        const { _createdOn, ...userData } = response.data;
+        const auth = { ...userData, username: data.username };
+
+        setAuth(auth);
         navigate('/');
     }
 
