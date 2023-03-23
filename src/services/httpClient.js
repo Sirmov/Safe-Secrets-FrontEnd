@@ -35,7 +35,7 @@ function responseErrorHandler(responseError) {
     console.error(responseError);
     console.error(responseError.message);
 
-    if (responseError.status === 403) {
+    if (responseError.response.status === 403 && responseError.response.data.message === 'Invalid access token') {
         toast.warn('Your session expired. Please logout and sign in.');
     }
 
