@@ -2,9 +2,10 @@ import React from 'react';
 
 import { IconFlask2, IconKey, IconShieldCheck } from '@tabler/icons-react';
 
+import Footer from '@layout/footer/footer';
+import NavigationHeader from '@layout/navigation/navigationHeader';
+
 import Feature from '@components/feature/feature';
-import Footer from '@components/footer/footer';
-import NavigationHeader from '@components/navigation/navigationHeader';
 
 function HomePage() {
     return (

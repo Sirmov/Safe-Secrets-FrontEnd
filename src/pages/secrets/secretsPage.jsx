@@ -5,10 +5,11 @@ import { Link, Route, Routes } from 'react-router-dom';
 
 import SecretsContext from '@contexts/secretsContext';
 
-import Footer from '@components/footer/footer';
-import NavigationHeader from '@components/navigation/navigationHeader';
-import PageBody from '@components/pageBody/pageBody';
-import PageHeader from '@components/pageHeader/pageHeader';
+import Footer from '@layout/footer/footer';
+import NavigationHeader from '@layout/navigation/navigationHeader';
+import PageBody from '@layout/pageBody/pageBody';
+import PageHeader from '@layout/pageHeader/pageHeader';
+
 import SecretDeleteModal from '@components/secretDeleteModal/secretDeleteModal';
 import SecretsList from '@components/secretsList/secretsList';
 

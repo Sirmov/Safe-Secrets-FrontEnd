@@ -19,6 +19,7 @@
         "<THIRD_PARTY_MODULES>",
         "^@assets/(.*)$",
         "^@contexts/(.*)$",
+        "^@layout/(.*)$",
         "^@services/(.*)$",
         "^@pages/(.*)$",
         "^@components/(.*)$",
