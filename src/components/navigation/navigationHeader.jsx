@@ -23,9 +23,9 @@ function NavigationHeader() {
 
         if (!isStatusOk(response.status)) {
             toast.error('Something went wrong.');
-        } else {
-            setAuth({});
         }
+
+        setAuth({});
     }
 
     return (
