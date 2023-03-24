@@ -9,7 +9,8 @@
         "preview": "vite preview",
         "prettier-check": "prettier --check ./src --config .prettierrc.json",
         "prettier-debug": "prettier --debug-check ./src --config .prettierrc.json",
-        "prettier-format": "prettier --write ./src --config .prettierrc.json"
+        "prettier-format": "prettier --write ./src --config .prettierrc.json",
+        "lint": "eslint src -c .eslintrc.json --ext .js,.jsx"
     },
     "dependencies": {
         "@tabler/icons-react": "^2.5.0",
@@ -28,6 +29,8 @@
         "@vitejs/plugin-react-swc": "^3.0.0",
         "eslint": "^8.34.0",
         "eslint-config-prettier": "^8.6.0",
+        "eslint-import-resolver-alias": "^1.1.2",
+        "eslint-plugin-import": "^2.27.5",
         "eslint-plugin-react": "^7.32.2",
         "prettier": "2.8.4",
         "sass": "^1.58.3",
