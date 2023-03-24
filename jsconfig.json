@@ -1,0 +1,32 @@
+{
+    "compilerOptions": {
+        "jsx": "react",
+        "baseUrl": ".",
+        "target": "es6",
+        "module": "es6",
+        "moduleResolution": "node",
+        "checkJs": false,
+        "paths": {
+            "@": ["src"],
+            "@/*": ["src/*"],
+            "@services": ["src/services"],
+            "@services/*": ["src/services/*"],
+            "@assets": ["src/assets"],
+            "@assets/*": ["src/assets/*"],
+            "@contexts": ["src/contexts"],
+            "@contexts/*": ["src/contexts/*"],
+            "@layout": ["src/layout"],
+            "@layout/*": ["src/layout/*"],
+            "@components": ["src/components"],
+            "@components/*": ["src/components/*"],
+            "@hooks": ["src/hooks"],
+            "@hooks/*": ["src/hooks/*"],
+            "@pages": ["src/pages"],
+            "@pages/*": ["src/pages/*"],
+            "@utils": ["src/utils"],
+            "@utils/*": ["src/utils/*"]
+        }
+    },
+    "include": ["src/**/*.js", "src/**/*.jsx"],
+    "exclude": ["node_modules", "**/node_modules", "dist"]
+}
