@@ -6,15 +6,18 @@ import { toast } from 'react-toastify';
 
 import SecretsContext from '@contexts/secretsContext';
 
-import { getSecret } from '@services/secretsService';
+import { deleteSecret, getSecret } from '@services/secretsService';
 
 import Modal from '@components/modal/modal';
+
+import { isStatusOk } from '@utils/_';
 
 function SecretDeleteModal() {
     const { secretId } = useParams();
     const [secret, setSecret] = useState(null);
-    const [isVisible, setIsVisible] = useState(true);
     const { setSecrets } = useContext(SecretsContext);
+
+    const [isVisible, setIsVisible] = useState(true);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -28,10 +31,20 @@ function SecretDeleteModal() {
             });
     }, [secretId]);
 
-    function handleDelete() {
-        setSecrets((secrets) => secrets.filter((s) => s._id !== secretId));
-        setIsVisible(false);
-        navigate('/secrets');
+    async function handleDelete() {
+        const response = await deleteSecret(secret._id);
+        let isSuccessful = true;
+
+        if (!isStatusOk(response.status)) {
+            isSuccessful = false;
+            toast.error('Something went wrong.');
+        }
+
+        if (isSuccessful) {
+            setSecrets((secrets) => secrets.filter((s) => s._id !== secretId));
+            setIsVisible(false);
+            navigate('/secrets');
+        }
     }
 
     return (
