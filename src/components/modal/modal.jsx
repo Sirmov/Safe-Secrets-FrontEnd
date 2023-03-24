@@ -30,7 +30,7 @@ function Modal({ isVisible, setIsVisible, size, status, header, children, footer
                     aria-modal="true"
                     role="dialog">
                     <div
-                        className={`modal-dialog ${!!size ? `modal-${size}` : ''} modal-dialog-centered`}
+                        className={`modal-dialog ${size ? `modal-${size}` : ''} modal-dialog-centered`}
                         role="document">
                         <div className="modal-content">
                             {header !== undefined ? (

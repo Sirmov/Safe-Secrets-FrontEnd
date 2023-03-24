@@ -4,6 +4,7 @@ import { IconPlus } from '@tabler/icons-react';
 import classNames from 'classnames';
 import CryptoJS from 'crypto-js';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import SecretsContext from '@contexts/secretsContext';
 
@@ -11,9 +12,9 @@ import { createSecret } from '@services/secretsService';
 
 import Modal from '@components/modal/modal';
 
-import useForm from '@hooks/useForm.js';
+import useForm from '@hooks/useForm';
 
-import { isStatusOk } from '@utils/_.js';
+import { isStatusOk } from '@utils/_';
 
 function SecretAddModal() {
     const initialValues = { title: '', key: '', text: '' };

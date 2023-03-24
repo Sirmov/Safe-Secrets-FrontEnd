@@ -9,8 +9,7 @@ import ThemeContext from '@contexts/themeContext.js';
 
 import { logout } from '@services/usersService.js';
 
-import { isAuthenticated } from '@utils/_';
-import { isStatusOk } from '@utils/_';
+import { isAuthenticated, isStatusOk } from '@utils/_';
 
 import styles from './navigationHeader.module.scss';
 

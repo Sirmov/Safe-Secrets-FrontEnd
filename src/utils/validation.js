@@ -37,7 +37,7 @@ export function validateUsername(username) {
 export function validateEmail(email) {
     const errors = [];
 
-    if (/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email) === false) {
+    if (/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email) === false) {
         errors.push('Email is invalid.');
     }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { IconArrowLeft } from '@tabler/icons-react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function NotFoundPage() {
     const navigate = useNavigate();

@@ -22,7 +22,7 @@ function SecretsList() {
                 secrets.forEach((s) => (s.isEncrypted = true));
                 setSecrets(secrets);
             })
-            .catch((error) => {
+            .catch(() => {
                 toast.error('Something went wrong.');
             });
     }, []);
