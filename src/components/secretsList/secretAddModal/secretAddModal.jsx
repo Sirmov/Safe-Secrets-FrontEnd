@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 
 import { IconPlus } from '@tabler/icons-react';
+import classNames from 'classnames';
 import CryptoJS from 'crypto-js';
 import { useNavigate } from 'react-router-dom';
 
@@ -72,7 +73,10 @@ function SecretAddModal() {
                 <div className="mb-3">
                     <label className="form-label">Title</label>
                     <input
-                        className="form-control"
+                        className={classNames({
+                            'form-control': true,
+                            'is-invalid': errors.title,
+                        })}
                         name="title"
                         type="text"
                         onChange={handleChange}
@@ -85,7 +89,10 @@ function SecretAddModal() {
                 <div className="mb-3">
                     <label className="form-label">Key</label>
                     <input
-                        className="form-control"
+                        className={classNames({
+                            'form-control': true,
+                            'is-invalid': errors.key,
+                        })}
                         name="key"
                         type="text"
                         onChange={handleChange}
@@ -98,7 +105,10 @@ function SecretAddModal() {
                 <div>
                     <label className="form-label">Text</label>
                     <textarea
-                        className="form-control"
+                        className={classNames({
+                            'form-control': true,
+                            'is-invalid': errors.text,
+                        })}
                         name="text"
                         onChange={handleChange}
                         onBlur={handleValidation}
