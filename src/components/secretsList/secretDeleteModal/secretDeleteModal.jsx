@@ -36,6 +36,8 @@ function SecretDeleteModal() {
     return (
         <Modal
             isVisible={isVisible}
+            setIsVisible={setIsVisible}
+            size="sm"
             status="danger"
             footer={
                 <div className="w-100">
