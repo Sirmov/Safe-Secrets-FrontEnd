@@ -5,9 +5,9 @@ import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import AuthContext from '@contexts/authContext';
-import ThemeContext from '@contexts/themeContext.js';
+import ThemeContext from '@contexts/themeContext';
 
-import { logout } from '@services/usersService.js';
+import { logout } from '@services/usersService';
 
 import { isAuthenticated, isStatusOk } from '@utils/_';
 

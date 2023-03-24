@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
 import AuthContext from '@contexts/authContext';
-import ThemeContext from '@contexts/themeContext.js';
+import ThemeContext from '@contexts/themeContext';
 
 import HomePage from '@pages/home/homePage';
 import LoginPage from '@pages/login/loginPage';

@@ -5,9 +5,9 @@ import classNames from 'classnames';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-import AuthContext from '@contexts/authContext.js';
+import AuthContext from '@contexts/authContext';
 
-import * as usersService from '@services/usersService.js';
+import * as usersService from '@services/usersService';
 
 import useForm from '@hooks/useForm';
 

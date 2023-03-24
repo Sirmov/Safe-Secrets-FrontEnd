@@ -2,10 +2,10 @@ import React, { useContext, useEffect } from 'react';
 
 import { toast } from 'react-toastify';
 
-import AuthContext from '@contexts/authContext.js';
+import AuthContext from '@contexts/authContext';
 import SecretsContext from '@contexts/secretsContext';
 
-import * as secretsService from '@services/secretsService.js';
+import * as secretsService from '@services/secretsService';
 
 import Secret from './secret/secret';
 import SecretSkeleton from './secretSkeleton/secretSkeleton';
