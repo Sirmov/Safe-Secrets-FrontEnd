@@ -33,7 +33,7 @@ function LoginCard() {
             isSuccessful = false;
             toast.warn('Invalid email or password.');
         } else if (!isStatusOk(response.status)) {
-            isSuccessful = true;
+            isSuccessful = false;
             toast.error('Something went wrong.');
         }
 
