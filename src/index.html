@@ -13,6 +13,46 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler.min.css" />
     </head>
     <body>
+        <noscript>
+            <div class="page page-center">
+                <div class="container-tight py-4">
+                    <div class="empty">
+                        <div class="empty-image mb-3">
+                            <img src="/assets/images/noscript.svg" height="128" />
+                        </div>
+                        <p class="empty-title">Javascript is mandatory</p>
+                        <p class="empty-subtitle text-muted">
+                            Sorry for the inconvenience but our application depends heavily on javascript to work
+                            properly.
+                        </p>
+                        <p class="empty-subtitle text-muted">
+                            Check if you have not disabled it and make sure that your browser supports javascript.
+                        </p>
+                        <div class="empty-action">
+                            <a href="/" class="btn btn-primary">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="icon"
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    stroke-width="2"
+                                    stroke="currentColor"
+                                    fill="none"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M5 12l14 0"></path>
+                                    <path d="M5 12l6 6"></path>
+                                    <path d="M5 12l6 -6"></path>
+                                </svg>
+                                Take me home
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </noscript>
         <div id="root" class="h-100"></div>
         <script type="module" src="/main.jsx"></script>
     </body>
