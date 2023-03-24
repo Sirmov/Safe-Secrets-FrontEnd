@@ -29,7 +29,7 @@ function SecretAddModal() {
     );
 
     async function handleCreate(_event, data) {
-        const secret = {
+        let secret = {
             title: data.title,
             text: CryptoJS.AES.encrypt(data.text, data.key).toString(),
         };
@@ -43,14 +43,18 @@ function SecretAddModal() {
         }
 
         if (isSuccessful) {
+            secret = { ...secret, isEncrypted: true, _id: response.data._id };
             secret.isEncrypted = true;
             setSecrets((secrets) => [...secrets, secret]);
-
-            setIsVisible(false);
-            navigate('/secrets');
+            closeModal();
         } else {
             setValues(initialValues);
         }
+    }
+
+    function closeModal() {
+        setIsVisible(false);
+        navigate('/secrets');
     }
 
     return (
@@ -61,7 +65,7 @@ function SecretAddModal() {
             header={<h5 className="modal-title">New secret</h5>}
             footer={
                 <>
-                    <button className="btn btn-link link-secondary" data-bs-dismiss="modal">
+                    <button className="btn btn-link link-secondary" onClick={closeModal} data-bs-dismiss="modal">
                         Cancel
                     </button>
                     <button type="submit" onClick={handleSubmit} className="btn btn-primary ms-auto">
