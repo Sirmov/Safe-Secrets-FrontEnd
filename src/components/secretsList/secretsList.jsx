@@ -7,8 +7,8 @@ import SecretsContext from '@contexts/secretsContext';
 
 import * as secretsService from '@services/secretsService';
 
-import Secret from './secret/secret';
-import SecretSkeleton from './secretSkeleton/secretSkeleton';
+import Secret from '@components/secret/secret';
+import SecretSkeleton from '@components/secret/secretSkeleton/secretSkeleton';
 
 function SecretsList() {
     const { secrets, setSecrets } = useContext(SecretsContext);
