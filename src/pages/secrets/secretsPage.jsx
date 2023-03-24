@@ -10,7 +10,8 @@ import NavigationHeader from '@layout/navigation/navigationHeader';
 import PageBody from '@layout/pageBody/pageBody';
 import PageHeader from '@layout/pageHeader/pageHeader';
 
-import SecretDeleteModal from '@components/secretDeleteModal/secretDeleteModal';
+import SecretAddModal from '@components/secretsList/secretAddModal/secretAddModal';
+import SecretDeleteModal from '@components/secretsList/secretDeleteModal/secretDeleteModal';
 import SecretsList from '@components/secretsList/secretsList';
 
 function SecretsPage() {
@@ -31,10 +32,10 @@ function SecretsPage() {
                                 </span>
                             </div>
                         </div>
-                        <a href="#" className="btn btn-primary">
+                        <Link to="add" className="btn btn-primary">
                             <IconPlus className="icon" color="currentColor" stroke={2} size={24} />
                             Add secret
-                        </a>
+                        </Link>
                     </div>
                 </PageHeader>
 
@@ -42,7 +43,8 @@ function SecretsPage() {
                     <SecretsContext.Provider value={{ secrets, setSecrets }}>
                         <SecretsList />
                         <Routes>
-                            <Route path="/delete/:secretId" element={<SecretDeleteModal />} />
+                            <Route path="delete/:secretId" element={<SecretDeleteModal />} />
+                            <Route path="add" element={<SecretAddModal />} />
                         </Routes>
                     </SecretsContext.Provider>
                 </PageBody>
