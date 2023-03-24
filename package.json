@@ -11,7 +11,7 @@
         "prettier-debug": "prettier --debug-check ./src --config .prettierrc.json",
         "prettier-format": "prettier --write ./src --config .prettierrc.json",
         "lint": "eslint src -c .eslintrc.json --ext .js,.jsx",
-        "test": "eslint src/components/secretsList/secretAddModal/secretAddModal.jsx -c .eslintrc.json"
+        "lint-fix": "eslint src --fix-dry-run -c .eslintrc.json --ext .js,.jsx"
     },
     "dependencies": {
         "@tabler/icons-react": "^2.5.0",
