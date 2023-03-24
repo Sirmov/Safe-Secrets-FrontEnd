@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 
 import { IconHome, IconLock, IconLogin, IconMoon, IconSun, IconWritingSign } from '@tabler/icons-react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import AuthContext from '@contexts/authContext';
@@ -17,6 +17,7 @@ import styles from './navigationHeader.module.scss';
 function NavigationHeader() {
     const { theme, setTheme } = useContext(ThemeContext);
     const { auth, setAuth } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     async function handleLogout() {
         const response = await logout();
@@ -26,6 +27,7 @@ function NavigationHeader() {
         }
 
         setAuth({});
+        navigate('/');
     }
 
     return (
