@@ -1,15 +1,18 @@
 import httpClient from '@services/httpClient';
 
 const endpoints = {
-    secrets: '/jsonstore/secrets',
-    allSecrets: '/jsonstore/secrets?sortBy=_createdOn%20desc',
-    secret: (secretId) => `/jsonstore/secrets/${secretId}`,
-    userSecrets: (userId) => `/jsonstore/secrets?where=_ownerId%3D%22${userId}%22`,
-    userMemes: (userId) => `/jsonstore/memes?where=_ownerId%3D%22${userId}%22&sortBy=_createdOn%20desc`,
+    secrets: '/data/secrets',
+    allSecrets: '/data/secrets?sortBy=_createdOn%20desc',
+    secret: (secretId) => `/data/secrets/${secretId}`,
+    userSecrets: (userId) => `/data/secrets?where=_ownerId%3D%22${userId}%22&sortBy=_createdOn%20desc`,
 };
 
 export async function getAllSecrets() {
     return await httpClient.get(endpoints.allSecrets);
+}
+
+export async function getUserSecrets(userId) {
+    return await httpClient.get(endpoints.userSecrets(userId));
 }
 
 export async function getSecret(secretId) {
@@ -17,7 +20,7 @@ export async function getSecret(secretId) {
 }
 
 export async function createSecret(secret) {
-    return await httpClient.put(endpoints.secrets, secret);
+    return await httpClient.post(endpoints.secrets, secret);
 }
 
 export async function updateSecret(secretId, secret) {
