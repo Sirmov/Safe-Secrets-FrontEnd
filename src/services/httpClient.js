@@ -35,8 +35,12 @@ function responseErrorHandler(responseError) {
     console.error(responseError);
     console.error(responseError.message);
 
-    if (responseError.response.status === 403 && responseError.response.data.message === 'Invalid access token') {
+    if (responseError?.response?.status === 403 && responseError?.response?.data?.message === 'Invalid access token') {
         toast.warn('Your session expired. Please logout and sign in.');
+    }
+
+    if (responseError.code === 'ERR_NETWORK' && responseError.message === 'Network Error') {
+        return { ...responseError, status: 503 };
     }
 
     return responseError.response;
