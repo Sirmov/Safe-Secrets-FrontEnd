@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
-function Modal({ isVisible, status, header, children, footer }) {
-    const [show, setShow] = useState(isVisible);
+function Modal({ isVisible, setIsVisible, size, status, header, children, footer, goBack = true }) {
     const navigate = useNavigate();
 
     function closeModal(event) {
@@ -11,14 +10,17 @@ function Modal({ isVisible, status, header, children, footer }) {
 
         if (event.target.id === 'modal-overlay' || event.target.classList.contains('btn-close')) {
             event.stopPropagation();
-            setShow(false);
-            navigate(-1);
+            setIsVisible(false);
+
+            if (goBack) {
+                navigate(-1);
+            }
         }
     }
 
     return (
         <>
-            {show ? (
+            {isVisible ? (
                 <div
                     className="modal modal-blur fade show"
                     id="modal-overlay"
@@ -27,7 +29,9 @@ function Modal({ isVisible, status, header, children, footer }) {
                     onClick={closeModal}
                     aria-modal="true"
                     role="dialog">
-                    <div className="modal-dialog modal-sm modal-dialog-centered" role="document">
+                    <div
+                        className={`modal-dialog ${!!size ? `modal-${size}` : ''} modal-dialog-centered`}
+                        role="document">
                         <div className="modal-content">
                             {header !== undefined ? (
                                 <div className="modal-header">
