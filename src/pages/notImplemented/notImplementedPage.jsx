@@ -1,9 +1,15 @@
 import React from 'react';
 
 import { IconArrowLeft } from '@tabler/icons-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function NotImplementedPage() {
+    const navigate = useNavigate();
+
+    function goBack() {
+        navigate(-1);
+    }
+
     return (
         <div className="page page-center vh-100">
             <div className="container-tight py-4">
@@ -16,7 +22,7 @@ function NotImplementedPage() {
                         Sorry for the inconvenience but we’re are working hard on implementing this feature.
                     </p>
                     <div className="empty-action">
-                        <Link to="/" className="btn btn-primary">
+                        <Link onClick={goBack} className="btn btn-primary">
                             <IconArrowLeft className="icon" color="currentColor" stroke={2} size={24} />
                             Take me home
                         </Link>

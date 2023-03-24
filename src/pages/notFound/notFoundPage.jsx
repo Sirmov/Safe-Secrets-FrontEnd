@@ -1,8 +1,15 @@
 import React from 'react';
 
 import { IconArrowLeft } from '@tabler/icons-react';
+import { Link, useNavigate } from 'react-router-dom';
 
 function NotFoundPage() {
+    const navigate = useNavigate();
+
+    function goBack() {
+        navigate(-1);
+    }
+
     return (
         <div className="page page-center">
             <div className="container-tight py-4">
@@ -13,10 +20,10 @@ function NotFoundPage() {
                         We are sorry but the page you are looking for was not found
                     </p>
                     <div className="empty-action">
-                        <a href="./." className="btn btn-primary">
+                        <button onClick={goBack} className="btn btn-primary">
                             <IconArrowLeft className="icon" color="currentColor" stroke={2} size={24} />
                             Take me home
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
