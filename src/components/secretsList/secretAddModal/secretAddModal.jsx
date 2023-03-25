@@ -65,7 +65,7 @@ function SecretAddModal() {
             header={<h5 className="modal-title">New secret</h5>}
             footer={
                 <>
-                    <button className="btn btn-link link-secondary" onClick={closeModal} data-bs-dismiss="modal">
+                    <button className="btn link-secondary" onClick={closeModal} data-bs-dismiss="modal">
                         Cancel
                     </button>
                     <button type="submit" onClick={handleSubmit} className="btn btn-primary ms-auto">
