@@ -6,14 +6,14 @@ import { useSecretsContext } from '@contexts/secretsContext';
 
 import styles from './secret.module.scss';
 
-function Secret({ _id, title, text, decryptedText, isEncrypted }) {
+function Secret({ _id, title, secret, decryptedSecret, isEncrypted }) {
     const { setSecrets } = useSecretsContext();
 
     function handleHide() {
         setSecrets((secrets) =>
             secrets.map((s) => {
                 if (s._id === _id) {
-                    s.decryptedText = '';
+                    s.decryptedSecret = '';
                     s.isEncrypted = true;
                 }
 
@@ -29,9 +29,11 @@ function Secret({ _id, title, text, decryptedText, isEncrypted }) {
             </div>
             <div className="card-body">
                 <div className="row flex-column align-items-center flex-md-row">
-                    <div className="col">{isEncrypted ? text : decryptedText}</div>
+                    <div className="col">{isEncrypted ? secret : decryptedSecret}</div>
                     <div className="col-auto mt-2 mt-md-0">
-                        <button className="btn btn-warning me-2">Update</button>
+                        <Link to={`update/${_id}`} className="btn btn-warning bg-yellow me-2">
+                            Update
+                        </Link>
                         <Link to={`delete/${_id}`} className="btn btn-danger">
                             Delete
                         </Link>

@@ -18,7 +18,7 @@ import useValidation from '@hooks/useValidation';
 import { secretValidator } from '@validators/secret/secretValidator';
 
 function SecretAddModal() {
-    const initialValues = { title: '', key: '', text: '' };
+    const initialValues = { title: '', key: '', secret: '' };
 
     const [isVisible, setIsVisible] = useState(true);
     const { setSecrets } = useSecretsContext();
@@ -34,7 +34,7 @@ function SecretAddModal() {
 
         let secret = {
             title: data.title,
-            text: CryptoJS.AES.encrypt(data.text, data.key).toString(),
+            secret: CryptoJS.AES.encrypt(data.secret, data.key).toString(),
         };
 
         const response = await createSecret(secret);
@@ -115,16 +115,16 @@ function SecretAddModal() {
                     <textarea
                         className={classNames({
                             'form-control': true,
-                            'is-invalid': errors.text,
+                            'is-invalid': errors.secret,
                         })}
-                        name="text"
+                        name="secret"
                         onChange={handleChange}
                         onBlur={handleValidation}
-                        value={values.text}
+                        value={values.secret}
                         rows={3}
                         placeholder="The secret you want to keep safe"
                     />
-                    <div className="invalid-feedback">{errors.text}</div>
+                    <div className="invalid-feedback">{errors.secret}</div>
                 </div>
             </form>
         </Modal>

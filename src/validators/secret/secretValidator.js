@@ -5,7 +5,7 @@ export function isValid(dataKey, dataValue) {
         validationFunction = validateTitle;
     } else if (dataKey === 'key') {
         validationFunction = validateKey;
-    } else if (dataKey === 'text') {
+    } else if (dataKey === 'secret') {
         validationFunction = validateSecret;
     }
 

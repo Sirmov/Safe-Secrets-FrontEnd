@@ -38,14 +38,14 @@ function SecretDecryptModal() {
             return;
         }
 
-        const decryptedSecret = CryptoJS.AES.decrypt(secret.text, data.key).toString(CryptoJS.enc.Utf8);
+        const decryptedSecret = CryptoJS.AES.decrypt(secret.secret, data.key).toString(CryptoJS.enc.Utf8);
         const isSuccessful = decryptedSecret !== '';
 
         if (isSuccessful) {
             setSecrets((secrets) =>
                 secrets.map((s) => {
                     if (s._id === secretId) {
-                        s.decryptedText = decryptedSecret;
+                        s.decryptedSecret = decryptedSecret;
                         s.isEncrypted = false;
                     }
 
