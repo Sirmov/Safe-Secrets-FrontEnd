@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import classNames from 'classnames';
 import CryptoJS from 'crypto-js';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-import SecretsContext from '@contexts/secretsContext';
+import { useSecretsContext } from '@contexts/secretsContext';
 
 import Modal from '@components/modal/modal';
 
@@ -15,7 +15,7 @@ function SecretDecryptModal() {
     const initialValues = { key: '' };
 
     const { secretId } = useParams();
-    const { secrets, setSecrets } = useContext(SecretsContext);
+    const { secrets, setSecrets } = useSecretsContext();
     const [secret, setSecret] = useState(() => secrets.find((s) => s._id === secretId) ?? {});
 
     useEffect(() => {

@@ -1,9 +1,9 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 import { toast } from 'react-toastify';
 
 import { useAuthContext } from '@contexts/authContext';
-import SecretsContext from '@contexts/secretsContext';
+import { useSecretsContext } from '@contexts/secretsContext';
 
 import * as secretsService from '@services/secretsService';
 
@@ -11,7 +11,7 @@ import Secret from '@components/secret/secret';
 import SecretSkeleton from '@components/secret/secretSkeleton/secretSkeleton';
 
 function SecretsList() {
-    const { secrets, setSecrets } = useContext(SecretsContext);
+    const { secrets, setSecrets } = useSecretsContext();
     const { auth } = useAuthContext();
 
     useEffect(() => {

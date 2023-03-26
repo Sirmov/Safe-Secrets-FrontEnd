@@ -6,7 +6,7 @@ import CryptoJS from 'crypto-js';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-import SecretsContext from '@contexts/secretsContext';
+import { useSecretsContext } from '@contexts/secretsContext';
 
 import { createSecret } from '@services/secretsService';
 
@@ -20,7 +20,7 @@ function SecretAddModal() {
     const initialValues = { title: '', key: '', text: '' };
 
     const [isVisible, setIsVisible] = useState(true);
-    const { setSecrets } = useContext(SecretsContext);
+    const { setSecrets } = useSecretsContext();
     const navigate = useNavigate();
 
     const { values, setValues, errors, handleChange, handleValidation, handleSubmit } = useForm(

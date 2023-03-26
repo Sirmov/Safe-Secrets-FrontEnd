@@ -1,13 +1,13 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
 import { Link } from 'react-router-dom';
 
-import SecretsContext from '@contexts/secretsContext';
+import { useSecretsContext } from '@contexts/secretsContext';
 
 import styles from './secret.module.scss';
 
 function Secret({ _id, title, text, decryptedText, isEncrypted }) {
-    const { setSecrets } = useContext(SecretsContext);
+    const { setSecrets } = useSecretsContext();
 
     function handleHide() {
         setSecrets((secrets) =>

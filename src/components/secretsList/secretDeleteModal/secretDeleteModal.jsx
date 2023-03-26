@@ -4,7 +4,7 @@ import { IconAlertTriangle } from '@tabler/icons-react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-import SecretsContext from '@contexts/secretsContext';
+import { useSecretsContext } from '@contexts/secretsContext';
 
 import { deleteSecret, getSecret } from '@services/secretsService';
 
@@ -15,7 +15,7 @@ import { isStatusOk } from '@utils/_';
 function SecretDeleteModal() {
     const { secretId } = useParams();
     const [secret, setSecret] = useState(null);
-    const { setSecrets } = useContext(SecretsContext);
+    const { setSecrets } = useSecretsContext();
 
     const [isVisible, setIsVisible] = useState(true);
     const navigate = useNavigate();
