@@ -1,11 +1,11 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
 import { IconHome, IconLock, IconLogin, IconMoon, IconSun, IconWritingSign } from '@tabler/icons-react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import { useAuthContext } from '@contexts/authContext';
-import ThemeContext from '@contexts/themeContext';
+import { useThemeContext } from '@contexts/themeContext';
 
 import { logout } from '@services/usersService';
 
@@ -14,7 +14,7 @@ import { isAuthenticated, isStatusOk } from '@utils/_';
 import styles from './navigationHeader.module.scss';
 
 function NavigationHeader() {
-    const { theme, setTheme } = useContext(ThemeContext);
+    const { theme, setTheme } = useThemeContext();
     const { auth, setAuth } = useAuthContext();
     const navigate = useNavigate();
 
