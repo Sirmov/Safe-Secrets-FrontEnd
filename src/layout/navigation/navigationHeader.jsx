@@ -4,7 +4,7 @@ import { IconHome, IconLock, IconLogin, IconMoon, IconSun, IconWritingSign } fro
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-import AuthContext from '@contexts/authContext';
+import { useAuthContext } from '@contexts/authContext';
 import ThemeContext from '@contexts/themeContext';
 
 import { logout } from '@services/usersService';
@@ -15,7 +15,7 @@ import styles from './navigationHeader.module.scss';
 
 function NavigationHeader() {
     const { theme, setTheme } = useContext(ThemeContext);
-    const { auth, setAuth } = useContext(AuthContext);
+    const { auth, setAuth } = useAuthContext();
     const navigate = useNavigate();
 
     async function handleLogout() {

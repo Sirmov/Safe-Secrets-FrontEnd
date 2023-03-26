@@ -1,11 +1,11 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 
 import { IconEye, IconEyeOff } from '@tabler/icons-react';
 import classNames from 'classnames';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-import AuthContext from '@contexts/authContext';
+import { useAuthContext } from '@contexts/authContext';
 
 import * as usersService from '@services/usersService';
 
@@ -18,7 +18,7 @@ function SignUpCard() {
 
     const navigate = useNavigate();
     const [revealPassword, setRevealPassword] = useState(false);
-    const { setAuth } = useContext(AuthContext);
+    const { setAuth } = useAuthContext();
 
     const { values, setValues, errors, handleChange, handleValidation, handleSubmit } = useForm(
         initialValues,

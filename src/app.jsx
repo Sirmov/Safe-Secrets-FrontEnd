@@ -3,7 +3,7 @@ import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
-import AuthContext from '@contexts/authContext';
+import { AuthProvider } from '@contexts/authContext';
 import ThemeContext from '@contexts/themeContext';
 
 import HomePage from '@pages/home/homePage';
@@ -17,14 +17,13 @@ import useLocalStorage from '@hooks/useLocalStorage';
 
 function App() {
     const [theme, setTheme] = useLocalStorage('theme', 'light');
-    const [auth, setAuth] = useLocalStorage('auth', {});
 
     return (
         <React.StrictMode>
             <ThemeContext.Provider value={{ theme, setTheme }}>
                 <div className={`page theme-${theme}`}>
                     <BrowserRouter>
-                        <AuthContext.Provider value={{ auth, setAuth }}>
+                        <AuthProvider>
                             <Routes>
                                 <Route path="/" element={<HomePage />} />
                                 <Route path="/secrets/*" element={<SecretsPage />} />
@@ -33,7 +32,7 @@ function App() {
                                 <Route path="/not-implemented" element={<NotImplementedPage />} />
                                 <Route path="*" element={<NotFoundPage />} />
                             </Routes>
-                        </AuthContext.Provider>
+                        </AuthProvider>
                     </BrowserRouter>
                 </div>
                 <ToastContainer
