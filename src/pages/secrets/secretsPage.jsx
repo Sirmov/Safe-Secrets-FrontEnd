@@ -13,6 +13,7 @@ import PageHeader from '@layout/pageHeader/pageHeader';
 import SecretAddModal from '@components/secretsList/secretAddModal/secretAddModal';
 import SecretDecryptModal from '@components/secretsList/secretDecryptModal/secretDecryptModal';
 import SecretDeleteModal from '@components/secretsList/secretDeleteModal/secretDeleteModal';
+import SecretUpdateModal from '@components/secretsList/secretUpdateModal/secretUpdateModal';
 import SecretsList from '@components/secretsList/secretsList';
 
 function SecretsPage() {
@@ -42,8 +43,9 @@ function SecretsPage() {
                     <SecretsProvider>
                         <SecretsList />
                         <Routes>
-                            <Route path="delete/:secretId" element={<SecretDeleteModal />} />
                             <Route path="add" element={<SecretAddModal />} />
+                            <Route path="delete/:secretId" element={<SecretDeleteModal />} />
+                            <Route path="update/:secretId" element={<SecretUpdateModal />} />
                             <Route path="decrypt/:secretId" element={<SecretDecryptModal />} />
                         </Routes>
                     </SecretsProvider>
