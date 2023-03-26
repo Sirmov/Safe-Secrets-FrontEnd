@@ -14,8 +14,6 @@ import Modal from '@components/modal/modal';
 
 import useForm from '@hooks/useForm';
 
-import { isStatusOk } from '@utils/_';
-
 function SecretAddModal() {
     const initialValues = { title: '', key: '', text: '' };
 
@@ -37,7 +35,7 @@ function SecretAddModal() {
         const response = await createSecret(secret);
         let isSuccessful = true;
 
-        if (!isStatusOk(response.status)) {
+        if (!response.isOk) {
             isSuccessful = false;
             toast.error('Something went wrong.');
         }

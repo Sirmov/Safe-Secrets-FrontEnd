@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
+import { isStatusOk } from '@utils/_';
+
 const host = 'http://localhost:3030';
 const storage = window.localStorage;
 const axiosInstance = axios.create({ baseURL: host });
@@ -28,12 +30,16 @@ function requestErrorHandler(requestError) {
 axiosInstance.interceptors.response.use(responseInterceptor, responseErrorHandler);
 
 function responseInterceptor(response) {
+    response.isOk = isStatusOk(response.status);
+
     return response;
 }
 
 function responseErrorHandler(responseError) {
     console.error(responseError);
     console.error(responseError.message);
+
+    responseError.response.isOk = false;
 
     if (responseError?.response?.status === 403 && responseError?.response?.data?.message === 'Invalid access token') {
         toast.warn('Your session expired. Please logout and sign in.');

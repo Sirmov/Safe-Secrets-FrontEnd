@@ -11,8 +11,6 @@ import * as usersService from '@services/usersService';
 
 import useForm from '@hooks/useForm';
 
-import { isStatusOk } from '@utils/_';
-
 function LoginCard() {
     const initialValues = { email: '', password: '' };
 
@@ -32,7 +30,7 @@ function LoginCard() {
         if (response.status === 403) {
             isSuccessful = false;
             toast.warn('Invalid email or password.');
-        } else if (!isStatusOk(response.status)) {
+        } else if (!response.isOk) {
             isSuccessful = false;
             toast.error('Something went wrong.');
         }

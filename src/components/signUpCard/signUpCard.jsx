@@ -11,8 +11,6 @@ import * as usersService from '@services/usersService';
 
 import useForm from '@hooks/useForm';
 
-import { isStatusOk } from '@utils/_';
-
 function SignUpCard() {
     const initialValues = { username: '', email: '', password: '', terms: false };
 
@@ -36,7 +34,7 @@ function SignUpCard() {
         } else if (response.status === 409) {
             isSuccessful = false;
             toast.error('A user with this email exists already.');
-        } else if (!isStatusOk(response.status)) {
+        } else if (!response.isOk) {
             isSuccessful = false;
             toast.error('Something went wrong.');
         }

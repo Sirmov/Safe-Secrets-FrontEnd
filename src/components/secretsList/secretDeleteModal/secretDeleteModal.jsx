@@ -10,8 +10,6 @@ import { deleteSecret, getSecret } from '@services/secretsService';
 
 import Modal from '@components/modal/modal';
 
-import { isStatusOk } from '@utils/_';
-
 function SecretDeleteModal() {
     const { secretId } = useParams();
     const [secret, setSecret] = useState(null);
@@ -35,7 +33,7 @@ function SecretDeleteModal() {
         const response = await deleteSecret(secret._id);
         let isSuccessful = true;
 
-        if (!isStatusOk(response.status)) {
+        if (!response.isOk) {
             isSuccessful = false;
             toast.error('Something went wrong.');
         }

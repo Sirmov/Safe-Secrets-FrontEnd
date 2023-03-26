@@ -9,7 +9,7 @@ import { useThemeContext } from '@contexts/themeContext';
 
 import { logout } from '@services/usersService';
 
-import { isAuthenticated, isStatusOk } from '@utils/_';
+import { isAuthenticated } from '@utils/_';
 
 import styles from './navigationHeader.module.scss';
 
@@ -21,7 +21,7 @@ function NavigationHeader() {
     async function handleLogout() {
         const response = await logout();
 
-        if (!isStatusOk(response.status)) {
+        if (!response.isOk) {
             toast.error('Something went wrong.');
         }
 
