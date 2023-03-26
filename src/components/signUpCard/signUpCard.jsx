@@ -10,6 +10,9 @@ import { useAuthContext } from '@contexts/authContext';
 import * as usersService from '@services/usersService';
 
 import useForm from '@hooks/useForm';
+import useValidation from '@hooks/useValidation';
+
+import { signUpValidator } from '@validators/user/userSignUpValidator';
 
 function SignUpCard() {
     const initialValues = { username: '', email: '', password: '', terms: false };
@@ -18,12 +21,14 @@ function SignUpCard() {
     const [revealPassword, setRevealPassword] = useState(false);
     const { setAuth } = useAuthContext();
 
-    const { values, setValues, errors, handleChange, handleValidation, handleSubmit } = useForm(
-        initialValues,
-        handleRegister
-    );
+    const { values, setValues, handleChange, handleSubmit } = useForm(initialValues, handleRegister);
+    const { errors, areValid, handleValidation } = useValidation(initialValues, signUpValidator);
 
     async function handleRegister(_event, data) {
+        if (!areValid(data)) {
+            return;
+        }
+
         const { terms, ...user } = data;
         const response = await usersService.register(user);
         let isSuccessful = true;

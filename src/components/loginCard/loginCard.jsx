@@ -10,6 +10,9 @@ import { useAuthContext } from '@contexts/authContext';
 import * as usersService from '@services/usersService';
 
 import useForm from '@hooks/useForm';
+import useValidation from '@hooks/useValidation';
+
+import { loginValidator } from '@validators/user/userLoginValidator';
 
 function LoginCard() {
     const initialValues = { email: '', password: '' };
@@ -18,12 +21,14 @@ function LoginCard() {
     const [revealPassword, setRevealPassword] = useState(false);
     const { setAuth } = useAuthContext();
 
-    const { values, setValues, errors, handleChange, handleValidation, handleSubmit } = useForm(
-        initialValues,
-        handleLogin
-    );
+    const { values, setValues, handleChange, handleSubmit } = useForm(initialValues, handleLogin);
+    const { errors, areValid, handleValidation } = useValidation(initialValues, loginValidator);
 
     async function handleLogin(_event, data) {
+        if (!areValid(data)) {
+            return;
+        }
+
         const response = await usersService.loginEmail(data.email, data.password);
         let isSuccessful = true;
 

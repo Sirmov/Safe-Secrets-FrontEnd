@@ -10,6 +10,9 @@ import { useSecretsContext } from '@contexts/secretsContext';
 import Modal from '@components/modal/modal';
 
 import useForm from '@hooks/useForm';
+import useValidation from '@hooks/useValidation';
+
+import { secretDecryptValidator } from '@validators/secret/secretDecryptValidator';
 
 function SecretDecryptModal() {
     const initialValues = { key: '' };
@@ -27,12 +30,14 @@ function SecretDecryptModal() {
     const [isVisible, setIsVisible] = useState(true);
     const navigate = useNavigate();
 
-    const { values, setValues, errors, handleChange, handleValidation, handleSubmit } = useForm(
-        initialValues,
-        handleDecrypt
-    );
+    const { values, setValues, handleChange, handleSubmit } = useForm(initialValues, handleDecrypt);
+    const { errors, areValid, handleValidation } = useValidation(initialValues, secretDecryptValidator);
 
     function handleDecrypt(_event, data) {
+        if (!areValid(data)) {
+            return;
+        }
+
         const decryptedSecret = CryptoJS.AES.decrypt(secret.text, data.key).toString(CryptoJS.enc.Utf8);
         const isSuccessful = decryptedSecret !== '';
 

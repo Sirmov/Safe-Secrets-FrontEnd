@@ -13,6 +13,9 @@ import { createSecret } from '@services/secretsService';
 import Modal from '@components/modal/modal';
 
 import useForm from '@hooks/useForm';
+import useValidation from '@hooks/useValidation';
+
+import { secretValidator } from '@validators/secret/secretValidator';
 
 function SecretAddModal() {
     const initialValues = { title: '', key: '', text: '' };
@@ -21,12 +24,14 @@ function SecretAddModal() {
     const { setSecrets } = useSecretsContext();
     const navigate = useNavigate();
 
-    const { values, setValues, errors, handleChange, handleValidation, handleSubmit } = useForm(
-        initialValues,
-        handleCreate
-    );
+    const { values, setValues, handleChange, handleSubmit } = useForm(initialValues, handleCreate);
+    const { errors, areValid, handleValidation } = useValidation(initialValues, secretValidator);
 
     async function handleCreate(_event, data) {
+        if (!areValid(data)) {
+            return;
+        }
+
         let secret = {
             title: data.title,
             text: CryptoJS.AES.encrypt(data.text, data.key).toString(),
