@@ -80,7 +80,7 @@ function SecretDetailsCard() {
                                             type="text"
                                             value={
                                                 secret._updatedOn
-                                                    ? formatDate(secret._createdOn)
+                                                    ? formatDate(secret._updatedOn)
                                                     : 'The secret has not been updated'
                                             }
                                         />

@@ -73,7 +73,7 @@ function SecretAddModal() {
                     </button>
                     <button type="submit" onClick={handleSubmit} className="btn btn-primary ms-auto">
                         <IconPlus className="icon" size={24} stroke={2} color="currentColor" />
-                        Create new report
+                        Create new secret
                     </button>
                 </>
             }>
