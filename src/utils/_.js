@@ -15,3 +15,8 @@ export function isStatusOk(status) {
 export function isAuthenticated(accessToken) {
     return !!accessToken;
 }
+
+export function formatDate(unixTimestamp) {
+    const date = new Date(unixTimestamp);
+    return date.toLocaleString();
+}
