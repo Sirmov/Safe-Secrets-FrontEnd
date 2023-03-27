@@ -32,19 +32,44 @@ HTML5, CSS3, Bootstrap, Tabler, Tabler Icons, Sass, React, React Router, Prettie
 You can install the project in three different ways.
 
 ### 1. Cloninig the repository
+
 -   Open Git Bash.
 -   Change the current working directory to the location where you want the cloned project.
 -   Type `git clone https://github.com/Sirmov/Safe-Secrets-FrontEnd` and press enter.
 
 ### 2. Downloading the repository
-  - Go to the [root](https://github.com/Sirmov/Safe-Secrets-FrontEnd) of the repository.
-  - Click the  green code button.
-  - Click download zip.
-  <img width="50%" src="https://docs.github.com/assets/cb-20363/images/help/repository/code-button.png">
+
+-   Go to the [root](https://github.com/Sirmov/Safe-Secrets-FrontEnd) of the repository.
+-   Click the green code button.
+-   Click download zip.
+    <img width="50%" src="https://docs.github.com/assets/cb-20363/images/help/repository/code-button.png">
 
 ### 3. Using a [Git GUI client](https://git-scm.com/downloads/guis)
 
 ## ⌨️🖱️ Usage
+
+### Server
+
+1. [Install the project](https://github.com/Sirmov/Safe-Secrets-FrontEnd#-installing-the-project)
+2. Open the root directory of the project in your prefered terminal
+3. Change directory to the server folder
+4. Type `npm install`
+5. After that, you can start the development server with this command `npm run dev`
+6. Follow the instruction for starting the client side
+
+### Client
+
+1. Make sure you have installed the project
+2. Open the root directory of the project in your prefered terminal
+3. Type `npm install`
+4. After that, you can start the development server with this command `npm run dev`
+5. Open the application in the browser
+6. Log in with one of the seeded users or registerer
+   | Email | Password|
+   |---------------|---------|
+   | peter@abv.bg | 123456 |
+   | george@abv.bg | 123456 |
+7. Enjoy the app and share your experience
 
 ## 📑 License
 
