@@ -10,6 +10,7 @@ import HomePage from '@pages/home/homePage';
 import LoginPage from '@pages/login/loginPage';
 import NotFoundPage from '@pages/notFound/notFoundPage';
 import NotImplementedPage from '@pages/notImplemented/notImplementedPage';
+import SecretDetailsPage from '@pages/secretDetailsPage/secretDetailsPage';
 import SecretsPage from '@pages/secrets/secretsPage';
 import SignUpPage from '@pages/signUp/signUpPage';
 
@@ -27,6 +28,7 @@ function App() {
                             <Routes>
                                 <Route path="/" element={<HomePage />} />
                                 <Route path="/secrets/*" element={<SecretsPage />} />
+                                <Route path="/secrets/details/:secretId" element={<SecretDetailsPage />} />
                                 <Route path="/login" element={<LoginPage />} />
                                 <Route path="/sign-up" element={<SignUpPage />} />
                                 <Route path="/not-implemented" element={<NotImplementedPage />} />
