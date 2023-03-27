@@ -1,0 +1,58 @@
+{
+    "identity": "email",
+    "protectedData": {
+        "users": {
+            "35c62d76-8152-4626-8712-eeb96381bea8": {
+                "email": "peter@abv.bg",
+                "username": "peter",
+                "hashedPassword": "83313014ed3e2391aa1332615d2f053cf5c1bfe05ca1cbcb5582443822df6eb1"
+            },
+            "847ec027-f659-4086-8032-5173e2f9c93a": {
+                "email": "george@abv.bg",
+                "username": "george",
+                "hashedPassword": "83313014ed3e2391aa1332615d2f053cf5c1bfe05ca1cbcb5582443822df6eb1"
+            }
+        },
+        "sessions": {}
+    },
+    "seedData": {
+        "secrets": {
+            "3987279d-0ad4-4afb-8ca9-5b256ae3b298": {
+                "_ownerId": "35c62d76-8152-4626-8712-eeb96381bea8",
+                "title": "Facebook",
+                "isFavorite": false,
+                "secret": "U2FsdGVkX18xt0BXO0AMcr3Kqzz8z1t2AjsKt/S5ChCEz17kcX03PKCFnK3pPgWC",
+                "_createdOn": 1616162253496
+            },
+            "8f414b4f-ab39-4d36-bedb-2ad69da9c830": {
+                "_ownerId": "847ec027-f659-4086-8032-5173e2f9c93a",
+                "title": "Steam",
+                "isFavorite": false,
+                "secret": "U2FsdGVkX19OuwLkIPjFK+1g60FTy6J8GI2x6ibWyOY=",
+                "_createdOn": 1616162253496
+            },
+            "3a432947-3e43-42a8-bcbc-100d2b199892": {
+                "_ownerId": "847ec027-f659-4086-8032-5173e2f9c93a",
+                "title": "Dairy №1",
+                "isFavorite": true,
+                "secret": "U2FsdGVkX184fkEI+6nC0SO3RxZnoGndaF7GpwN9mbJlpgHaruLWZOklADmDZX5F",
+                "_createdOn": 1616162253496
+            }
+        }
+    },
+    "rules": {
+        "users": {
+            ".create": false,
+            ".read": ["Owner"],
+            ".update": false,
+            ".delete": false
+        },
+        "secrets": {
+            ".create": ["User"],
+            ".read": ["User"],
+            ".update": ["Owner"],
+            ".delete": ["Owner"]
+        }
+    }
+}
+
