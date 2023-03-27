@@ -6,13 +6,13 @@ import { ToastContainer } from 'react-toastify';
 import { AuthProvider } from '@contexts/authContext';
 import ThemeContext from '@contexts/themeContext';
 
-import HomePage from '@pages/home/homePage';
-import LoginPage from '@pages/login/loginPage';
-import NotFoundPage from '@pages/notFound/notFoundPage';
-import NotImplementedPage from '@pages/notImplemented/notImplementedPage';
+import HomePage from '@pages/homePage/homePage';
+import LoginPage from '@pages/loginPage/loginPage';
+import NotFoundPage from '@pages/notFoundPage/notFoundPage';
+import NotImplementedPage from '@pages/notImplementedPage/notImplementedPage';
 import SecretDetailsPage from '@pages/secretDetailsPage/secretDetailsPage';
-import SecretsPage from '@pages/secrets/secretsPage';
-import SignUpPage from '@pages/signUp/signUpPage';
+import SecretsPage from '@pages/secretsPage/secretsPage';
+import SignUpPage from '@pages/signUpPage/signUpPage';
 
 import useLocalStorage from '@hooks/useLocalStorage';
 
