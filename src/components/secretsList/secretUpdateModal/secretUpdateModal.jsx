@@ -4,6 +4,7 @@ import { IconEdit } from '@tabler/icons-react';
 import classNames from 'classnames';
 import CryptoJS from 'crypto-js';
 import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import { useSecretsContext } from '@contexts/secretsContext';
 
