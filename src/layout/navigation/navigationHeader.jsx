@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { IconHome, IconLock, IconLogin, IconMoon, IconSun, IconWritingSign } from '@tabler/icons-react';
+import { IconHome, IconLock, IconLogin, IconMoon, IconStar, IconSun, IconWritingSign } from '@tabler/icons-react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
@@ -91,6 +91,10 @@ function NavigationHeader() {
                                 </div>
                             </div>
                             <div className="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                <Link to="/secrets?favorites=true" className="dropdown-item">
+                                    <IconStar className="icon-filled text-yellow me-2" />
+                                    Favorites
+                                </Link>
                                 <Link to="/not-implemented" className="dropdown-item">
                                     Settings
                                 </Link>

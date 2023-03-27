@@ -5,13 +5,19 @@ const endpoints = {
     allSecrets: '/data/secrets?sortBy=_createdOn%20desc',
     secret: (secretId) => `/data/secrets/${secretId}`,
     userSecrets: (userId) => `/data/secrets?where=_ownerId%3D%22${userId}%22&sortBy=_createdOn%20desc`,
+    userFavoriteSecrets: (userId) =>
+        `/data/secrets?where=_ownerId%3D%22${userId}%22&sortBy=_createdOn%20desc&where=isFavorite%3Dtrue`,
 };
 
 export async function getAllSecrets() {
     return await httpClient.get(endpoints.allSecrets);
 }
 
-export async function getUserSecrets(userId) {
+export async function getUserSecrets(userId, onlyFavorites) {
+    if (onlyFavorites) {
+        return await httpClient.get(endpoints.userFavoriteSecrets(userId));
+    }
+
     return await httpClient.get(endpoints.userSecrets(userId));
 }
 
