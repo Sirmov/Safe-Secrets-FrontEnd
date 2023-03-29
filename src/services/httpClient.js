@@ -4,7 +4,6 @@ import { toast } from 'react-toastify';
 import { isStatusOk } from '@utils/_';
 
 const host = import.meta.env.VITE_API_BASE_URL;
-console.log(import.meta.env);
 const storage = window.localStorage;
 const axiosInstance = axios.create({ baseURL: host });
 
