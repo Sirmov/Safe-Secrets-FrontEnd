@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
 import { IconPlus, IconSearch } from '@tabler/icons-react';
-import { Link, Route, Routes } from 'react-router-dom';
+import { Route, Routes, useSearchParams } from 'react-router-dom';
 
 import { SecretsProvider } from '@contexts/secretsContext';
 
@@ -10,13 +10,34 @@ import NavigationHeader from '@layout/navigation/navigationHeader';
 import PageBody from '@layout/pageBody/pageBody';
 import PageHeader from '@layout/pageHeader/pageHeader';
 
+import ParamLink from '@components/paramLink/paramLink';
 import SecretAddModal from '@components/secretsList/secretAddModal/secretAddModal';
 import SecretDecryptModal from '@components/secretsList/secretDecryptModal/secretDecryptModal';
 import SecretDeleteModal from '@components/secretsList/secretDeleteModal/secretDeleteModal';
 import SecretUpdateModal from '@components/secretsList/secretUpdateModal/secretUpdateModal';
 import SecretsList from '@components/secretsList/secretsList';
 
+import { debounce } from '@utils/_';
+
 function SecretsPage() {
+    const inputRef = useRef({ current: { value: '' } });
+    const [, setSearchParams] = useSearchParams();
+
+    function handleSearch() {
+        setSearchParams((params) => {
+            const searchParams = new URLSearchParams(params);
+            const searchQuery = inputRef.current.value;
+
+            if (searchQuery === '') {
+                searchParams.delete('search');
+            } else {
+                searchParams.set('search', searchQuery);
+            }
+
+            return searchParams;
+        });
+    }
+
     return (
         <>
             <NavigationHeader />
@@ -26,16 +47,22 @@ function SecretsPage() {
                     <div className="d-flex">
                         <div className="me-3 d-none d-md-block">
                             <div className="input-icon">
-                                <input type="text" className="form-control" placeholder="Search…" />
+                                <input
+                                    type="text"
+                                    ref={inputRef}
+                                    onChange={debounce(handleSearch)}
+                                    className="form-control"
+                                    placeholder="Search…"
+                                />
                                 <span className="input-icon-addon">
                                     <IconSearch className="icon" color="currentColor" stroke={2} size={24} />
                                 </span>
                             </div>
                         </div>
-                        <Link to="add" className="btn btn-primary">
+                        <ParamLink to="add" className="btn btn-primary">
                             <IconPlus className="icon" color="currentColor" stroke={2} size={24} />
                             Add secret
-                        </Link>
+                        </ParamLink>
                     </div>
                 </PageHeader>
 

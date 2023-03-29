@@ -20,7 +20,7 @@ function SecretsList() {
 
     useEffect(() => {
         secretsService
-            .getUserSecrets(auth._id, stringToBoolean(searchParams.get('favorites')))
+            .getUserSecrets(auth._id, searchParams.get('search'), stringToBoolean(searchParams.get('favorites')))
             .then((res) => {
                 const secrets = Object.values(res.data);
                 secrets.forEach((s) => (s.isEncrypted = true));

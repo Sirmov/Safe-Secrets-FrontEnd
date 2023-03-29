@@ -1,24 +1,34 @@
 import httpClient from '@services/httpClient';
 
+import { isString } from '@utils/_';
+
 const endpoints = {
     secrets: '/data/secrets',
     allSecrets: '/data/secrets?sortBy=_createdOn%20desc',
     secret: (secretId) => `/data/secrets/${secretId}`,
-    userSecrets: (userId) => `/data/secrets?where=_ownerId%3D%22${userId}%22&sortBy=_createdOn%20desc`,
-    userFavoriteSecrets: (userId) =>
-        `/data/secrets?where=_ownerId%3D%22${userId}%22&sortBy=_createdOn%20desc&where=isFavorite%3Dtrue`,
+    userSecrets: (query) => `/data/secrets?${query}&sortBy=_createdOn%20desc`,
 };
 
 export async function getAllSecrets() {
     return await httpClient.get(endpoints.allSecrets);
 }
 
-export async function getUserSecrets(userId, onlyFavorites) {
-    if (onlyFavorites) {
-        return await httpClient.get(endpoints.userFavoriteSecrets(userId));
+export async function getUserSecrets(userId, search = '', onlyFavorites) {
+    const matches = [];
+
+    matches.push(`_ownerId="${userId}"`);
+
+    if (isString(search) && search !== '') {
+        matches.push(`title LIKE "${search}"`);
     }
 
-    return await httpClient.get(endpoints.userSecrets(userId));
+    if (onlyFavorites) {
+        matches.push('isFavorite=true');
+    }
+
+    const searchQuery = `where=${encodeURIComponent(matches.join(' AND '))}`;
+
+    return await httpClient.get(endpoints.userSecrets(searchQuery));
 }
 
 export async function getSecret(secretId) {
