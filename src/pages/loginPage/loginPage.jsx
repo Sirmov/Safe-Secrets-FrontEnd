@@ -2,6 +2,8 @@ import React from 'react';
 
 import { Link } from 'react-router-dom';
 
+import logo from '@assets/images/logo.png';
+
 import LoginCard from '@components/loginCard/loginCard';
 
 function Login() {
@@ -10,7 +12,7 @@ function Login() {
             <div className="container container-tight py-5">
                 <div className="text-center mb-4">
                     <Link to="/" className="navbar-brand">
-                        <img src="/assets/images/logo.png" height={52} alt="" />
+                        <img src={logo} height={52} alt="" />
                         <h1 className="ms-2">Safe Secrets</h1>
                     </Link>
                 </div>
