@@ -79,7 +79,7 @@ function NavigationHeader() {
                         )}
                     </div>
                     {/* Avatar */}
-                    {isAuthenticated(auth.accessToken) ? (
+                    {isAuthenticated(auth) ? (
                         <div className="nav-item dropdown">
                             <div className="nav-item cursor-pointer" data-bs-toggle="dropdown">
                                 <div className="nav-link ms-2">
@@ -136,7 +136,7 @@ function NavigationHeader() {
                                     <span className="nav-link-title">Home</span>
                                 </NavLink>
                             </li>
-                            {isAuthenticated(auth.accessToken) ? (
+                            {isAuthenticated(auth) ? (
                                 <li className="nav-item">
                                     <NavLink
                                         to="/secrets"

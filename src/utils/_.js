@@ -12,8 +12,8 @@ export function isStatusOk(status) {
     return status < 300;
 }
 
-export function isAuthenticated(accessToken) {
-    return !!accessToken;
+export function isAuthenticated(auth) {
+    return !!auth.accessToken;
 }
 
 export function formatDate(unixTimestamp) {
