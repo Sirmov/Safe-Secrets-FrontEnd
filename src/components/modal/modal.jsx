@@ -26,7 +26,7 @@ function Modal({ isVisible, setIsVisible, size, status, header, children, footer
                     id="modal-overlay"
                     tabIndex={-1}
                     style={{ display: 'block' }}
-                    onClick={closeModal}
+                    onMouseDown={closeModal}
                     aria-modal="true"
                     role="dialog">
                     <div
