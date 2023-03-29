@@ -14,6 +14,8 @@ import SecretDetailsPage from '@pages/secretDetailsPage/secretDetailsPage';
 import SecretsPage from '@pages/secretsPage/secretsPage';
 import SignUpPage from '@pages/signUpPage/signUpPage';
 
+import RouteGuard from '@components/routeGuard/routeGuard';
+
 import useLocalStorage from '@hooks/useLocalStorage';
 
 function App() {
@@ -27,8 +29,10 @@ function App() {
                         <AuthProvider>
                             <Routes>
                                 <Route path="/" element={<HomePage />} />
-                                <Route path="/secrets/*" element={<SecretsPage />} />
-                                <Route path="/secrets/details/:secretId" element={<SecretDetailsPage />} />
+                                <Route element={<RouteGuard />}>
+                                    <Route path="/secrets/*" element={<SecretsPage />} />
+                                    <Route path="/secrets/details/:secretId" element={<SecretDetailsPage />} />
+                                </Route>
                                 <Route path="/login" element={<LoginPage />} />
                                 <Route path="/sign-up" element={<SignUpPage />} />
                                 <Route path="/not-implemented" element={<NotImplementedPage />} />
