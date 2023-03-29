@@ -1,15 +1,11 @@
 import React from 'react';
 
-import { IconArrowLeft } from '@tabler/icons-react';
+import { IconArrowLeft, IconHome } from '@tabler/icons-react';
 import { Helmet } from 'react-helmet';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function NotImplementedPage() {
     const navigate = useNavigate();
-
-    function goBack() {
-        navigate(-1);
-    }
 
     return (
         <>
@@ -28,10 +24,14 @@ function NotImplementedPage() {
                             Sorry for the inconvenience but we’re are working hard on implementing this feature.
                         </p>
                         <div className="empty-action">
-                            <Link onClick={goBack} className="btn btn-primary">
+                            <button onClick={() => navigate(-1)} className="btn btn-primary me-2">
                                 <IconArrowLeft className="icon" />
+                                Back
+                            </button>
+                            <button onClick={() => navigate('/')} className="btn btn-info">
+                                <IconHome className="icon" />
                                 Take me home
-                            </Link>
+                            </button>
                         </div>
                     </div>
                 </div>

@@ -1,15 +1,11 @@
 import React from 'react';
 
-import { IconArrowLeft } from '@tabler/icons-react';
+import { IconArrowLeft, IconHome } from '@tabler/icons-react';
 import { Helmet } from 'react-helmet';
 import { useNavigate } from 'react-router-dom';
 
 function NotFoundPage() {
     const navigate = useNavigate();
-
-    function goBack() {
-        navigate(-1);
-    }
 
     return (
         <>
@@ -26,8 +22,12 @@ function NotFoundPage() {
                             We are sorry but the page you are looking for was not found
                         </p>
                         <div className="empty-action">
-                            <button onClick={goBack} className="btn btn-primary">
+                            <button onClick={() => navigate(-1)} className="btn btn-primary me-2">
                                 <IconArrowLeft className="icon" />
+                                Back
+                            </button>
+                            <button onClick={() => navigate('/')} className="btn btn-info">
+                                <IconHome className="icon" />
                                 Take me home
                             </button>
                         </div>
