@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 
 import { IconPlus, IconSearch } from '@tabler/icons-react';
+import { Helmet } from 'react-helmet';
 import { Route, Routes, useSearchParams } from 'react-router-dom';
 
 import { SecretsProvider } from '@contexts/secretsContext';
@@ -40,6 +41,10 @@ function SecretsPage() {
 
     return (
         <>
+            <Helmet>
+                <title>Safe Secrets - Secrets</title>
+            </Helmet>
+
             <NavigationHeader />
 
             <div className="page-wrapper">

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { IconFlask2, IconKey, IconShieldCheck } from '@tabler/icons-react';
+import { Helmet } from 'react-helmet';
 
 import logo from '@assets/images/logo.png';
 
@@ -12,6 +13,10 @@ import Feature from '@components/feature/feature';
 function HomePage() {
     return (
         <>
+            <Helmet>
+                <title>Safe Secrets</title>
+            </Helmet>
+
             <NavigationHeader />
 
             <div className="page-wrapper">
