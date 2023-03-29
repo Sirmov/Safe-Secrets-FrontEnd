@@ -8,6 +8,7 @@ export default defineConfig({
     build: {
         outDir: path.resolve(__dirname, './dist'),
     },
+    publicDir: path.resolve(__dirname, './src/assets/'),
     envDir: __dirname,
     plugins: [react()],
     resolve: {
