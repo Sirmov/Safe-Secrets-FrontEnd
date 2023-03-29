@@ -55,12 +55,12 @@ function SecretsPage() {
                                     placeholder="Search…"
                                 />
                                 <span className="input-icon-addon">
-                                    <IconSearch className="icon" color="currentColor" stroke={2} size={24} />
+                                    <IconSearch className="icon" />
                                 </span>
                             </div>
                         </div>
                         <ParamLink to="add" className="btn btn-primary">
-                            <IconPlus className="icon" color="currentColor" stroke={2} size={24} />
+                            <IconPlus className="icon" />
                             Add secret
                         </ParamLink>
                     </div>

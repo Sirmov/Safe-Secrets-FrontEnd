@@ -110,11 +110,7 @@ function LoginCard() {
                                     data-bs-toggle="tooltip"
                                     aria-label="Show password"
                                     data-bs-original-title="Show password">
-                                    {revealPassword ? (
-                                        <IconEyeOff className="icon" color="currentColor" stroke={2} size={24} />
-                                    ) : (
-                                        <IconEye className="icon" color="currentColor" stroke={2} size={24} />
-                                    )}
+                                    {revealPassword ? <IconEyeOff className="icon" /> : <IconEye className="icon" />}
                                 </a>
                             </div>
                         </div>

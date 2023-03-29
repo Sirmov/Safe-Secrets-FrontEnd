@@ -21,7 +21,7 @@ function NotFoundPage() {
                     </p>
                     <div className="empty-action">
                         <button onClick={goBack} className="btn btn-primary">
-                            <IconArrowLeft className="icon" color="currentColor" stroke={2} size={24} />
+                            <IconArrowLeft className="icon" />
                             Take me home
                         </button>
                     </div>

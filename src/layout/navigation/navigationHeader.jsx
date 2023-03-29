@@ -67,7 +67,7 @@ function NavigationHeader() {
                                 data-bs-placement="bottom"
                                 aria-label="Enable dark mode"
                                 data-bs-original-title="Enable dark mode">
-                                <IconMoon className="icon" color="currentColor" stroke={2} size={24} />
+                                <IconMoon className="icon" />
                             </Link>
                         ) : (
                             <Link
@@ -78,7 +78,7 @@ function NavigationHeader() {
                                 data-bs-placement="bottom"
                                 aria-label="Enable light mode"
                                 data-bs-original-title="Enable light mode">
-                                <IconSun className="icon" color="currentColor" stroke={2} size={24} />
+                                <IconSun className="icon" />
                             </Link>
                         )}
                     </div>
@@ -108,7 +108,7 @@ function NavigationHeader() {
                             <div className="nav-item">
                                 <NavLink to="/login" className="nav-link mx-2">
                                     <span className="nav-link-icon d-md-none d-lg-inline-block">
-                                        <IconLogin className="icon" color="currentColor" stroke={2} size={24} />
+                                        <IconLogin className="icon" />
                                     </span>
                                     <span className="nav-link-title">Login</span>
                                 </NavLink>
@@ -116,7 +116,7 @@ function NavigationHeader() {
                             <div className="nav-item">
                                 <NavLink to="/sign-up" className="nav-link">
                                     <span className="nav-link-icon d-md-none d-lg-inline-block">
-                                        <IconWritingSign className="icon" color="currentColor" stroke={2} size={24} />
+                                        <IconWritingSign className="icon" />
                                     </span>
                                     <span className="nav-link-title">Sign up</span>
                                 </NavLink>
@@ -135,7 +135,7 @@ function NavigationHeader() {
                                         isActive ? `nav-link ${styles['nav-link-active']}` : 'nav-link'
                                     }>
                                     <span className="nav-link-icon d-md-none d-lg-inline-block">
-                                        <IconHome className="icon" color="currentColor" stroke={2} size={24} />
+                                        <IconHome className="icon" />
                                     </span>
                                     <span className="nav-link-title">Home</span>
                                 </NavLink>
@@ -148,7 +148,7 @@ function NavigationHeader() {
                                             isActive ? `nav-link ${styles['nav-link-active']}` : 'nav-link'
                                         }>
                                         <span className="nav-link-icon d-md-none d-lg-inline-block">
-                                            <IconLock className="icon" color="currentColor" stroke={2} size={24} />
+                                            <IconLock className="icon" />
                                         </span>
                                         <span className="nav-link-title">Secrets</span>
                                     </NavLink>
