@@ -3,8 +3,6 @@ import React from 'react';
 import { IconFlask2, IconKey, IconShieldCheck } from '@tabler/icons-react';
 import { Helmet } from 'react-helmet';
 
-import logo from '@assets/images/logo.png';
-
 import Footer from '@layout/footer/footer';
 import NavigationHeader from '@layout/navigation/navigationHeader';
 
@@ -31,7 +29,7 @@ function HomePage() {
                         </div>
                         <div className="col-10 col-sm-8 col-lg-6">
                             <img
-                                src={logo}
+                                src="/images/logo.png"
                                 className="d-block mx-lg-auto img-fluid"
                                 alt="Safe secrets"
                                 width={300}
