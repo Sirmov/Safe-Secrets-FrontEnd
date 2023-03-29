@@ -5,7 +5,7 @@
     "type": "module",
     "scripts": {
         "dev": "vite serve",
-        "build": "vite build",
+        "build": "vite build --emptyOutDir",
         "preview": "vite preview",
         "prettier-check": "prettier --check ./src --config .prettierrc.json",
         "prettier-debug": "prettier --debug-check ./src --config .prettierrc.json",
