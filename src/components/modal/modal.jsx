@@ -6,9 +6,8 @@ function Modal({ isVisible, setIsVisible, size, status, header, children, footer
     const navigate = useNavigate();
 
     function closeModal(event) {
-        event.preventDefault();
-
         if (event.target.id === 'modal-overlay' || event.target.classList.contains('btn-close')) {
+            event.preventDefault();
             event.stopPropagation();
             setIsVisible(false);
 
