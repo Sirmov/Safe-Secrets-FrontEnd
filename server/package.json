@@ -8,8 +8,7 @@
         "dev": "nodemon -e * index.js -dev",
         "test": "mocha tests",
         "client": "rollup --config client.config.js",
-        "build-dev": "rollup --config client.config.js",
-        "build": "rollup --config client.config.js & rollup --config rollup.config.js"
+        "build": "rollup --config client.config.js && rollup --config rollup.config.js"
     },
     "repository": {
         "type": "git",
