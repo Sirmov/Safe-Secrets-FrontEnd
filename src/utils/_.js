@@ -30,3 +30,7 @@ export function debounce(func, timeout = 300) {
         }, timeout);
     };
 }
+
+export function isString(variable) {
+    return typeof variable === 'string' || variable instanceof String;
+}
