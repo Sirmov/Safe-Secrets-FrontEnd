@@ -9,6 +9,8 @@ import { useSecretsContext } from '@contexts/secretsContext';
 
 import { updateSecret } from '@services/secretsService';
 
+import ParamLink from '@components/paramLink/paramLink';
+
 import styles from './secret.module.scss';
 
 function Secret({ _id, title, secret, decryptedSecret, isEncrypted, isFavorite }) {
@@ -70,12 +72,12 @@ function Secret({ _id, title, secret, decryptedSecret, isEncrypted, isFavorite }
                 <div className="row flex-column align-items-center flex-md-row">
                     <div className="col">{isEncrypted ? secret : decryptedSecret}</div>
                     <div className="col-auto mt-2 mt-md-0">
-                        <Link to={`update/${_id}`} className="btn btn-warning bg-yellow me-2">
+                        <ParamLink to={`update/${_id}`} className="btn btn-warning bg-yellow me-2">
                             Update
-                        </Link>
-                        <Link to={`delete/${_id}`} className="btn btn-danger">
+                        </ParamLink>
+                        <ParamLink to={`delete/${_id}`} className="btn btn-danger">
                             Delete
-                        </Link>
+                        </ParamLink>
                     </div>
                 </div>
             </div>
@@ -85,9 +87,9 @@ function Secret({ _id, title, secret, decryptedSecret, isEncrypted, isFavorite }
                         <>
                             <div className="col">Secrets is encrypted.</div>
                             <div className="col-auto">
-                                <Link to={`decrypt/${_id}`} className="btn btn-success">
+                                <ParamLink to={`decrypt/${_id}`} className="btn btn-success">
                                     Decrypt
-                                </Link>
+                                </ParamLink>
                             </div>
                         </>
                     ) : (
