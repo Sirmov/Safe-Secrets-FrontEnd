@@ -42,6 +42,7 @@ You can install the project in three different ways.
 -   Go to the [root](https://github.com/Sirmov/Safe-Secrets-FrontEnd) of the repository.
 -   Click the green code button.
 -   Click download zip.
+
     <img width="50%" src="https://docs.github.com/assets/cb-20363/images/help/repository/code-button.png">
 
 ### 3. Using a [Git GUI client](https://git-scm.com/downloads/guis)
@@ -70,6 +71,8 @@ You can install the project in three different ways.
    | peter@abv.bg | 123456 |
    | george@abv.bg | 123456 |
 7. Enjoy the app and share your experience
+
+* You can also visit the app [here](https://safe-secrets-front-end.vercel.app/) but you need to have the server running locally.
 
 ## 📑 License
 
