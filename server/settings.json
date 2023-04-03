@@ -38,6 +38,20 @@
                 "secret": "U2FsdGVkX184fkEI+6nC0SO3RxZnoGndaF7GpwN9mbJlpgHaruLWZOklADmDZX5F",
                 "_createdOn": 1616162253496
             }
+        },
+        "posts": {
+            "0a7e8952-bb07-4431-abfa-eb1a84269eee": {
+                "_ownerId": "35c62d76-8152-4626-8712-eeb96381bea8",
+                "title": "Biggest Data Breaches in US History",
+                "text": "The data breach of Yahoo is one of the worst and most infamous cases of a known cyber attack and currently holds the record for the most people affected. The first attack occurred in 2013, and many more would continue over the next three years.A team of Russian hackers targeted Yahoo’s database using backdoors, stolen backups, and access cookies to steal records from all user accounts, which included personally identifiable information",
+                "_createdOn": 1616162253496
+            }
+        },
+        "likes": {
+            "18d40bf1-62fa-4716-91fe-1606ab3c8014": {
+                "_postId": "0a7e8952-bb07-4431-abfa-eb1a84269eee",
+                "_ownerId": "35c62d76-8152-4626-8712-eeb96381bea8"
+            }
         }
     },
     "rules": {
@@ -51,6 +65,18 @@
             ".create": ["User"],
             ".read": ["User"],
             ".update": ["Owner"],
+            ".delete": ["Owner"]
+        },
+        "posts": {
+            ".create": ["User"],
+            ".read": ["Guest"],
+            ".update": ["Owner"],
+            ".delete": ["Owner"]
+        },
+        "likes": {
+            ".create": ["User"],
+            ".read": ["Guest"],
+            ".update": false,
             ".delete": ["Owner"]
         }
     }
