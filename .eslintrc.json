@@ -48,6 +48,7 @@
                 "ts": "never",
                 "tsx": "never"
             }
-        ]
+        ],
+        "import/no-namespace": ["error", { "ignore": ["*.ext"] }]
     }
 }

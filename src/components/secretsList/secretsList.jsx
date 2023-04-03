@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import { useAuthContext } from '@contexts/authContext';
 import { useSecretsContext } from '@contexts/secretsContext';
 
-import * as secretsService from '@services/secretsService';
+import { getUserSecrets } from '@services/secretsService';
 
 import Secret from '@components/secret/secret';
 import SecretSkeleton from '@components/secret/secretSkeleton/secretSkeleton';
@@ -19,8 +19,7 @@ function SecretsList() {
     const { auth } = useAuthContext();
 
     useEffect(() => {
-        secretsService
-            .getUserSecrets(auth._id, searchParams.get('search'), stringToBoolean(searchParams.get('favorites')))
+        getUserSecrets(auth._id, searchParams.get('search'), stringToBoolean(searchParams.get('favorites')))
             .then((res) => {
                 const secrets = Object.values(res.data);
                 secrets.forEach((s) => (s.isEncrypted = true));
