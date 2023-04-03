@@ -4,7 +4,7 @@
 
 ## 📒 Description
 
-[Safe secrets](https://github.com/Sirmov/Safe-Secrets-FrontEnd) is a full stack web application. The main objective is storing and managing all of your secrets in one safe place. This can mean all of your passwords, security codes and anything that you can think off that can be represented as plain text. All of the data is encrypted and cannot be compromised. Future support for images can also be added.
+[Safe secrets](https://github.com/Sirmov/Safe-Secrets-FrontEnd) is a full-stack web application. The main objective is storing and managing all of your secrets in one safe place. This can mean all of your passwords, security codes and anything that you can think off that can be represented as plain text. All of the data is encrypted and cannot be compromised. Future support for images can also be added.
 
 ## 🌐Technologies
 
@@ -27,6 +27,174 @@ HTML5, CSS3, Bootstrap, Tabler, Tabler Icons, Sass, React, React Router, Prettie
 
 ## 🧱 Architecture
 
+The logic of the application is divided between files with different responsibilities. Files with similar purposes are grouped in folders. The building blocks are listed below.
+
+### 📝 index.html
+
+-   **Description**
+
+    The entry point of the application.
+
+-   **Contents**
+
+    Basic html skeleton.
+
+-   **Resposibility**
+
+    Loading favicon, global styles, main script. Defining the react root and a user friendly no script page.
+
+### 📱 App component
+
+-   **Description**
+
+    The entry point of react.
+
+-   **Contents**
+
+    Browser router, toast container, page components, application level contexts.
+
+-   **Resposibility**
+
+    Defines the main application routes and the toast container. Initializes the application level contexts.
+
+### 📦 Assets
+
+-   **Description**
+
+    The public resources of the application.
+
+-   **Contents**
+
+    Images, svgs, favicons, videos and other.
+
+-   **Resposibility**
+
+    Groups all of the public resources of the application in one place.
+
+### ⚛️ Components
+
+-   **Description**
+
+    Simple reusable react components.
+
+-   **Contents**
+
+    `{componentName}.jsx` - React component
+
+    `{componentName}.module.scss` - Component styles
+
+    `{componentName}.test.js` - Component tests
+
+-   **Resposibility**
+
+    Dividing the logic into small readable reusable components. Defining the component structure and logic.
+
+### 📄 Pages
+
+-   **Description**
+
+    The pages folder contains react components with minimal logic used for defining the main pages in the application.
+
+-   **Contents**
+
+    `{componentName}.jsx` - React page component
+
+    `{componentName}.module.scss` - Component styles
+
+    `{componentName}.test.js` - Component tests
+
+-   **Resposibility**
+
+    They are exclusively used as a element prop to a route component. Their job is to handle the changes in the meta tags in the document's head, import and include layout components and page specific component to compose the page.
+
+### 🖼️ Layot
+
+-   **Description**
+
+    The layout folder contains highly reusable components which define the main structure of the pages.
+
+-   **Contents**
+
+    `{componentName}.jsx` - React layout component
+
+    `{componentName}.module.scss` - Component styles
+
+    `{componentName}.test.js` - Component tests
+
+-   **Resposibility**
+
+    Defining the page structure. Mainly used in page components.
+
+### 🧰 Services
+
+-   **Description**
+
+    The services folder contains plain javascript files responsible for the communication with different APIs.
+
+-   **Contents**
+
+    Plain ES6 javascript modules.
+
+-   **Resposibility**
+
+    Communication with different servers and APIs.
+
+### 🛠️ Utils
+
+-   **Description**
+
+    Utilities folder.
+
+-   **Contents**
+
+    Plain ES6 javascript modules.
+
+-   **Resposibility**
+
+    Export small utility functions.
+
+### ✔️ Validators
+
+-   **Description**
+
+    The validators folder contains plain javascript files which describe the validation logic for different objects and different scenarios. They are used in a custom useValidation hook.
+
+-   **Contents**
+
+    Plain ES6 javascript modules.
+
+-   **Resposibility**
+
+    Extract validation logic.
+
+### 🎣 Hooks
+
+-   **Description**
+
+    The hooks folder contains custom react hooks.
+
+-   **Contents**
+
+    Custom react hooks.
+
+-   **Resposibility**
+
+    Extract repetitive logic using hooks.
+
+### 📡 Contexts
+
+-   **Description**
+
+    The context folder contains components exposing the React Context API.
+
+-   **Contents**
+
+    Custom react contexts.
+
+-   **Resposibility**
+
+    Eliminate the need for props drilling.
+
 ## 🎿 Installing the project
 
 You can install the project in three different ways.
@@ -42,6 +210,7 @@ You can install the project in three different ways.
 -   Go to the [root](https://github.com/Sirmov/Safe-Secrets-FrontEnd) of the repository.
 -   Click the green code button.
 -   Click download zip.
+
     <img width="50%" src="https://docs.github.com/assets/cb-20363/images/help/repository/code-button.png">
 
 ### 3. Using a [Git GUI client](https://git-scm.com/downloads/guis)
@@ -70,6 +239,8 @@ You can install the project in three different ways.
    | peter@abv.bg | 123456 |
    | george@abv.bg | 123456 |
 7. Enjoy the app and share your experience
+
+-   You can also visit the app [here](https://safe-secrets-front-end.vercel.app/) but you need to have the server running locally.
 
 ## 📑 License
 
