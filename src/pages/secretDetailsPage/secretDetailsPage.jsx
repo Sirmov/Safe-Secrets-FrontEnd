@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Helmet } from 'react-helmet';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 import Footer from '@layout/footer/footer';
 import NavigationHeader from '@layout/navigation/navigationHeader';
@@ -11,7 +11,7 @@ import SecretDetailsCard from '@components/secretDetailsCard/secretDetailsCard';
 
 function SecretDetailsPage() {
     return (
-        <>
+        <HelmetProvider>
             <Helmet>
                 <title>Safe Secrets - Secret Details</title>
             </Helmet>
@@ -27,7 +27,7 @@ function SecretDetailsPage() {
             </div>
 
             <Footer />
-        </>
+        </HelmetProvider>
     );
 }
 

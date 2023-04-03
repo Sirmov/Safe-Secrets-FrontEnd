@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 
 import { IconPlus, IconSearch } from '@tabler/icons-react';
-import { Helmet } from 'react-helmet';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { Route, Routes, useSearchParams } from 'react-router-dom';
 
 import { SecretsProvider } from '@contexts/secretsContext';
@@ -40,7 +40,7 @@ function SecretsPage() {
     }
 
     return (
-        <>
+        <HelmetProvider>
             <Helmet>
                 <title>Safe Secrets - Secrets</title>
             </Helmet>
@@ -85,7 +85,7 @@ function SecretsPage() {
             </div>
 
             <Footer />
-        </>
+        </HelmetProvider>
     );
 }
 

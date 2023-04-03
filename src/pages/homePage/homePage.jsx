@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { IconFlask2, IconKey, IconShieldCheck } from '@tabler/icons-react';
-import { Helmet } from 'react-helmet';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 import Footer from '@layout/footer/footer';
 import NavigationHeader from '@layout/navigation/navigationHeader';
@@ -10,7 +10,7 @@ import Feature from '@components/feature/feature';
 
 function HomePage() {
     return (
-        <>
+        <HelmetProvider>
             <Helmet>
                 <title>Safe Secrets</title>
             </Helmet>
@@ -52,7 +52,7 @@ function HomePage() {
             </div>
 
             <Footer />
-        </>
+        </HelmetProvider>
     );
 }
 

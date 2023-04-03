@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { Helmet } from 'react-helmet';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 
 import LoginCard from '@components/loginCard/loginCard';
 
 function Login() {
     return (
-        <>
+        <HelmetProvider>
             <Helmet>
                 <title>Safe Secrets - Login</title>
             </Helmet>
@@ -29,7 +29,7 @@ function Login() {
                     </div>
                 </div>
             </div>
-        </>
+        </HelmetProvider>
     );
 }
 

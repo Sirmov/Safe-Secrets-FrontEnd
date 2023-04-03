@@ -1,14 +1,14 @@
 import React from 'react';
 
 import { IconArrowLeft, IconHome } from '@tabler/icons-react';
-import { Helmet } from 'react-helmet';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 
 function NotImplementedPage() {
     const navigate = useNavigate();
 
     return (
-        <>
+        <HelmetProvider>
             <Helmet>
                 <title>Safe Secrets - Not Implemented</title>
             </Helmet>
@@ -36,7 +36,7 @@ function NotImplementedPage() {
                     </div>
                 </div>
             </div>
-        </>
+        </HelmetProvider>
     );
 }
 
