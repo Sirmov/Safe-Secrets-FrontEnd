@@ -17,8 +17,8 @@ export function areValid(data) {
 }
 
 export function validateTitle(title) {
-    if (title.length < 3 || title.length > 24) {
-        return 'Post title should be between 3 and 24 characters long.';
+    if (title.length < 3 || title.length > 48) {
+        return 'Post title should be between 3 and 48 characters long.';
     }
 
     return '';
@@ -29,8 +29,8 @@ export function validateText(secret) {
         return 'Article text should not be less than 5 characters.';
     }
 
-    if (secret.length > 1000) {
-        return 'Article text should not be more than 1000 characters long.';
+    if (secret.length > 5000) {
+        return 'Article text should not be more than 5000 characters long.';
     }
 
     return '';
