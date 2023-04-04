@@ -1,6 +1,15 @@
 import React from 'react';
 
-import { IconHome, IconLock, IconLogin, IconMoon, IconStar, IconSun, IconWritingSign } from '@tabler/icons-react';
+import {
+    IconHome,
+    IconLock,
+    IconLogin,
+    IconMoon,
+    IconNews,
+    IconStar,
+    IconSun,
+    IconWritingSign,
+} from '@tabler/icons-react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
@@ -138,6 +147,18 @@ function NavigationHeader() {
                                         <IconHome className="icon" />
                                     </span>
                                     <span className="nav-link-title">Home</span>
+                                </NavLink>
+                            </li>
+                            <li className="nav-item">
+                                <NavLink
+                                    to="/posts"
+                                    className={({ isActive }) =>
+                                        isActive ? `nav-link ${styles['nav-link-active']}` : 'nav-link'
+                                    }>
+                                    <span className="nav-link-icon d-md-none d-lg-inline-block">
+                                        <IconNews className="icon" />
+                                    </span>
+                                    <span className="nav-link-title">Posts</span>
                                 </NavLink>
                             </li>
                             {isAuthenticated(auth) ? (
