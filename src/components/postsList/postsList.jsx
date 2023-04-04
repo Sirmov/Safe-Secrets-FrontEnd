@@ -4,13 +4,14 @@ import { toast } from 'react-toastify';
 
 import { usePostsContext } from '@contexts/postsContext';
 
+import { getAllLikes } from '@services/likesService';
 import { getAllPosts } from '@services/postsService';
 
 import Post from '@components/post/post';
 import PostSkeleton from '@components/post/postSkeleton/postSkeleton';
 
 function PostsList() {
-    const { posts, setPosts } = usePostsContext();
+    const { posts, setPosts, likes, setLikes } = usePostsContext();
 
     useEffect(() => {
         getAllPosts()
@@ -28,9 +29,25 @@ function PostsList() {
             });
     }, []);
 
+    useEffect(() => {
+        getAllLikes()
+            .then((res) => {
+                if (!res.isOk) {
+                    toast.error('Something went wrong.');
+                } else {
+                    const likes = Object.values(res.data);
+                    setLikes(likes);
+                }
+            })
+            .catch((error) => {
+                toast.error('Something went wrong.');
+                console.error(error);
+            });
+    }, []);
+
     return (
         <>
-            {posts === null ? (
+            {posts === null || likes === null ? (
                 <div className="row row-cards">
                     <div className="col col-lg-4 col-sm-6 col-12">
                         <PostSkeleton />
@@ -48,7 +65,7 @@ function PostsList() {
                 <div className="row row-cards gap-2">
                     {posts.map((post) => (
                         <div className="col col-lg-4 col-sm-6 col-12" key={post._id}>
-                            <Post {...post} />
+                            <Post {...post} likes={likes.filter((like) => like._postId === post._id)} />
                         </div>
                     ))}
                 </div>
