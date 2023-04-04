@@ -5,9 +5,11 @@ import { Link } from 'react-router-dom';
 
 import { formatDateShort } from '@utils/_';
 
+import styles from './post.module.scss';
+
 function Post({ _id, title, text, _createdOn }) {
     return (
-        <div className="card">
+        <div className={`card ${styles.card}`} style={{ height: 250 + 'px' }}>
             <div className="card-header">
                 <h3 className="card-title">{title}</h3>
             </div>
