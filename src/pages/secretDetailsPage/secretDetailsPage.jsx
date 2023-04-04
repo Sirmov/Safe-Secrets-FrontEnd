@@ -19,7 +19,7 @@ function SecretDetailsPage() {
             <NavigationHeader />
 
             <div className="page-wrapper">
-                <PageHeader title="Secret details" subtitle="Additional information about your secret"></PageHeader>
+                <PageHeader title="Secret details" subtitle="Additional information about your secret."></PageHeader>
 
                 <PageBody>
                     <SecretDetailsCard />
