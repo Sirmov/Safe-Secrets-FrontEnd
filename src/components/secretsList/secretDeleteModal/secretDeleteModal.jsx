@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { IconAlertTriangle } from '@tabler/icons-react';
+import { IconAlertTriangle, IconTrash } from '@tabler/icons-react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
@@ -58,11 +58,12 @@ function SecretDeleteModal() {
             footer={
                 <div className="w-100">
                     <button className="btn btn-danger w-100" data-bs-dismiss="modal" onClick={handleDelete}>
+                        <IconTrash className="icon" />
                         Delete secret
                     </button>
                 </div>
             }>
-            <IconAlertTriangle className="icon mb-2 text-danger icon-lg" color="currentColor" size={24} stroke={2} />
+            <IconAlertTriangle className="icon mb-2 text-danger icon-lg" />
 
             <h3>Are you sure?</h3>
             <div className="text-muted">
