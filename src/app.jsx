@@ -11,7 +11,7 @@ import LoginPage from '@pages/loginPage/loginPage';
 import NotFoundPage from '@pages/notFoundPage/notFoundPage';
 import NotImplementedPage from '@pages/notImplementedPage/notImplementedPage';
 import PostDetailsPage from '@pages/postDetailsPage/postDetailsPage';
-import PostsPage from '@pages/postsPages/postsPage';
+import PostsPage from '@pages/postsPage/postsPage';
 import SecretDetailsPage from '@pages/secretDetailsPage/secretDetailsPage';
 import SecretsPage from '@pages/secretsPage/secretsPage';
 import SignUpPage from '@pages/signUpPage/signUpPage';
