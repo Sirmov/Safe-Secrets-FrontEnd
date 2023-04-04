@@ -10,6 +10,8 @@ import HomePage from '@pages/homePage/homePage';
 import LoginPage from '@pages/loginPage/loginPage';
 import NotFoundPage from '@pages/notFoundPage/notFoundPage';
 import NotImplementedPage from '@pages/notImplementedPage/notImplementedPage';
+import PostDetailsPage from '@pages/postDetailsPage/postDetailsPage';
+import PostsPage from '@pages/postsPages/postsPage';
 import SecretDetailsPage from '@pages/secretDetailsPage/secretDetailsPage';
 import SecretsPage from '@pages/secretsPage/secretsPage';
 import SignUpPage from '@pages/signUpPage/signUpPage';
@@ -33,6 +35,8 @@ function App() {
                                     <Route path="/secrets/*" element={<SecretsPage />} />
                                     <Route path="/secrets/details/:secretId" element={<SecretDetailsPage />} />
                                 </Route>
+                                <Route path="/posts/*" element={<PostsPage />} />
+                                <Route path="/posts/details/:postId" element={<PostDetailsPage />} />
                                 <Route path="/login" element={<LoginPage />} />
                                 <Route path="/sign-up" element={<SignUpPage />} />
                                 <Route path="/not-implemented" element={<NotImplementedPage />} />
