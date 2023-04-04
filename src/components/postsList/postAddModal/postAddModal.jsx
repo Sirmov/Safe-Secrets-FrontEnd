@@ -68,7 +68,7 @@ function PostAddModal() {
                         Cancel
                     </button>
                     <button type="submit" onClick={handleSubmit} className="btn btn-primary ms-auto">
-                        <IconPlus className="icon" size={24} stroke={2} color="currentColor" />
+                        <IconPlus className="icon" />
                         Create new post
                     </button>
                 </>
@@ -101,7 +101,7 @@ function PostAddModal() {
                         onChange={handleChange}
                         onBlur={handleValidation}
                         value={values.text}
-                        rows={3}
+                        rows={8}
                         placeholder="The text of the article"
                     />
                     <div className="invalid-feedback">{errors.text}</div>

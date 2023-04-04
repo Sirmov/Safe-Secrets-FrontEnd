@@ -72,7 +72,7 @@ function SecretAddModal() {
                         Cancel
                     </button>
                     <button type="submit" onClick={handleSubmit} className="btn btn-primary ms-auto">
-                        <IconPlus className="icon" size={24} stroke={2} color="currentColor" />
+                        <IconPlus className="icon" />
                         Create new secret
                     </button>
                 </>

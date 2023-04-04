@@ -99,7 +99,7 @@ function SecretUpdateModal() {
                         Cancel
                     </button>
                     <button type="submit" onClick={handleSubmit} className="btn btn-warning bg-yellow ms-auto">
-                        <IconEdit className="icon" size={24} stroke={2} color="currentColor" />
+                        <IconEdit className="icon" />
                         Update secret
                     </button>
                 </>

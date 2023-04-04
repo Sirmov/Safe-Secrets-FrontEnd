@@ -42,12 +42,7 @@ function Footer() {
                                     className="link-secondary"
                                     target="_blank"
                                     rel="noreferrer">
-                                    <IconHeart
-                                        className="icon icon-filled text-pink"
-                                        color="currentColor"
-                                        stroke={2}
-                                        size={24}
-                                    />
+                                    <IconHeart className="icon icon-filled text-pink" />
                                     Sponsor
                                 </a>
                             </li>
