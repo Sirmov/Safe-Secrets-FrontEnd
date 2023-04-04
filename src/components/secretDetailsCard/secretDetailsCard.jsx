@@ -7,7 +7,7 @@ import { useAuthContext } from '@contexts/authContext';
 
 import { getSecret } from '@services/secretsService';
 
-import { formatDate } from '@utils/_';
+import { formatDateLong } from '@utils/_';
 
 import SecretDetailsCardSkeleton from './secretDetailsCardSkeleton/secretDetailsCardSkeleton';
 
@@ -19,7 +19,11 @@ function SecretDetailsCard() {
     useEffect(() => {
         getSecret(secretId)
             .then((res) => {
-                setSecret({ ...res.data, isEncrypted: true });
+                if (!res.isOk) {
+                    toast.error('Something went wrong.');
+                } else {
+                    setSecret({ ...res.data, isEncrypted: true });
+                }
             })
             .catch((error) => {
                 toast.error('Something went wrong.');
@@ -69,7 +73,7 @@ function SecretDetailsCard() {
                                             className="form-control"
                                             disabled
                                             type="text"
-                                            value={formatDate(secret._createdOn)}
+                                            value={formatDateLong(secret._createdOn)}
                                         />
                                     </div>
                                     <div className="mb-3">
@@ -80,7 +84,7 @@ function SecretDetailsCard() {
                                             type="text"
                                             value={
                                                 secret._updatedOn
-                                                    ? formatDate(secret._updatedOn)
+                                                    ? formatDateLong(secret._updatedOn)
                                                     : 'The secret has not been updated'
                                             }
                                         />

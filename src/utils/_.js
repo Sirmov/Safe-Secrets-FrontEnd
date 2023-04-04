@@ -16,9 +16,14 @@ export function isAuthenticated(auth) {
     return !!auth.accessToken;
 }
 
-export function formatDate(unixTimestamp) {
+export function formatDateLong(unixTimestamp) {
     const date = new Date(unixTimestamp);
     return date.toLocaleString();
+}
+
+export function formatDateShort(unixTimestamp) {
+    const date = new Date(unixTimestamp);
+    return date.toLocaleDateString();
 }
 
 export function debounce(func, timeout = 300) {
