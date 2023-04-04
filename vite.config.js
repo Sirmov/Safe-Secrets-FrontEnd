@@ -3,11 +3,14 @@ import react from '@vitejs/plugin-react-swc';
 import path from 'path';
 import { defineConfig } from 'vite';
 
-export default defineConfig({
+export default defineConfig((config) => ({
     root: path.resolve(__dirname, './src'),
     build: {
         outDir: path.resolve(__dirname, './dist'),
         assetsDir: './assets',
+    },
+    esbuild: {
+        drop: config.mode !== 'development' ? ['console', 'debugger'] : [],
     },
     publicDir: path.resolve(__dirname, './src/assets'),
     envDir: __dirname,
@@ -26,4 +29,4 @@ export default defineConfig({
             { find: '@utils', replacement: path.resolve(__dirname, './src/utils') },
         ],
     },
-});
+}));
