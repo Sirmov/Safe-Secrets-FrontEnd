@@ -36,7 +36,7 @@ function App() {
                                     <Route path="/secrets/details/:secretId" element={<SecretDetailsPage />} />
                                 </Route>
                                 <Route path="/posts/*" element={<PostsPage />} />
-                                <Route path="/posts/details/:postId" element={<PostDetailsPage />} />
+                                <Route path="/posts/details/:postId/*" element={<PostDetailsPage />} />
                                 <Route path="/login" element={<LoginPage />} />
                                 <Route path="/sign-up" element={<SignUpPage />} />
                                 <Route path="/not-implemented" element={<NotImplementedPage />} />
