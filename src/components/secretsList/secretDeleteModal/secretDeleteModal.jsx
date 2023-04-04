@@ -21,7 +21,11 @@ function SecretDeleteModal() {
     useEffect(() => {
         getSecret(secretId)
             .then((res) => {
-                setSecret(res.data);
+                if (!res.isOk) {
+                    toast.error('Something went wrong.');
+                } else {
+                    setSecret(res.data);
+                }
             })
             .catch((error) => {
                 toast.error('Something went wrong.');

@@ -21,12 +21,17 @@ function SecretsList() {
     useEffect(() => {
         getUserSecrets(auth._id, searchParams.get('search'), stringToBoolean(searchParams.get('favorites')))
             .then((res) => {
-                const secrets = Object.values(res.data);
-                secrets.forEach((s) => (s.isEncrypted = true));
-                setSecrets(secrets);
+                if (!res.isOk) {
+                    toast.error('Something went wrong.');
+                } else {
+                    const secrets = Object.values(res.data);
+                    secrets.forEach((s) => (s.isEncrypted = true));
+                    setSecrets(secrets);
+                }
             })
-            .catch(() => {
+            .catch((error) => {
                 toast.error('Something went wrong.');
+                console.error(error);
             });
     }, [auth, searchParams]);
 

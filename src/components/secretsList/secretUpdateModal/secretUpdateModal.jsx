@@ -33,9 +33,13 @@ function SecretUpdateModal() {
     useEffect(() => {
         getSecret(secretId)
             .then((res) => {
-                setSecret(res.data);
-                initialValues.title = res.data.title;
-                setValues(initialValues);
+                if (!res.isOk) {
+                    toast.error('Something went wrong.');
+                } else {
+                    setSecret(res.data);
+                    initialValues.title = res.data.title;
+                    setValues(initialValues);
+                }
             })
             .catch((error) => {
                 toast.error('Something went wrong.');
