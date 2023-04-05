@@ -21,10 +21,53 @@ export async function getPostLikes(postId) {
 }
 
 export async function likePost(userId, postId) {
+    let response = await getUserLike(userId, postId);
+
+    if (!response.isOk) {
+        return response;
+    }
+
+    const userLike = Object.values(response.data);
+
+    if (userLike.length !== 0) {
+        return {
+            ...response,
+            status: 400,
+            statusText: 'Bad Request',
+            data: {
+                message: "You can't like a post twice.",
+            },
+        };
+    }
+
     const like = { _ownerId: userId, _postId: postId };
     return await httpClient.post(endpoints.likes, like);
 }
 
-export async function unLikePost(likeId) {
-    return await httpClient.delete(endpoints.like(likeId));
+export async function unLikePost(userId, postId) {
+    let response = await getUserLike(userId, postId);
+
+    if (!response.isOk) {
+        return response;
+    }
+    const userLike = Object.values(response.data);
+
+    if (userLike.length === 0) {
+        return {
+            ...response,
+            status: 400,
+            statusText: 'Bad Request',
+            data: {
+                message: "You can't unlike a post which you have not liked.",
+            },
+        };
+    }
+
+    response = await httpClient.delete(endpoints.like(userLike[0]._id));
+
+    if (response.isOk) {
+        return { ...response, data: { ...response.data, ...userLike[0] } };
+    }
+
+    return response;
 }

@@ -62,22 +62,13 @@ function PostDetailsCard() {
             return;
         }
 
-        let response = await getUserLike(auth._id, postId);
-        if (!response.isOk) {
-            toast.error('Something went wrong.');
-            return;
-        }
-        const userLike = Object.values(response.data);
-
-        if (userLike?.length !== 0) {
-            toast.warning("You can't like a post twice.");
-            return;
-        }
-
-        response = await likePost(auth._id, postId);
+        const response = await likePost(auth._id, postId);
         let isSuccessful = true;
 
-        if (!response.isOk) {
+        if (response.data?.message === "You can't like a post twice.") {
+            toast.warning(response.data.message);
+            isSuccessful = false;
+        } else if (!response.isOk) {
             toast.error('Something went wrong.');
             isSuccessful = false;
         }
@@ -93,28 +84,19 @@ function PostDetailsCard() {
             return;
         }
 
-        let response = await getUserLike(auth._id, postId);
-        if (!response.isOk) {
-            toast.error('Something went wrong.');
-            return;
-        }
-        const userLike = Object.values(response.data);
-
-        if (userLike?.length === 0) {
-            toast.warning("You can't unlike a post which you have not liked.");
-            return;
-        }
-
-        response = await unLikePost(userLike[0]._id);
+        const response = await unLikePost(auth._id, postId);
         let isSuccessful = true;
 
-        if (!response.isOk) {
+        if (response.data?.message === "You can't unlike a post which you have not liked.") {
+            toast.warning(response.data.message);
+            isSuccessful = false;
+        } else if (!response.isOk) {
             toast.error('Something went wrong.');
             isSuccessful = false;
         }
 
         if (isSuccessful) {
-            setLikes((likes) => likes.filter((l) => l._id !== userLike[0]._id));
+            setLikes((likes) => likes.filter((l) => l._id !== response.data._id));
         }
     }
 
