@@ -22,7 +22,7 @@ function PostDetailsCard() {
     const { postId } = useParams();
     const { post, setPost, likes, setLikes } = usePostContext();
 
-    const [isLoading, watch] = useLoading();
+    const { isLoading, watch } = useLoading();
     const { auth } = useAuthContext();
 
     useEffect(() => {
