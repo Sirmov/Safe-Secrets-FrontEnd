@@ -7,6 +7,9 @@
         "dev": "vite serve",
         "build": "vite build --emptyOutDir",
         "preview": "vite preview",
+        "test": "vitest run",
+        "test-ui": "vitest --ui",
+        "coverage": "vitest run --coverage",
         "prettier-check": "prettier --check ./src --config .prettierrc.json",
         "prettier-debug": "prettier --debug-check ./src --config .prettierrc.json",
         "prettier-format": "prettier --write ./src --config .prettierrc.json",
@@ -25,17 +28,22 @@
         "react-toastify": "^9.1.1"
     },
     "devDependencies": {
+        "@testing-library/jest-dom": "^5.16.5",
+        "@testing-library/react": "^14.0.0",
         "@trivago/prettier-plugin-sort-imports": "^4.1.1",
         "@types/react": "^18.0.27",
         "@types/react-dom": "^18.0.10",
         "@vitejs/plugin-react-swc": "^3.0.0",
+        "@vitest/coverage-c8": "^0.29.8",
         "eslint": "^8.34.0",
         "eslint-config-prettier": "^8.6.0",
         "eslint-import-resolver-alias": "^1.1.2",
         "eslint-plugin-import": "https://github.com/Sirmov/eslint-plugin-import/tarball/package",
         "eslint-plugin-react": "^7.32.2",
+        "jsdom": "^21.1.1",
         "prettier": "2.8.4",
         "sass": "^1.58.3",
-        "vite": "^4.1.0"
+        "vite": "^4.1.0",
+        "vitest": "^0.29.8"
     }
 }
