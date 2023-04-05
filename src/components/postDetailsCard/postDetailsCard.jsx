@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import { IconThumbUp } from '@tabler/icons-react';
 import { Link, useParams } from 'react-router-dom';
@@ -12,6 +12,8 @@ import { getPost } from '@services/postsService';
 
 import ArticleText from '@components/articleText/articleText';
 
+import useLoading from '@hooks/useLoading';
+
 import { debounce, formatDateShort, isAuthenticated } from '@utils/_';
 
 import PostDetailsCardSkeleton from './postDetailsCardSkeleton/postDetailsCardSkeleton';
@@ -20,7 +22,7 @@ function PostDetailsCard() {
     const { postId } = useParams();
     const { post, setPost, likes, setLikes } = usePostContext();
 
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, watch] = useLoading();
     const { auth } = useAuthContext();
 
     useEffect(() => {
@@ -55,25 +57,20 @@ function PostDetailsCard() {
     }, []);
 
     async function handleLike() {
-        setIsLoading(true);
-
         if (!isAuthenticated(auth)) {
             toast.warning('You have to be logged in to like a post.');
-            setIsLoading(false);
             return;
         }
 
         let response = await getUserLike(auth._id, postId);
         if (!response.isOk) {
             toast.error('Something went wrong.');
-            setIsLoading(false);
             return;
         }
         const userLike = Object.values(response.data);
 
         if (userLike?.length !== 0) {
             toast.warning("You can't like a post twice.");
-            setIsLoading(false);
             return;
         }
 
@@ -88,30 +85,23 @@ function PostDetailsCard() {
         if (isSuccessful) {
             setLikes((likes) => [...likes, response.data]);
         }
-
-        setIsLoading(false);
     }
 
     async function handleUnLike() {
-        setIsLoading(true);
-
         if (!isAuthenticated(auth)) {
             toast.warning('You have to be logged in to like a post.');
-            setIsLoading(false);
             return;
         }
 
         let response = await getUserLike(auth._id, postId);
         if (!response.isOk) {
             toast.error('Something went wrong.');
-            setIsLoading(false);
             return;
         }
         const userLike = Object.values(response.data);
 
         if (userLike?.length === 0) {
             toast.warning("You can't unlike a post which you have not liked.");
-            setIsLoading(false);
             return;
         }
 
@@ -126,8 +116,6 @@ function PostDetailsCard() {
         if (isSuccessful) {
             setLikes((likes) => likes.filter((l) => l._id !== userLike[0]._id));
         }
-
-        setIsLoading(false);
     }
 
     return (
@@ -161,14 +149,14 @@ function PostDetailsCard() {
                                     <div className="spinner-border" role="status"></div>
                                 ) : likes.some((like) => like._ownerId === auth?._id) ? (
                                     <IconThumbUp
-                                        onClick={debounce(handleUnLike, 500)}
+                                        onClick={debounce(watch(handleUnLike), 500)}
                                         className="icon-filled text-cyan"
                                         size={32}
                                         stroke={1.25}
                                         color="black"
                                     />
                                 ) : (
-                                    <IconThumbUp onClick={debounce(handleLike, 500)} size={32} stroke={1.25} />
+                                    <IconThumbUp onClick={debounce(watch(handleLike), 500)} size={32} stroke={1.25} />
                                 )}
                                 <span className="fs-3">{likes.length}</span>
                             </div>
