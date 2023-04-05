@@ -59,17 +59,25 @@ function PostDetailsCard() {
 
         if (!isAuthenticated(auth)) {
             toast.warning('You have to be logged in to like a post.');
+            setIsLoading(false);
             return;
         }
 
-        const userLike = (await getUserLike(auth._id, postId)).data;
+        let response = await getUserLike(auth._id, postId);
+        if (!response.isOk) {
+            toast.error('Something went wrong.');
+            setIsLoading(false);
+            return;
+        }
+        const userLike = Object.values(response.data);
 
         if (userLike?.length !== 0) {
             toast.warning("You can't like a post twice.");
+            setIsLoading(false);
             return;
         }
 
-        const response = await likePost(auth._id, postId);
+        response = await likePost(auth._id, postId);
         let isSuccessful = true;
 
         if (!response.isOk) {
@@ -89,17 +97,25 @@ function PostDetailsCard() {
 
         if (!isAuthenticated(auth)) {
             toast.warning('You have to be logged in to like a post.');
+            setIsLoading(false);
             return;
         }
 
-        const userLike = Object.values((await getUserLike(auth._id, postId)).data);
+        let response = await getUserLike(auth._id, postId);
+        if (!response.isOk) {
+            toast.error('Something went wrong.');
+            setIsLoading(false);
+            return;
+        }
+        const userLike = Object.values(response.data);
 
         if (userLike?.length === 0) {
             toast.warning("You can't unlike a post which you have not liked.");
+            setIsLoading(false);
             return;
         }
 
-        const response = await unLikePost(userLike[0]._id);
+        response = await unLikePost(userLike[0]._id);
         let isSuccessful = true;
 
         if (!response.isOk) {
