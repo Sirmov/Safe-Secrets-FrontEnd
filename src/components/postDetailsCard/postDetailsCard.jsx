@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import { useAuthContext } from '@contexts/authContext';
 import { usePostContext } from '@contexts/postContext';
 
-import { getPostLikes, getUserLike, likePost, unLikePost } from '@services/likesService';
+import { getPostLikes, likePost, unLikePost } from '@services/likesService';
 import { getPost } from '@services/postsService';
 
 import ArticleText from '@components/articleText/articleText';

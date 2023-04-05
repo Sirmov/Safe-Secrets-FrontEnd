@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 
 import { useAuthContext } from '@contexts/authContext';
 
-import * as usersService from '@services/usersService';
+import { register } from '@services/usersService';
 
 import useForm from '@hooks/useForm';
 import useValidation from '@hooks/useValidation';
@@ -30,7 +30,7 @@ function SignUpCard() {
         }
 
         const { terms, ...user } = data;
-        const response = await usersService.register(user);
+        const response = await register(user);
         let isSuccessful = true;
 
         if (response.status === 400) {

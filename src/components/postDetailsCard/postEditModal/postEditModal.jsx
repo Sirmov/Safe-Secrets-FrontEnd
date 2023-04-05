@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import { useAuthContext } from '@contexts/authContext';
 import { usePostContext } from '@contexts/postContext';
 
-import { getPost, updatePost } from '@services/postsService';
+import { updatePost } from '@services/postsService';
 
 import Modal from '@components/modal/modal';
 

@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 
 import { useAuthContext } from '@contexts/authContext';
 
-import * as usersService from '@services/usersService';
+import { loginEmail } from '@services/usersService';
 
 import useForm from '@hooks/useForm';
 import useValidation from '@hooks/useValidation';
@@ -29,7 +29,7 @@ function LoginCard() {
             return;
         }
 
-        const response = await usersService.loginEmail(data.email, data.password);
+        const response = await loginEmail(data.email, data.password);
         let isSuccessful = true;
 
         if (response.status === 403) {
