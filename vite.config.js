@@ -25,6 +25,7 @@ export default defineConfig((config) => ({
         globals: true,
         environment: 'jsdom',
         coverage: {
+            all: true,
             provider: 'c8',
             reporter: ['text', 'html'],
             reportsDirectory: path.resolve(__dirname, './src/tests/reports/coverage/'),
