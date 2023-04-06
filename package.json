@@ -10,6 +10,8 @@
         "test": "vitest run",
         "test-ui": "vitest --ui",
         "coverage": "vitest run --coverage",
+        "test-report": "vite preview --outDir tests/reports/tests",
+        "coverage-report": "vite preview --outDir tests/reports/coverage",
         "prettier-check": "prettier --check ./src --config .prettierrc.json",
         "prettier-debug": "prettier --debug-check ./src --config .prettierrc.json",
         "prettier-format": "prettier --write ./src --config .prettierrc.json",
