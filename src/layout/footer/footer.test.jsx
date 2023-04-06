@@ -7,20 +7,26 @@ import Footer from './footer';
 
 describe('Footer layout component tests.', () => {
     test('Footer component should render a footer element.', () => {
+        // Arrange
         const result = render(<Footer />);
 
+        // Assert
         expect(result.container.querySelector('footer'), 'No footer element visible.').toBeVisible();
     });
 
     test('Footer component should render copyright text.', () => {
+        // Arrange
         render(<Footer />);
 
-        expect(screen.queryByText('Copyright', { exact: false }), 'Missing copyright text.').toBeVisible();
+        // Assert
+        expect(screen.getByText('Copyright', { exact: false }), 'Missing copyright text.').toBeVisible();
     });
 
     test('Footer component should render 4 links.', () => {
-        const result = render(<Footer />);
+        // Arrange
+        render(<Footer />);
 
-        expect(result.container.querySelectorAll('a'), 'Incorrect number of links.').has.length(4);
+        // Assert
+        expect(screen.getAllByRole('link'), 'Incorrect number of links.').to.have.length(4);
     });
 });
