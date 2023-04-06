@@ -54,13 +54,7 @@ function NavigationHeader() {
                 {/* Logo */}
                 <h1 className="navbar-brand d-none-navbar-horizontal pe-0 pe-md-3">
                     <Link to="/">
-                        <img
-                            src="/images/logo.png"
-                            width={110}
-                            height={32}
-                            alt="Safe Secrets"
-                            className="navbar-brand-image"
-                        />
+                        <img src="/images/logo.png" width={110} height={32} alt="Logo" className="navbar-brand-image" />
                     </Link>
                 </h1>
                 {/* Right section */}
