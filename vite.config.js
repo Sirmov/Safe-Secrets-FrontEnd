@@ -27,7 +27,7 @@ export default defineConfig((config) => ({
         coverage: {
             all: true,
             provider: 'c8',
-            reporter: ['text', 'html'],
+            reporter: ['text', 'html', 'lcovonly'],
             reportsDirectory: path.resolve(__dirname, './src/tests/reports/coverage/'),
             exclude: [
                 'coverage/**',
