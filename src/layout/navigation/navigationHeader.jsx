@@ -67,10 +67,14 @@ function NavigationHeader() {
                 <div className="navbar-nav flex-row order-md-last">
                     <div className="d-none d-md-flex">
                         {/* Theme change */}
-                        {String(theme).toLowerCase() === 'light' ? (
+                        {String(theme.mode).toLowerCase() === 'light' ? (
                             <Link
                                 to="?theme=dark"
-                                onClick={() => setTheme('dark')}
+                                onClick={() =>
+                                    setTheme((theme) => {
+                                        return { ...theme, mode: 'dark' };
+                                    })
+                                }
                                 className="nav-link px-0"
                                 data-bs-toggle="tooltip"
                                 data-bs-placement="bottom"
@@ -81,7 +85,11 @@ function NavigationHeader() {
                         ) : (
                             <Link
                                 to="?theme=light"
-                                onClick={() => setTheme('light')}
+                                onClick={() =>
+                                    setTheme((theme) => {
+                                        return { ...theme, mode: 'light' };
+                                    })
+                                }
                                 className="nav-link px-0"
                                 data-bs-toggle="tooltip"
                                 data-bs-placement="bottom"

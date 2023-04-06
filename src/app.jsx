@@ -21,12 +21,12 @@ import RouteGuard from '@components/routeGuard/routeGuard';
 import useLocalStorage from '@hooks/useLocalStorage';
 
 function App() {
-    const [theme, setTheme] = useLocalStorage('theme', 'light');
+    const [theme, setTheme] = useLocalStorage('theme', { mode: 'light' });
 
     return (
         <React.StrictMode>
             <ThemeContext.Provider value={{ theme, setTheme }}>
-                <div className={`page theme-${theme}`}>
+                <div className={`page theme-${theme.mode}`}>
                     <BrowserRouter>
                         <AuthProvider>
                             <Routes>
@@ -55,7 +55,7 @@ function App() {
                     pauseOnFocusLoss={false}
                     draggable={false}
                     pauseOnHover={true}
-                    theme={theme}
+                    theme={theme.mode}
                 />
             </ThemeContext.Provider>
         </React.StrictMode>
