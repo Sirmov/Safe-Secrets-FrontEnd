@@ -1,8 +1,8 @@
 import React from 'react';
 
 import usersServiceMock from '@/tests/mocks/usersServiceMock';
-import { fireEvent, render, screen } from '@testing-library/react';
-import { act } from 'react-dom/test-utils';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { BrowserRouter } from 'react-router-dom';
 import { afterAll, beforeAll, describe, expect, test, vi } from 'vitest';
 
@@ -10,6 +10,8 @@ import { AuthContext } from '@contexts/authContext';
 import ThemeContext from '@contexts/themeContext';
 
 import NavigationHeader from './navigationHeader';
+
+let user = userEvent.setup();
 
 beforeAll(() => {
     vi.mock('@services/usersService.js', () => usersServiceMock);
@@ -46,11 +48,11 @@ describe('Navigation header layout component tests.', () => {
     test('Navigation header should return to home page on logout.', async () => {
         // Arrange
         render(<NavigationHeaderMock user={true} />);
-        window.pathname = '/incorrect/pathname';
+        window.location.pathname = '/incorrect/pathname';
 
         // Act
         const logoutButton = screen.getByRole('button', { name: 'Logout' });
-        await act(async () => fireEvent.click(logoutButton));
+        await user.click(logoutButton);
 
         // Assert
         expect(window.location.pathname, 'Url pathname is not correct.').toBe('/');
@@ -64,7 +66,7 @@ describe('Navigation header layout component tests.', () => {
 
         // Act
         const logoutButton = screen.getByRole('button', { name: 'Logout' });
-        await act(async () => fireEvent.click(logoutButton));
+        await user.click(logoutButton);
 
         // Assert
         expect(spy, 'Set auth function has not been called with {}.').toHaveBeenCalledWith({});
@@ -75,11 +77,12 @@ describe('Navigation header layout component tests.', () => {
         async ({ link }) => {
             // Arrange
             render(<NavigationHeaderMock user={true} />);
-            window.pathname = '/this/pathname/does/not/exist';
+            window.location.pathname = '/this/pathname/does/not/exist';
 
             // Act
             const linkElement = screen.getByRole('link', { name: new RegExp(link, 'i') });
-            await act(async () => fireEvent.click(linkElement));
+
+            await user.click(linkElement);
 
             // Assert
             expect(linkElement.className, 'Link element does not contain active class.').to.contain('nav-link-active');
