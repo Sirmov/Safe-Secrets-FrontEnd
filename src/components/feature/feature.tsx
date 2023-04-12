@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
 import styles from './feature.module.scss';
 
-function Feature({ icon, description }) {
+function Feature({ icon, description }: { icon: ReactNode; description: string }) {
     return (
         <div className={`${styles.feature} col col-3 my-2 my-md-0 bg-light border border-wide rounded-circle`}>
             {icon}
