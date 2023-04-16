@@ -1,4 +1,8 @@
-export function stringToBoolean(string: string) {
+export function stringToBoolean(string?: string) {
+    if (!string) {
+        return false;
+    }
+
     if (string.toLowerCase() === 'false') {
         return false;
     } else if (string.toLowerCase() === 'true') {
