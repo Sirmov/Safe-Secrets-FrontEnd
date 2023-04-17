@@ -15,9 +15,6 @@
         "resolveJsonModule": true,
         "isolatedModules": true,
         "noEmit": true,
-<<<<<<< Updated upstream
-        "jsx": "react"
-=======
         "jsx": "react-jsx",
         "baseUrl": ".",
         "paths": {
@@ -40,7 +37,6 @@
             "@utils": ["src/utils"],
             "@utils/*": ["src/utils/*"]
         }
->>>>>>> Stashed changes
     },
     "include": ["src"],
     "references": [{ "path": "./tsconfig.node.json" }]
