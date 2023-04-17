@@ -15,7 +15,32 @@
         "resolveJsonModule": true,
         "isolatedModules": true,
         "noEmit": true,
+<<<<<<< Updated upstream
         "jsx": "react"
+=======
+        "jsx": "react-jsx",
+        "baseUrl": ".",
+        "paths": {
+            "@assets": ["src/assets"],
+            "@assets/*": ["src/assets/*"],
+            "@contexts": ["src/contexts"],
+            "@contexts/*": ["src/contexts/*"],
+            "@layout": ["src/layout"],
+            "@layout/*": ["src/layout/*"],
+            "@services": ["src/services"],
+            "@services/*": ["src/services/*"],
+            "@pages": ["src/pages"],
+            "@pages/*": ["src/pages/*"],
+            "@components": ["src/components"],
+            "@components/*": ["src/components/*"],
+            "@hooks": ["src/hooks"],
+            "@hooks/*": ["src/hooks/*"],
+            "@validators": ["src/validators"],
+            "@validators/*": ["src/validators/*"],
+            "@utils": ["src/utils"],
+            "@utils/*": ["src/utils/*"]
+        }
+>>>>>>> Stashed changes
     },
     "include": ["src"],
     "references": [{ "path": "./tsconfig.node.json" }]
