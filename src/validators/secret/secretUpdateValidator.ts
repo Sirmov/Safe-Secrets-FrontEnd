@@ -1,21 +1,36 @@
-import { validateTitle } from './secretValidator';
+import {
+    AreValidValidationFunction,
+    ErrorsDictionary,
+    IsValidValidationFunction,
+    ValidationFunction,
+    Validator,
+} from '@validators/types';
 
-export function isValid(dataKey, dataValue) {
-    let validationFunction = () => '';
+import { Secret, validateTitle } from './secretValidator';
 
-    if (dataKey === 'title') {
-        validationFunction = validateTitle;
-    } else if (dataKey === 'key') {
-        validationFunction = validateKey;
-    } else if (dataKey === 'secret') {
-        validationFunction = validateSecret;
+export const isValid: IsValidValidationFunction = function (dataKey, dataValue) {
+    if (typeof dataValue === 'string') {
+        let validationFunction: ValidationFunction<string> = () => '';
+
+        if (dataKey === 'title') {
+            validationFunction = validateTitle;
+        } else if (dataKey === 'key') {
+            validationFunction = validateKey;
+        } else if (dataKey === 'secret') {
+            validationFunction = validateSecret;
+        }
+
+        return validationFunction(dataValue);
+    } else {
+        return '';
     }
+};
 
-    return validationFunction(dataValue);
-}
-
-export function areValid(data) {
-    const errors = Object.entries(data).reduce((acc, [k, v]) => Object.assign(acc, { [k]: isValid(k, v) }), {});
+export const areValid: AreValidValidationFunction<Secret> = function (data) {
+    const errors: ErrorsDictionary = Object.entries(data).reduce(
+        (acc, [k, v]) => Object.assign(acc, { [k]: isValid(k, v) }),
+        {}
+    );
 
     // if the secret is empty we want to validate the title only
     if (data.secret.length === 0) {
@@ -42,9 +57,9 @@ export function areValid(data) {
     }
 
     return errors;
-}
+};
 
-export function validateKey(key) {
+export function validateKey(key: string) {
     if (key.length === 0) {
         return '';
     }
@@ -56,7 +71,7 @@ export function validateKey(key) {
     return '';
 }
 
-export function validateSecret(secret) {
+export function validateSecret(secret: string) {
     if (secret.length === 0) {
         return '';
     }
@@ -72,4 +87,4 @@ export function validateSecret(secret) {
     return '';
 }
 
-export const secretUpdateValidator = { isValid, areValid };
+export const secretUpdateValidator = { isValid, areValid } as Validator<Secret>;
