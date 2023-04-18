@@ -16,7 +16,7 @@ export function isStatusOk(status: number) {
     return status < 300;
 }
 
-export function isAuthenticated(auth: {accessToken?: 'string'}) {
+export function isAuthenticated(auth: { accessToken?: 'string' }) {
     return !!auth.accessToken;
 }
 
@@ -30,16 +30,16 @@ export function formatDateShort(unixTimestamp: number) {
     return date.toLocaleDateString();
 }
 
-export const debounce = (func: Function, timeout = 300) => {
+export function debounce(func: (...args: any) => any, timeout = 300) {
     let timer: number;
-    return (...args: any[]) => {
+    return (...args: any) => {
         clearTimeout(timer);
         timer = setTimeout(() => {
-            func.apply(this, args);
+            func.apply({}, args);
         }, timeout);
     };
 }
 
-export function isString(variable : any) {
+export function isString(variable: any) {
     return typeof variable === 'string' || variable instanceof String;
 }
