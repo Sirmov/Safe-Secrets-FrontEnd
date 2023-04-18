@@ -1,14 +1,14 @@
 import { useState } from 'react';
 
-function useLoading(initialState) {
+function useLoading(initialState?: boolean) {
     const [isLoading, setIsLoading] = useState(initialState || false);
 
-    function watch(func) {
-        return async (...args) => {
+    function watch(func: (...args: any) => any) {
+        return async function (...args: any) {
             setIsLoading(true);
 
             try {
-                await func.apply(this, args);
+                await func.apply({}, args);
                 setIsLoading(false);
             } catch (error) {
                 setIsLoading(false);
