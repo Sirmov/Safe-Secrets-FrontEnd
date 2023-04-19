@@ -21,13 +21,13 @@ import SecretsList from '@components/secretsList/secretsList';
 import { debounce } from '@utils/_';
 
 function SecretsPage() {
-    const inputRef = useRef({ current: { value: '' } });
+    const inputRef = useRef<HTMLInputElement>(null);
     const [, setSearchParams] = useSearchParams();
 
     function handleSearch() {
         setSearchParams((params) => {
             const searchParams = new URLSearchParams(params);
-            const searchQuery = inputRef.current.value;
+            const searchQuery = inputRef.current?.value || '';
 
             if (searchQuery === '') {
                 searchParams.delete('search');
