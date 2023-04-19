@@ -16,8 +16,8 @@ export function isStatusOk(status: number) {
     return status < 300;
 }
 
-export function isAuthenticated(auth: { accessToken?: 'string' }) {
-    return !!auth.accessToken;
+export function isAuthenticated(auth?: { accessToken: 'string' }) {
+    return !!auth?.accessToken;
 }
 
 export function formatDateLong(unixTimestamp: number) {
