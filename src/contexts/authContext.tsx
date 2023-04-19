@@ -7,7 +7,8 @@ interface AuthContextType {
     setAuth?: React.Dispatch<React.SetStateAction<Nullable<Auth>>>;
 }
 
-interface Auth {
+export interface Auth {
+    _id: string;
     username: string;
     email: string;
     accessToken: string;
