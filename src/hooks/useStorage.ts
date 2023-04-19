@@ -5,10 +5,13 @@ export enum StorageType {
     SessionStorage,
 }
 
-function useStorage<T>(storage: StorageType, key: string, defaultValue: T) {
+function useStorage<T>(
+    storage: StorageType,
+    key: string,
+    defaultValue: T
+): [T, React.Dispatch<React.SetStateAction<T>>] {
     if (typeof window === 'undefined') {
-        console.error('Window is not defined. Are you running this code on the client.');
-        return defaultValue;
+        throw new Error('Window is not defined. Are you running this code on the client.');
     }
 
     let usedStorage: Storage;
