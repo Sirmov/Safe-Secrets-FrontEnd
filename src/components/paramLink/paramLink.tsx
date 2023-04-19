@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 
 import { Link, useLocation } from 'react-router-dom';
 
-function ParamLink({ children, to, ...props }: { children: ReactNode; to: string }) {
+function ParamLink({ children, to, ...props }: { children: ReactNode; to: string; className?: string }) {
     const { search } = useLocation();
 
     return (
