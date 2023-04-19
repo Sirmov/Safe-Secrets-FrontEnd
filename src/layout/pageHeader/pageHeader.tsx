@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
-function PageHeader({ title, subtitle, children }) {
+function PageHeader({ title, subtitle, children }: { title: string; subtitle: string; children?: ReactNode }) {
     return (
         <div className="page-header mt-2">
             <div className="container-xl">

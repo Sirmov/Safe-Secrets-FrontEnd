@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
-function PageBody({ children }) {
+function PageBody({ children }: { children: ReactNode }) {
     return (
         <div className="page-body">
             <div className="container-xl">{children}</div>

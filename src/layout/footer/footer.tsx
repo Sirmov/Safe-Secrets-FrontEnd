@@ -14,7 +14,7 @@ function Footer() {
                                     href="https://github.com/Sirmov/Safe-Secrets-FrontEnd/blob/main/README.md"
                                     className="link-secondary"
                                     target="_blank"
-                                    rel="noreferrer">
+                                    rel="noopener noreferrer">
                                     Documentation
                                 </a>
                             </li>
@@ -23,7 +23,7 @@ function Footer() {
                                     href="https://github.com/Sirmov/Safe-Secrets-FrontEnd/blob/main/LICENSE"
                                     className="link-secondary"
                                     target="_blank"
-                                    rel="noreferrer">
+                                    rel="noopener noreferrer">
                                     License
                                 </a>
                             </li>
@@ -32,7 +32,7 @@ function Footer() {
                                     href="https://github.com/Sirmov/Safe-Secrets-FrontEnd"
                                     className="link-secondary"
                                     target="_blank"
-                                    rel="noreferrer">
+                                    rel="noopener noreferrer">
                                     Source code
                                 </a>
                             </li>
@@ -41,7 +41,7 @@ function Footer() {
                                     href="https://www.buymeacoffee.com/sirmov"
                                     className="link-secondary"
                                     target="_blank"
-                                    rel="noreferrer">
+                                    rel="noopener noreferrer">
                                     <IconHeart className="icon icon-filled text-pink" />
                                     Sponsor
                                 </a>
