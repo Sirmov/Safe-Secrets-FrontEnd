@@ -1,3 +1,5 @@
+import { Auth } from '@contexts/authContext';
+
 export function stringToBoolean(string?: string) {
     if (!string) {
         return false;
@@ -16,7 +18,7 @@ export function isStatusOk(status: number) {
     return status < 300;
 }
 
-export function isAuthenticated(auth?: { accessToken: 'string' }) {
+export function isAuthenticated(auth: Nullable<Auth>) {
     return !!auth?.accessToken;
 }
 
