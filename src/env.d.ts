@@ -7,3 +7,5 @@ interface ImportMetaEnv {
 interface ImportMeta {
     readonly env: ImportMetaEnv;
 }
+
+type Nullable<T> = T | null;
