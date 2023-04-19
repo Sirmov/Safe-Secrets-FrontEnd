@@ -2,23 +2,13 @@ import { SyntheticEvent, useState } from 'react';
 
 import { ErrorsDictionary, Validator } from '@validators/types';
 
-type InputValuesDictionary = {
-    [index: string]: string | boolean | number;
-};
-
-type InputValuesArray = string[];
-
-function useValidation<T>(values: InputValuesDictionary | InputValuesArray, validator: Validator<T>) {
+function useValidation<T extends object>(values: T, validator: Validator<T>) {
     const [errors, setErrors] = useState<ErrorsDictionary>(() => {
-        if (Array.isArray(values)) {
-            return values.reduce((acc, curr) => Object.assign(acc, { [curr]: '' }), {});
-        }
-
         return Object.keys(values).reduce((acc, curr) => Object.assign(acc, { [curr]: '' }), {});
     });
 
-    function handleValidation(event: SyntheticEvent) {
-        const inputElement = event.currentTarget as HTMLInputElement;
+    function handleValidation(event: SyntheticEvent<HTMLInputElement>) {
+        const inputElement = event.currentTarget;
         const dataKey = inputElement.name;
         const dataValue = inputElement.value;
         const error = validator.isValid(dataKey, dataValue);

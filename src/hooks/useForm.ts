@@ -1,22 +1,22 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 
 import { stringToBoolean } from '@utils/_';
 
-interface InputValuesDictionary {
+export interface InputValuesDictionary {
     [index: string]: string | boolean | number;
 }
 
-interface SubmitHandlerCallback {
-    (event: SubmitEvent, data: InputValuesDictionary): void;
+interface SubmitHandlerCallback<T> {
+    (event: FormEvent<HTMLFormElement>, data: T): void;
 }
 
-function useForm(initialData: InputValuesDictionary, onSubmitHandler: SubmitHandlerCallback) {
+function useForm<T>(initialData: T, onSubmitHandler: SubmitHandlerCallback<T>) {
     const [values, setValues] = useState(initialData);
 
-    function handleChange(event: ChangeEvent): void {
-        const inputElement = event.currentTarget as HTMLInputElement;
-        const dataKey = inputElement.name;
-        const dataValue = inputElement.value;
+    function handleChange(event: ChangeEvent<HTMLInputElement>): void {
+        const inputElement = event.currentTarget;
+        const dataKey = event.currentTarget.name;
+        const dataValue = event.currentTarget.value;
 
         if (inputElement.type === 'checkbox') {
             setValues({ ...values, [dataKey]: !stringToBoolean(dataValue) });
@@ -25,7 +25,7 @@ function useForm(initialData: InputValuesDictionary, onSubmitHandler: SubmitHand
         }
     }
 
-    async function handleSubmit(event: SubmitEvent): Promise<void> {
+    async function handleSubmit(event: FormEvent<HTMLFormElement>): Promise<void> {
         event.preventDefault();
 
         if (onSubmitHandler) {
