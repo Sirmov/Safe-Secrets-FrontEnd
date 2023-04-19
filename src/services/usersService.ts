@@ -38,7 +38,7 @@ export async function login(data: LoginUser) {
     return result;
 }
 
-export async function register(data: RegisterUser) {
+export async function register(data: { email: string; username: string; password: string }) {
     return await httpClient.post<RegisterResponse>(endpoints.register, data);
 }
 
