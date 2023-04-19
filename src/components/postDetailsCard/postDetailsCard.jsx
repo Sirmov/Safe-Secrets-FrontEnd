@@ -115,7 +115,7 @@ function PostDetailsCard() {
                     <div className="card-footer">
                         <div className="row align-items-center">
                             <div className="col">Uploaded {formatDateShort(post._createdOn)}</div>
-                            {auth._id === post._ownerId ? (
+                            {auth?._id === post._ownerId ? (
                                 <div className="col-auto">
                                     <Link to="edit" className="btn btn-warning bg-yellow me-2">
                                         Edit
