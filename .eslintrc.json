@@ -31,6 +31,7 @@
                     ["@assets", "./src/assets"],
                     ["@contexts", "./src/contexts"],
                     ["@layout", "./src/layout"],
+                    ["@models", "./src/models"],
                     ["@services", "./src/services"],
                     ["@pages", "./src/pages"],
                     ["@components", "./src/components"],

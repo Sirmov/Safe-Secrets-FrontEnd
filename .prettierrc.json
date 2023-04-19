@@ -20,6 +20,7 @@
         "^@assets/(.*)$",
         "^@contexts/(.*)$",
         "^@layout/(.*)$",
+        "^@models/(.*)$",
         "^@services/(.*)$",
         "^@pages/(.*)$",
         "^@components/(.*)$",

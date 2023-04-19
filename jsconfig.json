@@ -13,6 +13,8 @@
             "@contexts/*": ["src/contexts/*"],
             "@layout": ["src/layout"],
             "@layout/*": ["src/layout/*"],
+            "@models": ["src/models"],
+            "@models/*": ["src/models/*"],
             "@services": ["src/services"],
             "@services/*": ["src/services/*"],
             "@pages": ["src/pages"],
