@@ -1,6 +1,10 @@
 import React, { useContext } from 'react';
 
-const ThemeContext = React.createContext({ mode: 'light' });
+interface ThemeContextType {
+    mode: 'light' | 'dark';
+}
+
+const ThemeContext = React.createContext<ThemeContextType>({ mode: 'light' });
 
 export default ThemeContext;
 
