@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 
 import { IconEye, IconEyeOff } from '@tabler/icons-react';
 import classNames from 'classnames';
@@ -7,34 +7,40 @@ import { toast } from 'react-toastify';
 
 import { useAuthContext } from '@contexts/authContext';
 
-import { loginEmail } from '@services/usersService';
+import { RegisterUser } from '@models/user/registerUser';
+
+import { register } from '@services/usersService';
 
 import useForm from '@hooks/useForm';
 import useValidation from '@hooks/useValidation';
 
-import { loginValidator } from '@validators/user/userLoginValidator';
+import { signUpValidator } from '@validators/user/userSignUpValidator';
 
-function LoginCard() {
-    const initialValues = { email: '', password: '' };
+function SignUpCard() {
+    const initialValues: RegisterUser = { username: '', email: '', password: '', terms: false };
 
     const navigate = useNavigate();
     const [revealPassword, setRevealPassword] = useState(false);
     const { setAuth } = useAuthContext();
 
-    const { values, setValues, handleChange, handleSubmit } = useForm(initialValues, handleLogin);
-    const { errors, areValid, handleValidation } = useValidation(initialValues, loginValidator);
+    const { values, setValues, handleChange, handleSubmit } = useForm(initialValues, handleRegister);
+    const { errors, areValid, handleValidation } = useValidation(initialValues, signUpValidator);
 
-    async function handleLogin(_event, data) {
+    async function handleRegister(_event: FormEvent<HTMLFormElement>, data: RegisterUser) {
         if (!areValid(data)) {
             return;
         }
 
-        const response = await loginEmail(data.email, data.password);
+        const { terms, ...user } = data;
+        const response = await register(user);
         let isSuccessful = true;
 
-        if (response.status === 403) {
+        if (response.status === 400) {
             isSuccessful = false;
-            toast.warn('Invalid email or password.');
+            toast.error('Invalid data.');
+        } else if (response.status === 409) {
+            isSuccessful = false;
+            toast.error('A user with this email exists already.');
         } else if (!response.isOk) {
             isSuccessful = false;
             toast.error('Something went wrong.');
@@ -42,7 +48,7 @@ function LoginCard() {
 
         if (isSuccessful) {
             const { _createdOn, ...userData } = response.data;
-            setAuth(userData);
+            setAuth?.(userData);
             navigate('/');
         } else {
             setValues(initialValues);
@@ -56,14 +62,33 @@ function LoginCard() {
     return (
         <article className="card card-md">
             <div className="card-body">
-                <h2 className="h2 text-center mb-4">Login to your account</h2>
+                <h2 className="h2 text-center mb-4">Create new account</h2>
                 <form onSubmit={handleSubmit} autoComplete="off" noValidate>
                     <div className="mb-3">
-                        <label htmlFor="login-email" className="form-label">
+                        <label htmlFor="register-username" className="form-label">
+                            Name
+                        </label>
+                        <input
+                            id="register-username"
+                            name="username"
+                            type="text"
+                            onChange={handleChange}
+                            onBlur={handleValidation}
+                            className={classNames({
+                                'form-control': true,
+                                'is-invalid': errors.username,
+                            })}
+                            value={values.username}
+                            placeholder="Enter username"
+                        />
+                        <div className="invalid-feedback">{errors.username}</div>
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="register-email" className="form-label">
                             Email address
                         </label>
                         <input
-                            id="login-email"
+                            id="register-email"
                             name="email"
                             type="email"
                             onChange={handleChange}
@@ -73,22 +98,18 @@ function LoginCard() {
                                 'is-invalid': errors.email,
                             })}
                             value={values.email}
-                            placeholder="your@email.com"
-                            autoComplete="off"
+                            placeholder="Enter email"
                         />
                         <div className="invalid-feedback">{errors.email}</div>
                     </div>
-                    <div className="mb-2">
-                        <label htmlFor="login-password" className="form-label">
+                    <div className="mb-3">
+                        <label htmlFor="register-password" className="form-label">
                             Password
-                            <span className="form-label-description">
-                                <Link to="/not-implemented">Forgot password?</Link>
-                            </span>
                         </label>
                         <div className="row g-2">
                             <div className="col">
                                 <input
-                                    id="login-password"
+                                    id="register-password"
                                     name="password"
                                     type={revealPassword ? 'text' : 'password'}
                                     onChange={handleChange}
@@ -98,7 +119,7 @@ function LoginCard() {
                                         'is-invalid': errors.password,
                                     })}
                                     value={values.password}
-                                    placeholder="your_secret_password"
+                                    placeholder="Enter password"
                                     autoComplete="off"
                                 />
                                 <div className="invalid-feedback">{errors.password}</div>
@@ -115,15 +136,30 @@ function LoginCard() {
                             </div>
                         </div>
                     </div>
-                    <div className="mb-2">
+                    <div className="mb-3">
                         <label className="form-check">
-                            <input type="checkbox" className="form-check-input" />
-                            <span className="form-check-label">Remember me on this device</span>
+                            <input
+                                type="checkbox"
+                                value={String(values.terms)}
+                                checked={values.terms}
+                                onChange={handleChange}
+                                onBlur={handleValidation}
+                                name="terms"
+                                className="form-check-input"
+                            />
+                            <span className="form-check-label">
+                                I agree to the{' '}
+                                <Link to="/not-implemented" tabIndex={-1}>
+                                    terms and policy
+                                </Link>
+                                .
+                            </span>
                         </label>
+                        <div className="invalid-feedback d-block">{errors.terms}</div>
                     </div>
                     <div className="form-footer">
                         <button type="submit" className="btn btn-primary w-100">
-                            Sign in
+                            Create new account
                         </button>
                     </div>
                 </form>
@@ -132,4 +168,4 @@ function LoginCard() {
     );
 }
 
-export default LoginCard;
+export default SignUpCard;

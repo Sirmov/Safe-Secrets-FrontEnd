@@ -1,12 +1,25 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
-function Modal({ isVisible, setIsVisible, size, status, header, children, footer, goBack = true }) {
+interface ModalProps {
+    isVisible: boolean;
+    setIsVisible: React.Dispatch<React.SetStateAction<boolean>>;
+    size: 'sm' | 'md' | 'lg' | 'full-width';
+    header?: ReactNode;
+    status: 'success' | 'danger';
+    children?: ReactNode;
+    footer?: ReactNode;
+    goBack: boolean;
+}
+
+function Modal({ isVisible, setIsVisible, size, status, header, children, footer, goBack = true }: ModalProps) {
     const navigate = useNavigate();
 
-    function closeModal(event) {
-        if (event.target.id === 'modal-overlay' || event.target.classList.contains('btn-close')) {
+    function closeModal(event: React.MouseEvent) {
+        const targetElement = event.target as Element;
+
+        if (targetElement.id === 'modal-overlay' || targetElement.classList.contains('btn-close')) {
             event.preventDefault();
             event.stopPropagation();
             setIsVisible(false);
