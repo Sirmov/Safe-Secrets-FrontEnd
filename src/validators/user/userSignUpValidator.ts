@@ -1,3 +1,5 @@
+import { RegisterUser } from '@models/user/registerUser';
+
 import {
     AreValidValidationFunction,
     ErrorsDictionary,
@@ -7,13 +9,6 @@ import {
 } from '@validators/types';
 
 import { stringToBoolean } from '@utils/_';
-
-export interface User {
-    email: string;
-    username: string;
-    password: string;
-    terms: boolean;
-}
 
 export const isValid: IsValidValidationFunction = function (dataKey, dataValue) {
     if (typeof dataValue === 'string') {
@@ -35,7 +30,7 @@ export const isValid: IsValidValidationFunction = function (dataKey, dataValue) 
     }
 };
 
-export const areValid: AreValidValidationFunction<User> = function (data) {
+export const areValid: AreValidValidationFunction<RegisterUser> = function (data) {
     const errors: ErrorsDictionary = Object.entries(data).reduce(
         (acc, [k, v]) => Object.assign(acc, { [k]: isValid(k, v) }),
         {}
@@ -88,4 +83,4 @@ export function validateTerms(terms: string) {
     return '';
 }
 
-export const signUpValidator = { isValid, areValid } as Validator<User>;
+export const signUpValidator = { isValid, areValid } as Validator<RegisterUser>;

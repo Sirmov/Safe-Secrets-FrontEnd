@@ -1,3 +1,5 @@
+import { Post } from '@models/post/post';
+
 import {
     AreValidValidationFunction,
     ErrorsDictionary,
@@ -5,11 +7,6 @@ import {
     ValidationFunction,
     Validator,
 } from '@validators/types';
-
-export interface Post {
-    title: string;
-    text: string;
-}
 
 export const isValid: IsValidValidationFunction = function (dataKey, dataValue) {
     if (typeof dataValue === 'string') {

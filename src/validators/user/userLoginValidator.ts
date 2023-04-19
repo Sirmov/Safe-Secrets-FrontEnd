@@ -1,3 +1,5 @@
+import { LoginUser } from '@models/user/loginUser';
+
 import {
     AreValidValidationFunction,
     ErrorsDictionary,
@@ -6,7 +8,7 @@ import {
     Validator,
 } from '@validators/types';
 
-import { User, validateEmail } from './userSignUpValidator';
+import { validateEmail } from './userSignUpValidator';
 
 export const isValid: IsValidValidationFunction = function (dataKey, dataValue) {
     if (typeof dataValue === 'string') {
@@ -22,7 +24,7 @@ export const isValid: IsValidValidationFunction = function (dataKey, dataValue) 
     }
 };
 
-export const areValid: AreValidValidationFunction<User> = function (data) {
+export const areValid: AreValidValidationFunction<LoginUser> = function (data) {
     const errors: ErrorsDictionary = Object.entries(data).reduce(
         (acc, [k, v]) => Object.assign(acc, { [k]: isValid(k, v) }),
         {}
@@ -31,4 +33,4 @@ export const areValid: AreValidValidationFunction<User> = function (data) {
     return errors;
 };
 
-export const loginValidator = { isValid, areValid } as Validator<User>;
+export const loginValidator = { isValid, areValid } as Validator<LoginUser>;

@@ -1,3 +1,6 @@
+import { Post as IPost } from '@models/post/post';
+import { CollectionPossession } from '@models/types';
+
 import httpClient from '@services/httpClient';
 
 import { DeleteResponse } from './types';
@@ -9,14 +12,7 @@ const endpoints = {
     userPosts: (userId: string) => `/data/posts?where=_ownerId%3D%22${userId}%22&sortBy=_createdOn%20desc`,
 };
 
-interface Post {
-    _id: string;
-    _ownerId: string;
-    title: string;
-    text: string;
-    _createdOn: number;
-    _updateOn?: number;
-}
+interface Post extends IPost, CollectionPossession {}
 
 export async function getAllPosts() {
     return await httpClient.get<Post[]>(endpoints.allPosts);

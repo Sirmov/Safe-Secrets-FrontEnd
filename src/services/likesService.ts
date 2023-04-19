@@ -1,5 +1,8 @@
 import { AxiosResponse } from 'axios';
 
+import { Like as ILike } from '@models/like/like';
+import { Identifiable } from '@models/types';
+
 import httpClient from '@services/httpClient';
 
 import { DeleteResponse, ErrorResponse } from './types';
@@ -13,11 +16,7 @@ const endpoints = {
         `/data/likes?where=_ownerId%3D%22${userId}%22%20AND%20_postId%3D%22${postId}%22`,
 };
 
-interface Like {
-    _id: string;
-    _postId: string;
-    _ownerId: string;
-}
+interface Like extends ILike, Identifiable {}
 
 export async function getAllLikes() {
     return await httpClient.get<Like[]>(endpoints.likes);

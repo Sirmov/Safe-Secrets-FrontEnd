@@ -1,3 +1,6 @@
+import { Secret as ISecret } from '@models/secret/secret';
+import { CollectionPossession } from '@models/types';
+
 import httpClient from '@services/httpClient';
 
 import { DeleteResponse } from './types';
@@ -9,15 +12,7 @@ const endpoints = {
     userSecrets: (query: string) => `/data/secrets?${query}&sortBy=_createdOn%20desc`,
 };
 
-interface Secret {
-    _id: string;
-    _ownerId: string;
-    title: string;
-    secret: string;
-    isFavorite: boolean;
-    _createdOn: number;
-    _updateOn?: number;
-}
+interface Secret extends ISecret, CollectionPossession {}
 
 export async function getAllSecrets() {
     return await httpClient.get<Secret[]>(endpoints.allSecrets);

@@ -1,3 +1,6 @@
+import { LoginUser } from '@models/user/loginUser';
+import { RegisterUser } from '@models/user/registerUser';
+
 import httpClient from './httpClient';
 
 const endpoints = {
@@ -30,29 +33,13 @@ interface MeResponse {
     username: string;
 }
 
-export async function login(data: { email: string; password: string }) {
+export async function login(data: LoginUser) {
     const result = await httpClient.post<LoginResponse>(endpoints.login, data);
     return result;
 }
 
-export async function register(data: { username: string; email: string; password: string }) {
+export async function register(data: RegisterUser) {
     return await httpClient.post<RegisterResponse>(endpoints.register, data);
-}
-
-export async function loginEmail(email: string, password: string) {
-    return await httpClient.post<LoginResponse>(endpoints.login, { email, password });
-}
-
-export async function registerEmail(email: string, password: string) {
-    return await httpClient.post<RegisterResponse>(endpoints.register, { email, password });
-}
-
-export async function loginUsername(username: string, password: string) {
-    return await httpClient.post<LoginResponse>(endpoints.login, { username, password });
-}
-
-export async function registerUsername(username: string, password: string) {
-    return await httpClient.post<RegisterResponse>(endpoints.register, { username, password });
 }
 
 export async function getMe() {

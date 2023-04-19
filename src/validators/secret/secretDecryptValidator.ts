@@ -1,3 +1,5 @@
+import { Secret } from '@models/secret/secret';
+
 import {
     AreValidValidationFunction,
     ErrorsDictionary,
@@ -6,7 +8,7 @@ import {
     Validator,
 } from '@validators/types';
 
-import { Secret, validateKey } from './secretValidator';
+import { validateKey } from './secretValidator';
 
 export const isValid: IsValidValidationFunction = function (dataKey, dataValue) {
     if (typeof dataValue === 'string') {
