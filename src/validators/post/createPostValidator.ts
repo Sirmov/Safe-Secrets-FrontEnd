@@ -1,4 +1,4 @@
-import { Post } from '@models/post/post';
+import { CreatePost } from '@models/post/createPost';
 
 import {
     AreValidValidationFunction,
@@ -24,7 +24,7 @@ export const isValid: IsValidValidationFunction = function (dataKey, dataValue) 
     }
 };
 
-export const areValid: AreValidValidationFunction<Post> = function (data) {
+export const areValid: AreValidValidationFunction<CreatePost> = function (data) {
     const errors: ErrorsDictionary = Object.entries(data).reduce(
         (acc, [k, v]) => Object.assign(acc, { [k]: isValid(k, v) }),
         {}
@@ -53,4 +53,4 @@ export function validateText(secret: string) {
     return '';
 }
 
-export const postValidator = { isValid, areValid } as Validator<Post>;
+export const postValidator = { isValid, areValid } as Validator<CreatePost>;
