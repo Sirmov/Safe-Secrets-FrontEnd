@@ -1,4 +1,4 @@
-import { SyntheticEvent, useState } from 'react';
+import { FocusEvent, useState } from 'react';
 
 import { ErrorsDictionary, Validator } from '@validators/types';
 
@@ -7,8 +7,8 @@ function useValidation<T extends object>(values: T, validator: Validator<T>) {
         return Object.keys(values).reduce((acc, curr) => Object.assign(acc, { [curr]: '' }), {});
     });
 
-    function handleValidation(event: SyntheticEvent<HTMLInputElement>) {
-        const inputElement = event.currentTarget;
+    function handleValidation(event: FocusEvent<HTMLInputElement | HTMLTextAreaElement>) {
+        const inputElement = event.currentTarget as HTMLInputElement | HTMLTextAreaElement;
         const dataKey = inputElement.name;
         const dataValue = inputElement.value;
         const error = validator.isValid(dataKey, dataValue);

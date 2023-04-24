@@ -13,7 +13,7 @@ interface SubmitHandlerCallback<T> {
 function useForm<T>(initialData: T, onSubmitHandler: SubmitHandlerCallback<T>) {
     const [values, setValues] = useState(initialData);
 
-    function handleChange(event: ChangeEvent<HTMLInputElement>): void {
+    function handleChange(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void {
         const inputElement = event.currentTarget;
         const dataKey = event.currentTarget.name;
         const dataValue = event.currentTarget.value;
