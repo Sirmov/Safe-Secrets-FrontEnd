@@ -34,6 +34,7 @@
         "@testing-library/react": "^14.0.0",
         "@testing-library/user-event": "^14.4.3",
         "@trivago/prettier-plugin-sort-imports": "^4.1.1",
+        "@types/crypto-js": "^4.1.1",
         "@types/react": "^18.0.27",
         "@types/react-dom": "^18.0.10",
         "@typescript-eslint/eslint-plugin": "^5.58.0",
