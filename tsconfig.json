@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "target": "ESNext",
-        "types": ["vite/client"],
+        "types": ["vite/client", "jest", "@testing-library/jest-dom"],
         "useDefineForClassFields": true,
         "lib": ["DOM", "DOM.Iterable", "ESNext"],
         "allowJs": false,
@@ -18,6 +18,8 @@
         "jsx": "react-jsx",
         "baseUrl": ".",
         "paths": {
+            "@": ["src/"],
+            "@/*": ["src/*"],
             "@assets": ["src/assets"],
             "@assets/*": ["src/assets/*"],
             "@contexts": ["src/contexts"],

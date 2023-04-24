@@ -17,6 +17,7 @@
     "importOrder": [
         "^react$",
         "<THIRD_PARTY_MODULES>",
+        "^@/(.*)$",
         "^@assets/(.*)$",
         "^@contexts/(.*)$",
         "^@layout/(.*)$",
