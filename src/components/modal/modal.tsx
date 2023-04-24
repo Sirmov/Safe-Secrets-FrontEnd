@@ -5,12 +5,12 @@ import { useNavigate } from 'react-router-dom';
 interface ModalProps {
     isVisible: boolean;
     setIsVisible: React.Dispatch<React.SetStateAction<boolean>>;
-    size: 'sm' | 'md' | 'lg' | 'full-width';
+    size?: 'sm' | 'md' | 'lg' | 'full-width';
     header?: ReactNode;
-    status: 'success' | 'danger';
+    status?: 'success' | 'danger';
     children?: ReactNode;
     footer?: ReactNode;
-    goBack: boolean;
+    goBack?: boolean;
 }
 
 function Modal({ isVisible, setIsVisible, size, status, header, children, footer, goBack = true }: ModalProps) {
