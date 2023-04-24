@@ -37,11 +37,11 @@ export async function getSecret(secretId: string) {
     return await httpClient.get<Secret | ErrorResponse>(endpoints.secret(secretId));
 }
 
-export async function createSecret(secret: { tittle: string; secret: string }) {
+export async function createSecret(secret: { title: string; secret: string; isFavorite: boolean }) {
     return await httpClient.post<Secret | ErrorResponse>(endpoints.secrets, secret);
 }
 
-export async function updateSecret(secretId: string, secret: { tittle: string; secret: string }) {
+export async function updateSecret(secretId: string, secret: { title: string; secret: string; isFavorite: boolean }) {
     return await httpClient.put<Secret | ErrorResponse>(endpoints.secret(secretId), secret);
 }
 

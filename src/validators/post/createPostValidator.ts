@@ -53,4 +53,4 @@ export function validateText(secret: string) {
     return '';
 }
 
-export const postValidator = { isValid, areValid } as Validator<CreatePost>;
+export const createPostValidator = { isValid, areValid } as Validator<CreatePost>;

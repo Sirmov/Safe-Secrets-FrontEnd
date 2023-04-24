@@ -18,7 +18,7 @@ import Modal from '@components/modal/modal';
 import useForm from '@hooks/useForm';
 import useValidation from '@hooks/useValidation';
 
-import { postValidator } from '@validators/post/createPostValidator';
+import { createPostValidator } from '@validators/post/createPostValidator';
 
 function PostEditModal() {
     const { postId } = useParams();
@@ -36,7 +36,7 @@ function PostEditModal() {
     const navigate = useNavigate();
 
     const { values, setValues, handleChange, handleSubmit } = useForm(initialValues, handleUpdate);
-    const { errors, areValid, handleValidation } = useValidation(initialValues, postValidator);
+    const { errors, areValid, handleValidation } = useValidation(initialValues, createPostValidator);
 
     async function handleUpdate(_event: FormEvent<HTMLFormElement>, data: CreatePost) {
         if (auth?._id !== post?._ownerId) {

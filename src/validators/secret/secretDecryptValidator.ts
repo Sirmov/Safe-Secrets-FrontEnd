@@ -1,4 +1,4 @@
-import { Secret } from '@models/secret/secret';
+import { DecryptSecret } from '@models/secret/decryptSecret';
 
 import {
     AreValidValidationFunction,
@@ -24,7 +24,7 @@ export const isValid: IsValidValidationFunction = function (dataKey, dataValue) 
     }
 };
 
-export const areValid: AreValidValidationFunction<Secret> = function (data) {
+export const areValid: AreValidValidationFunction<DecryptSecret> = function (data) {
     const errors: ErrorsDictionary = Object.entries(data).reduce(
         (acc, [k, v]) => Object.assign(acc, { [k]: isValid(k, v) }),
         {}
@@ -33,4 +33,4 @@ export const areValid: AreValidValidationFunction<Secret> = function (data) {
     return errors;
 };
 
-export const secretDecryptValidator = { areValid, isValid } as Validator<Secret>;
+export const secretDecryptValidator = { areValid, isValid } as Validator<DecryptSecret>;
