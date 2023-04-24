@@ -1,23 +1,13 @@
 import React, { ReactNode, useContext, useState } from 'react';
 
+import { Like } from '@models/like/like';
+import { Post } from '@models/post/post';
+
 interface PostsContextType {
     posts: Nullable<Post[]>;
     setPosts?: React.Dispatch<React.SetStateAction<Nullable<Post[]>>>;
     likes: Nullable<Like[]>;
     setLikes?: React.Dispatch<React.SetStateAction<Nullable<Like[]>>>;
-}
-
-interface Post {
-    title: string;
-    text: string;
-    _ownerId: string;
-    _createdOn: number;
-    _updatedOn?: number;
-}
-
-interface Like {
-    _postId: string;
-    _ownerId: string;
 }
 
 export const PostsContext = React.createContext<PostsContextType>({ posts: null, likes: null });

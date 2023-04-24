@@ -1,5 +1,6 @@
-export interface Secret {
+import { BaseModel } from '@models/types';
+
+export interface Secret extends BaseModel {
     title: string;
-    key: string;
     secret: string;
 }

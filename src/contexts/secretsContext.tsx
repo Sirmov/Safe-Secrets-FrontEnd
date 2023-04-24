@@ -1,16 +1,10 @@
 import React, { ReactNode, useContext, useState } from 'react';
 
+import { Secret } from '@models/secret/secret';
+
 interface SecretsContextType {
     secrets: Nullable<Secret[]>;
     setSecrets?: React.Dispatch<React.SetStateAction<Nullable<Secret[]>>>;
-}
-
-interface Secret {
-    title: string;
-    secret: string;
-    isFavorite: boolean;
-    _ownerId: string;
-    _createdOn: number;
 }
 
 export const SecretsContext = React.createContext<SecretsContextType>({ secrets: null });

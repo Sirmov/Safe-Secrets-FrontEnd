@@ -1,29 +1,19 @@
 import React, { ReactNode, useContext, useState } from 'react';
 
+import { Like } from '@models/like/like';
+import { DetailedPost } from '@models/post/detailedPost';
+
 interface PostContextType {
-    post: Nullable<Post>;
-    setPost?: React.Dispatch<React.SetStateAction<Nullable<Post>>>;
+    post: Nullable<DetailedPost>;
+    setPost?: React.Dispatch<React.SetStateAction<Nullable<DetailedPost>>>;
     likes: Nullable<Like[]>;
     setLikes?: React.Dispatch<React.SetStateAction<Nullable<Like[]>>>;
-}
-
-interface Post {
-    title: string;
-    text: string;
-    _ownerId: string;
-    _createdOn: number;
-    _updatedOn?: number;
-}
-
-interface Like {
-    _postId: string;
-    _ownerId: string;
 }
 
 export const PostContext = React.createContext<PostContextType>({ post: null, likes: null });
 
 export function PostProvider({ children }: { children: ReactNode }) {
-    const [post, setPost] = useState<Nullable<Post>>(null);
+    const [post, setPost] = useState<Nullable<DetailedPost>>(null);
     const [likes, setLikes] = useState<Nullable<Like[]>>(null);
 
     return <PostContext.Provider value={{ post, setPost, likes, setLikes }}>{children}</PostContext.Provider>;
