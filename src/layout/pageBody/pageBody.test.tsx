@@ -8,7 +8,11 @@ import PageBody from './pageBody';
 describe('Page body layout component tests.', () => {
     test('Page body component should render a page body container.', () => {
         // Arrange
-        const result = render(<PageBody />);
+        const result = render(
+            <PageBody>
+                <></>
+            </PageBody>
+        );
 
         // Assert
         expect(result.container.querySelector('div.page-body'), 'No page body container visible.').toBeVisible();

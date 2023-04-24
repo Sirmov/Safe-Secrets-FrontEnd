@@ -16,6 +16,8 @@ import { toast } from 'react-toastify';
 import { useAuthContext } from '@contexts/authContext';
 import { useThemeContext } from '@contexts/themeContext';
 
+import { ThemeModes } from '@models/enums/themeModes';
+
 import { logout } from '@services/usersService';
 
 import { isAuthenticated } from '@utils/_';
@@ -34,7 +36,7 @@ function NavigationHeader() {
             toast.error('Something went wrong.');
         }
 
-        setAuth({});
+        setAuth?.(null);
         navigate('/');
     }
 
@@ -65,8 +67,8 @@ function NavigationHeader() {
                             <Link
                                 to="?theme=dark"
                                 onClick={() =>
-                                    setTheme((theme) => {
-                                        return { ...theme, mode: 'dark' };
+                                    setTheme?.((theme) => {
+                                        return { ...theme, mode: ThemeModes.Dark };
                                     })
                                 }
                                 className="nav-link px-0"
@@ -80,8 +82,8 @@ function NavigationHeader() {
                             <Link
                                 to="?theme=light"
                                 onClick={() =>
-                                    setTheme((theme) => {
-                                        return { ...theme, mode: 'light' };
+                                    setTheme?.((theme) => {
+                                        return { ...theme, mode: ThemeModes.Light };
                                     })
                                 }
                                 className="nav-link px-0"
@@ -98,7 +100,7 @@ function NavigationHeader() {
                         <div className="nav-item dropdown">
                             <div className="nav-item cursor-pointer" data-bs-toggle="dropdown">
                                 <div className="nav-link ms-2">
-                                    <h3 className="nav-link-title mb-0">Hello {auth.username}</h3>
+                                    <h3 className="nav-link-title mb-0">Hello {auth?.username}</h3>
                                 </div>
                             </div>
                             <div className="dropdown-menu dropdown-menu-end dropdown-menu-arrow">

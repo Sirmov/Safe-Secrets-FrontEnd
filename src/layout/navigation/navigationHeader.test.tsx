@@ -1,32 +1,57 @@
 import React from 'react';
 
-import usersServiceMock from '@/tests/mocks/usersServiceMock';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { BrowserRouter } from 'react-router-dom';
-import { afterAll, beforeAll, describe, expect, test, vi } from 'vitest';
+import { Mock, afterAll, beforeAll, describe, expect, test, vi } from 'vitest';
+
+import usersServiceMock from '@/tests/mocks/usersServiceMock';
 
 import { AuthContext } from '@contexts/authContext';
 import ThemeContext from '@contexts/themeContext';
+
+import { ThemeModes } from '@models/enums/themeModes';
 
 import NavigationHeader from './navigationHeader';
 
 let user = userEvent.setup();
 
 beforeAll(() => {
-    vi.mock('@services/usersService.js', () => usersServiceMock);
+    vi.mock('@services/usersService.ts', () => usersServiceMock);
 });
 
 afterAll(() => {
-    vi.unmock('@services/usersService.js');
+    vi.unmock('@services/usersService.ts');
 });
 
-function NavigationHeaderMock({ user, setAuth = vi.fn() }) {
-    const auth = user ? { ...user, accessToken: true } : {};
+interface NavigationHeaderMockProps {
+    user: { username: string } | boolean;
+    setAuth?: Mock<any, any>;
+}
+
+function NavigationHeaderMock({ user, setAuth = vi.fn() }: NavigationHeaderMockProps) {
+    let auth = null;
+
+    if (typeof user === 'boolean' && user === true) {
+        auth = {
+            _id: 'user-id',
+            username: 'user-username',
+            email: 'user-email',
+            accessToken: 'user-accessToken',
+        };
+    } else {
+        user = user as { username: string };
+        auth = {
+            _id: 'user-id',
+            username: user.username,
+            email: 'user-email',
+            accessToken: 'user-accessToken',
+        };
+    }
 
     return (
         <BrowserRouter>
-            <ThemeContext.Provider value={{ theme: { mode: 'light' }, setTheme: vi.fn() }}>
+            <ThemeContext.Provider value={{ theme: { mode: ThemeModes.Light }, setTheme: vi.fn() }}>
                 <AuthContext.Provider value={{ auth, setAuth }}>
                     <NavigationHeader />
                 </AuthContext.Provider>
