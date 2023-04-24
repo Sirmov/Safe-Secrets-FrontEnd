@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { FormEvent, useEffect, useRef, useState } from 'react';
 
 import { IconEdit } from '@tabler/icons-react';
 import classNames from 'classnames';
@@ -7,6 +7,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import { useSecretsContext } from '@contexts/secretsContext';
+
+import { CreateSecret } from '@models/secret/createSecret';
+import { Secret } from '@models/secret/secret';
 
 import { getSecret, updateSecret } from '@services/secretsService';
 
@@ -18,26 +21,28 @@ import useValidation from '@hooks/useValidation';
 import { secretUpdateValidator } from '@validators/secret/secretUpdateValidator';
 
 function SecretUpdateModal() {
-    const initialValues = { title: '', key: '', secret: '' };
+    const initialValues: CreateSecret = { title: '', key: '', secret: '' };
 
     const { secretId } = useParams();
-    const [secret, setSecret] = useState(null);
+    const [secret, setSecret] = useState<Nullable<Secret>>(null);
     const { setSecrets } = useSecretsContext();
 
     const [isVisible, setIsVisible] = useState(true);
+    const formRef = useRef<HTMLFormElement>(null);
     const navigate = useNavigate();
 
     const { values, setValues, handleChange, handleSubmit } = useForm(initialValues, handleUpdate);
     const { errors, areValid, handleValidation } = useValidation(initialValues, secretUpdateValidator);
 
     useEffect(() => {
-        getSecret(secretId)
+        getSecret(secretId || '')
             .then((res) => {
                 if (!res.isOk) {
                     toast.error('Something went wrong.');
                 } else {
-                    setSecret(res.data);
-                    initialValues.title = res.data.title;
+                    const secret = res.data as Secret;
+                    setSecret(secret);
+                    initialValues.title = secret.title;
                     setValues(initialValues);
                 }
             })
@@ -47,7 +52,7 @@ function SecretUpdateModal() {
             });
     }, [secretId]);
 
-    async function handleUpdate(_event, data) {
+    async function handleUpdate(_event: FormEvent<HTMLFormElement>, data: CreateSecret) {
         if (!areValid(data)) {
             return;
         }
@@ -58,7 +63,7 @@ function SecretUpdateModal() {
             payload = { ...secret, title: data.title, secret: CryptoJS.AES.encrypt(data.secret, data.key).toString() };
         }
 
-        const response = await updateSecret(secretId, payload);
+        const response = await updateSecret(secretId || '', { secret: '', isFavorite: false, ...payload });
         let isSuccessful = true;
 
         if (!response.isOk) {
@@ -67,15 +72,21 @@ function SecretUpdateModal() {
         }
 
         if (isSuccessful) {
-            setSecrets((secrets) =>
-                secrets.map((s) => {
-                    if (s._id === secretId) {
-                        return { ...response.data, isEncrypted: true };
-                    }
+            const updatedSecret = response.data as Secret;
 
-                    return s;
-                })
-            );
+            setSecrets?.((secrets) => {
+                if (secrets !== null) {
+                    return secrets.map((s) => {
+                        if (s._id === secretId) {
+                            return { ...updatedSecret, isEncrypted: true, decryptedSecret: '' };
+                        }
+
+                        return s;
+                    });
+                }
+
+                return secrets;
+            });
             closeModal();
         } else {
             setValues(initialValues);
@@ -98,13 +109,16 @@ function SecretUpdateModal() {
                     <button className="btn link-secondary" onClick={closeModal} data-bs-dismiss="modal">
                         Cancel
                     </button>
-                    <button type="submit" onClick={handleSubmit} className="btn btn-warning bg-yellow ms-auto">
+                    <button
+                        type="submit"
+                        onClick={() => formRef.current?.submit()}
+                        className="btn btn-warning bg-yellow ms-auto">
                         <IconEdit className="icon" />
                         Update secret
                     </button>
                 </>
             }>
-            <form className="text-start">
+            <form onSubmit={handleSubmit} ref={formRef} className="text-start">
                 <div className="mb-3">
                     <label className="form-label">Title</label>
                     {secret === null ? (

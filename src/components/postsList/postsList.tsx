@@ -4,6 +4,9 @@ import { toast } from 'react-toastify';
 
 import { usePostsContext } from '@contexts/postsContext';
 
+import { Like } from '@models/like/like';
+import { Post as PostModel } from '@models/post/post';
+
 import { getAllLikes } from '@services/likesService';
 import { getAllPosts } from '@services/postsService';
 
@@ -19,8 +22,8 @@ function PostsList() {
                 if (!res.isOk) {
                     toast.error('Something went wrong.');
                 } else {
-                    const posts = Object.values(res.data);
-                    setPosts(posts);
+                    const posts = Object.values(res.data) as PostModel[];
+                    setPosts?.(posts);
                 }
             })
             .catch((error) => {
@@ -35,8 +38,8 @@ function PostsList() {
                 if (!res.isOk) {
                     toast.error('Something went wrong.');
                 } else {
-                    const likes = Object.values(res.data);
-                    setLikes(likes);
+                    const likes = Object.values(res.data) as Like[];
+                    setLikes?.(likes);
                 }
             })
             .catch((error) => {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FormEvent, useRef, useState } from 'react';
 
 import { IconPlus } from '@tabler/icons-react';
 import classNames from 'classnames';
@@ -7,6 +7,9 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import { useSecretsContext } from '@contexts/secretsContext';
+
+import { CreateSecret } from '@models/secret/createSecret';
+import { Secret } from '@models/secret/secret';
 
 import { createSecret } from '@services/secretsService';
 
@@ -18,23 +21,25 @@ import useValidation from '@hooks/useValidation';
 import { secretValidator } from '@validators/secret/secretValidator';
 
 function SecretAddModal() {
-    const initialValues = { title: '', key: '', secret: '' };
+    const initialValues: CreateSecret = { title: '', key: '', secret: '' };
 
     const [isVisible, setIsVisible] = useState(true);
     const { setSecrets } = useSecretsContext();
     const navigate = useNavigate();
 
+    const formRef = useRef<HTMLFormElement>(null);
     const { values, setValues, handleChange, handleSubmit } = useForm(initialValues, handleCreate);
     const { errors, areValid, handleValidation } = useValidation(initialValues, secretValidator);
 
-    async function handleCreate(_event, data) {
+    async function handleCreate(_event: FormEvent<HTMLFormElement>, data: CreateSecret) {
         if (!areValid(data)) {
             return;
         }
 
-        let secret = {
+        const secret = {
             title: data.title,
             secret: CryptoJS.AES.encrypt(data.secret, data.key).toString(),
+            isFavorite: false,
         };
 
         const response = await createSecret(secret);
@@ -46,9 +51,10 @@ function SecretAddModal() {
         }
 
         if (isSuccessful) {
-            secret = { ...secret, isEncrypted: true, _id: response.data._id };
-            secret.isEncrypted = true;
-            setSecrets((secrets) => [...secrets, secret]);
+            const createdSecret = response.data as Secret;
+            setSecrets?.((secrets) =>
+                secrets ? [...secrets, { ...createdSecret, isEncrypted: true, decryptedSecret: '' }] : secrets
+            );
             closeModal();
         } else {
             setValues(initialValues);
@@ -71,13 +77,13 @@ function SecretAddModal() {
                     <button className="btn link-secondary" onClick={closeModal} data-bs-dismiss="modal">
                         Cancel
                     </button>
-                    <button type="submit" onClick={handleSubmit} className="btn btn-primary ms-auto">
+                    <button type="submit" onClick={() => formRef.current?.submit()} className="btn btn-primary ms-auto">
                         <IconPlus className="icon" />
                         Create new secret
                     </button>
                 </>
             }>
-            <form className="text-start">
+            <form onSubmit={handleSubmit} ref={formRef} className="text-start">
                 <div className="mb-3">
                     <label className="form-label">Title</label>
                     <input

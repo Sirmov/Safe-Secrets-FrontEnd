@@ -5,6 +5,9 @@ import { toast } from 'react-toastify';
 
 import { useAuthContext } from '@contexts/authContext';
 
+import { Secret } from '@models/secret/secret';
+import { SecretViewModel } from '@models/secret/secretViewModel';
+
 import { getSecret } from '@services/secretsService';
 
 import { formatDateLong } from '@utils/_';
@@ -13,16 +16,17 @@ import SecretDetailsCardSkeleton from './secretDetailsCardSkeleton/secretDetails
 
 function SecretDetailsCard() {
     const { secretId } = useParams();
-    const [secret, setSecret] = useState(null);
+    const [secret, setSecret] = useState<Nullable<SecretViewModel>>(null);
     const { auth } = useAuthContext();
 
     useEffect(() => {
-        getSecret(secretId)
+        getSecret(secretId || '')
             .then((res) => {
                 if (!res.isOk) {
                     toast.error('Something went wrong.');
                 } else {
-                    setSecret({ ...res.data, isEncrypted: true });
+                    const secret = res.data as Secret;
+                    setSecret({ ...secret, isEncrypted: true, decryptedSecret: '' });
                 }
             })
             .catch((error) => {
@@ -45,16 +49,35 @@ function SecretDetailsCard() {
                             <div className="d-flex gap-3 flex-column flex-md-row">
                                 <div className="w-100 w-50-md">
                                     <div className="mb-3">
-                                        <label className="form-label">Title</label>
-                                        <input className="form-control" disabled type="text" value={secret.title} />
+                                        <label htmlFor="secret-title" className="form-label">
+                                            Title
+                                        </label>
+                                        <input
+                                            id="secret-title"
+                                            className="form-control"
+                                            disabled
+                                            type="text"
+                                            value={secret.title}
+                                        />
                                     </div>
                                     <div className="mb-3">
-                                        <label className="form-label">Text</label>
-                                        <textarea className="form-control" rows={3} disabled value={secret.secret} />
+                                        <label htmlFor="secret-secret" className="form-label">
+                                            Text
+                                        </label>
+                                        <textarea
+                                            id="secret-secret"
+                                            className="form-control"
+                                            rows={3}
+                                            disabled
+                                            value={secret.secret}
+                                        />
                                     </div>
                                     <div>
-                                        <label className="form-label">Favorite</label>
+                                        <label htmlFor="secret-is-favorite" className="form-label">
+                                            Favorite
+                                        </label>
                                         <input
+                                            id="secret-is-favorite"
                                             className="form-control"
                                             disabled
                                             type="text"
@@ -68,8 +91,11 @@ function SecretDetailsCard() {
                                 </div>
                                 <div className="w-100 w-50-md">
                                     <div className="mb-3">
-                                        <label className="form-label">Created on</label>
+                                        <label htmlFor="secret-created-on" className="form-label">
+                                            Created on
+                                        </label>
                                         <input
+                                            id="secret-created-on"
                                             className="form-control"
                                             disabled
                                             type="text"
@@ -77,8 +103,11 @@ function SecretDetailsCard() {
                                         />
                                     </div>
                                     <div className="mb-3">
-                                        <label className="form-label">Updated on</label>
+                                        <label htmlFor="secret-updated-on" className="form-label">
+                                            Updated on
+                                        </label>
                                         <input
+                                            id="secret-updated-on"
                                             className="form-control"
                                             disabled
                                             type="text"
@@ -90,8 +119,16 @@ function SecretDetailsCard() {
                                         />
                                     </div>
                                     <div>
-                                        <label className="form-label">Author email</label>
-                                        <input className="form-control" disabled type="text" value={auth.email} />
+                                        <label htmlFor="secret-author-email" className="form-label">
+                                            Author email
+                                        </label>
+                                        <input
+                                            id="secret-author-email"
+                                            className="form-control"
+                                            disabled
+                                            type="text"
+                                            value={auth?.email}
+                                        />
                                     </div>
                                 </div>
                             </div>

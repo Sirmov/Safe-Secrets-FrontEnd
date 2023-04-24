@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { FormEvent, useRef, useState } from 'react';
 
 import { IconPlus } from '@tabler/icons-react';
 import classNames from 'classnames';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-import { useAuthContext } from '@contexts/authContext';
 import { usePostsContext } from '@contexts/postsContext';
+
+import { CreatePost } from '@models/post/createPost';
+import { Post } from '@models/post/post';
 
 import { createPost } from '@services/postsService';
 
@@ -15,27 +17,26 @@ import Modal from '@components/modal/modal';
 import useForm from '@hooks/useForm';
 import useValidation from '@hooks/useValidation';
 
-import { postValidator } from '@validators/post/postValidator';
+import { createPostValidator } from '@validators/post/createPostValidator';
 
 function PostAddModal() {
-    const initialValues = { title: '', text: '' };
+    const initialValues: CreatePost = { title: '', text: '' };
 
     const [isVisible, setIsVisible] = useState(true);
     const { setPosts } = usePostsContext();
-    const { auth } = useAuthContext();
+
+    const formRef = useRef<HTMLFormElement>(null);
     const navigate = useNavigate();
 
     const { values, setValues, handleChange, handleSubmit } = useForm(initialValues, handleCreate);
-    const { errors, areValid, handleValidation } = useValidation(initialValues, postValidator);
+    const { errors, areValid, handleValidation } = useValidation(initialValues, createPostValidator);
 
-    async function handleCreate(_event, data) {
+    async function handleCreate(_event: FormEvent<HTMLFormElement>, data: CreatePost) {
         if (!areValid(data)) {
             return;
         }
 
-        const post = { ...data, _ownerId: auth._id };
-
-        const response = await createPost(post);
+        const response = await createPost(data);
         let isSuccessful = true;
 
         if (!response.isOk) {
@@ -44,7 +45,8 @@ function PostAddModal() {
         }
 
         if (isSuccessful) {
-            setPosts((posts) => [...posts, response.data]);
+            const createdPost = response.data as Post;
+            setPosts?.((posts) => (posts ? [...posts, createdPost] : posts));
             closeModal();
         } else {
             setValues(initialValues);
@@ -67,13 +69,13 @@ function PostAddModal() {
                     <button className="btn link-secondary" onClick={closeModal} data-bs-dismiss="modal">
                         Cancel
                     </button>
-                    <button type="submit" onClick={handleSubmit} className="btn btn-primary ms-auto">
+                    <button type="submit" onClick={() => formRef.current?.submit()} className="btn btn-primary ms-auto">
                         <IconPlus className="icon" />
                         Create new post
                     </button>
                 </>
             }>
-            <form className="text-start">
+            <form onSubmit={handleSubmit} ref={formRef} className="text-start">
                 <div className="mb-3">
                     <label className="form-label">Title</label>
                     <input

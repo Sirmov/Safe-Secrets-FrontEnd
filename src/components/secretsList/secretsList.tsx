@@ -6,6 +6,9 @@ import { toast } from 'react-toastify';
 import { useAuthContext } from '@contexts/authContext';
 import { useSecretsContext } from '@contexts/secretsContext';
 
+import { Secret as SecretModel } from '@models/secret/secret';
+import { SecretViewModel } from '@models/secret/secretViewModel';
+
 import { getUserSecrets } from '@services/secretsService';
 
 import Secret from '@components/secret/secret';
@@ -19,14 +22,25 @@ function SecretsList() {
     const { auth } = useAuthContext();
 
     useEffect(() => {
-        getUserSecrets(auth._id, searchParams.get('search'), stringToBoolean(searchParams.get('favorites')))
+        getUserSecrets(
+            auth?._id || '',
+            searchParams.get('search') || '',
+            stringToBoolean(searchParams.get('favorites') || '')
+        )
             .then((res) => {
                 if (!res.isOk) {
                     toast.error('Something went wrong.');
                 } else {
-                    const secrets = Object.values(res.data);
-                    secrets.forEach((s) => (s.isEncrypted = true));
-                    setSecrets(secrets);
+                    const secrets = Object.values(res.data) as SecretModel[];
+
+                    const secretViewModels = secrets.map((s) => {
+                        const svm = s as SecretViewModel;
+                        svm.isEncrypted = true;
+                        svm.decryptedSecret = '';
+                        return svm;
+                    }) as SecretViewModel[];
+
+                    setSecrets?.(secretViewModels);
                 }
             })
             .catch((error) => {

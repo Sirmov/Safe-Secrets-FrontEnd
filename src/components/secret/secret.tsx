@@ -13,11 +13,26 @@ import ParamLink from '@components/paramLink/paramLink';
 
 import styles from './secret.module.scss';
 
-function Secret({ _id, title, secret, decryptedSecret, isEncrypted, isFavorite }) {
+interface SecretProps {
+    _id: string;
+    title: string;
+    secret: string;
+    decryptedSecret: string;
+    isEncrypted: boolean;
+    isFavorite: boolean;
+}
+
+function Secret({ _id, title, secret, decryptedSecret = '', isEncrypted = true, isFavorite }: SecretProps) {
     const { secrets, setSecrets } = useSecretsContext();
 
     async function handleFavorite() {
-        const secret = secrets.find((s) => s._id === _id);
+        const secret = secrets?.find((s) => s._id === _id);
+
+        if (!secret) {
+            toast.error('Something went wrong.');
+            return;
+        }
+
         const response = await updateSecret(_id, { ...secret, isFavorite: !secret.isFavorite });
         let isSuccessful = true;
 
@@ -27,29 +42,36 @@ function Secret({ _id, title, secret, decryptedSecret, isEncrypted, isFavorite }
         }
 
         if (isSuccessful) {
-            setSecrets((secrets) =>
-                secrets.map((s) => {
-                    if (s._id === _id) {
-                        return { ...s, isFavorite: !secret.isFavorite };
-                    }
+            setSecrets?.((secrets) => {
+                if (secrets !== null) {
+                    return secrets.map((s) => {
+                        if (s._id === _id) {
+                            return { ...s, isFavorite: !secret.isFavorite };
+                        }
 
-                    return s;
-                })
-            );
+                        return s;
+                    });
+                }
+
+                return secrets;
+            });
         }
     }
 
     function handleHide() {
-        setSecrets((secrets) =>
-            secrets.map((s) => {
-                if (s._id === _id) {
-                    s.decryptedSecret = '';
-                    s.isEncrypted = true;
-                }
+        setSecrets?.((secrets) => {
+            if (secrets !== null) {
+                return secrets.map((s) => {
+                    if (s._id === _id) {
+                        s.decryptedSecret = '';
+                        s.isEncrypted = true;
+                    }
 
-                return s;
-            })
-        );
+                    return s;
+                });
+            }
+            return secrets;
+        });
     }
 
     return (

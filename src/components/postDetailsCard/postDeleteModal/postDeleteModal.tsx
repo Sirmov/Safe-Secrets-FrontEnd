@@ -6,25 +6,30 @@ import { toast } from 'react-toastify';
 
 import { useAuthContext } from '@contexts/authContext';
 
+import { DetailedPost } from '@models/post/detailedPost';
+
 import { deletePost, getPost } from '@services/postsService';
 
 import Modal from '@components/modal/modal';
 
+import { isAuthenticated } from '@utils/_';
+
 function PostDeleteModal() {
     const { postId } = useParams();
-    const [post, setPost] = useState(null);
+    const [post, setPost] = useState<Nullable<DetailedPost>>(null);
 
     const [isVisible, setIsVisible] = useState(true);
     const { auth } = useAuthContext();
     const navigate = useNavigate();
 
     useEffect(() => {
-        getPost(postId)
+        getPost(postId || '')
             .then((res) => {
                 if (!res.isOk) {
                     toast.error('Something went wrong.');
                 } else {
-                    setPost(res.data);
+                    const post = res.data as DetailedPost;
+                    setPost(post);
                 }
             })
             .catch((error) => {
@@ -34,12 +39,12 @@ function PostDeleteModal() {
     }, [postId]);
 
     async function handleDelete() {
-        if (auth._id !== post?._ownerId) {
+        if (isAuthenticated(auth) && auth?._id !== post?._ownerId) {
             toast.error('You are not the owner of this post.');
             return;
         }
 
-        const response = await deletePost(postId);
+        const response = await deletePost(postId || '');
         let isSuccessful = true;
 
         if (!response.isOk) {
