@@ -6,6 +6,9 @@ import { ToastContainer } from 'react-toastify';
 import { AuthProvider } from '@contexts/authContext';
 import ThemeContext from '@contexts/themeContext';
 
+import { ThemeModes } from '@models/enums/themeModes';
+import { Theme } from '@models/theme/theme';
+
 import HomePage from '@pages/homePage/homePage';
 import LoginPage from '@pages/loginPage/loginPage';
 import NotFoundPage from '@pages/notFoundPage/notFoundPage';
@@ -21,7 +24,7 @@ import RouteGuard from '@components/routeGuard/routeGuard';
 import useLocalStorage from '@hooks/useLocalStorage';
 
 function App() {
-    const [theme, setTheme] = useLocalStorage('theme', { mode: 'light' });
+    const [theme, setTheme] = useLocalStorage<Theme>('theme', { mode: ThemeModes.Light });
 
     return (
         <React.StrictMode>
@@ -55,7 +58,7 @@ function App() {
                     pauseOnFocusLoss={false}
                     draggable={false}
                     pauseOnHover={true}
-                    theme={theme.mode}
+                    theme={theme.mode === ThemeModes.Light ? 'light' : 'dark'}
                 />
             </ThemeContext.Provider>
         </React.StrictMode>
