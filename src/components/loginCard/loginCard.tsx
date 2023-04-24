@@ -1,14 +1,16 @@
 import React, { FormEvent, useState } from 'react';
 
 import { IconEye, IconEyeOff } from '@tabler/icons-react';
+import { AxiosResponse } from 'axios';
 import classNames from 'classnames';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-import { useAuthContext } from '@contexts/authContext';
+import { Auth, useAuthContext } from '@contexts/authContext';
 
 import { LoginUser } from '@models/user/loginUser';
 
+import { ErrorResponse } from '@services/types';
 import { login } from '@services/usersService';
 
 import useForm from '@hooks/useForm';
@@ -31,19 +33,23 @@ function LoginCard() {
             return;
         }
 
-        const response = await login(data);
+        let response = await login(data);
         let isSuccessful = true;
 
-        if (response.status === 403) {
+        if (!response.isOk) {
+            response = response as AxiosResponse<ErrorResponse>;
             isSuccessful = false;
-            toast.warn('Invalid email or password.');
-        } else if (!response.isOk) {
-            isSuccessful = false;
-            toast.error('Something went wrong.');
+
+            if (response.status === 403) {
+                toast.warn('Invalid email or password.');
+            } else {
+                toast.error('Something went wrong.');
+            }
         }
 
         if (isSuccessful) {
-            setAuth?.(response.data);
+            const auth = response.data as Auth;
+            setAuth?.(auth);
             navigate('/');
         } else {
             setValues(initialValues);

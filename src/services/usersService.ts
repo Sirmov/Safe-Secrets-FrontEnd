@@ -1,7 +1,5 @@
-import { LoginUser } from '@models/user/loginUser';
-import { RegisterUser } from '@models/user/registerUser';
-
 import httpClient from './httpClient';
+import { ErrorResponse } from './types';
 
 const endpoints = {
     login: '/users/login',
@@ -18,7 +16,7 @@ interface LoginResponse {
     accessToken: string;
 }
 
-interface RegisterResponse {
+export interface RegisterResponse {
     _id: string;
     email: string;
     username: string;
@@ -33,19 +31,19 @@ interface MeResponse {
     username: string;
 }
 
-export async function login(data: LoginUser) {
-    const result = await httpClient.post<LoginResponse>(endpoints.login, data);
+export async function login(data: { email: string; password: string }) {
+    const result = await httpClient.post<LoginResponse | ErrorResponse>(endpoints.login, data);
     return result;
 }
 
 export async function register(data: { email: string; username: string; password: string }) {
-    return await httpClient.post<RegisterResponse>(endpoints.register, data);
+    return await httpClient.post<RegisterResponse | ErrorResponse>(endpoints.register, data);
 }
 
 export async function getMe() {
-    return await httpClient.get<MeResponse>(endpoints.me);
+    return await httpClient.get<MeResponse | ErrorResponse>(endpoints.me);
 }
 
 export async function logout() {
-    return await httpClient.get<null>(endpoints.logout);
+    return await httpClient.get<null | ErrorResponse>(endpoints.logout);
 }

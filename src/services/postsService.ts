@@ -1,9 +1,9 @@
-import { Post as IPost } from '@models/post/post';
-import { CollectionPossession } from '@models/types';
+import { DetailedPost } from '@models/post/detailedPost';
+import { Post } from '@models/post/post';
 
 import httpClient from '@services/httpClient';
 
-import { DeleteResponse } from './types';
+import { DeleteResponse, ErrorResponse } from './types';
 
 const endpoints = {
     posts: '/data/posts',
@@ -12,28 +12,26 @@ const endpoints = {
     userPosts: (userId: string) => `/data/posts?where=_ownerId%3D%22${userId}%22&sortBy=_createdOn%20desc`,
 };
 
-interface Post extends IPost, CollectionPossession {}
-
 export async function getAllPosts() {
-    return await httpClient.get<Post[]>(endpoints.allPosts);
+    return await httpClient.get<Post[] | ErrorResponse>(endpoints.allPosts);
 }
 
 export async function getUserPosts(userId: string) {
-    return await httpClient.get<Post[]>(endpoints.userPosts(userId));
+    return await httpClient.get<Post[] | ErrorResponse>(endpoints.userPosts(userId));
 }
 
 export async function getPost(postId: string) {
-    return await httpClient.get<Post>(endpoints.post(postId));
+    return await httpClient.get<DetailedPost | ErrorResponse>(endpoints.post(postId));
 }
 
 export async function createPost(post: { title: string; text: string }) {
-    return await httpClient.post<Post>(endpoints.posts, post);
+    return await httpClient.post<Post | ErrorResponse>(endpoints.posts, post);
 }
 
 export async function updatePost(postId: string, post: { title: string; text: string }) {
-    return await httpClient.put<Post>(endpoints.post(postId), post);
+    return await httpClient.put<Post | ErrorResponse>(endpoints.post(postId), post);
 }
 
 export async function deletePost(postId: string) {
-    return await httpClient.delete<DeleteResponse>(endpoints.post(postId));
+    return await httpClient.delete<DeleteResponse | ErrorResponse>(endpoints.post(postId));
 }

@@ -1,7 +1,6 @@
 import { AxiosResponse } from 'axios';
 
-import { Like as ILike } from '@models/like/like';
-import { Identifiable } from '@models/types';
+import { Like } from '@models/like/like';
 
 import httpClient from '@services/httpClient';
 
@@ -16,25 +15,23 @@ const endpoints = {
         `/data/likes?where=_ownerId%3D%22${userId}%22%20AND%20_postId%3D%22${postId}%22`,
 };
 
-interface Like extends ILike, Identifiable {}
-
 export async function getAllLikes() {
-    return await httpClient.get<Like[]>(endpoints.likes);
+    return await httpClient.get<Like[] | ErrorResponse>(endpoints.likes);
 }
 
 export async function getUserLike(userId: string, postId: string) {
-    return await httpClient.get<Like>(endpoints.userLike(userId, postId));
+    return await httpClient.get<Like | ErrorResponse>(endpoints.userLike(userId, postId));
 }
 
 export async function getPostLikes(postId: string) {
-    return await httpClient.get<Like[]>(endpoints.postLikes(postId));
+    return await httpClient.get<Like[] | ErrorResponse>(endpoints.postLikes(postId));
 }
 
 export async function likePost(userId: string, postId: string) {
     const response = await getUserLike(userId, postId);
 
     if (!response.isOk) {
-        return response;
+        return response as AxiosResponse<ErrorResponse>;
     }
 
     const userLike = Object.values(response.data);
@@ -62,7 +59,7 @@ export async function unLikePost(userId: string, postId: string) {
     const response = await getUserLike(userId, postId);
 
     if (!response.isOk) {
-        return response;
+        return response as AxiosResponse<ErrorResponse>;
     }
     const userLike = Object.values(response.data);
 
@@ -81,5 +78,9 @@ export async function unLikePost(userId: string, postId: string) {
         return errorResponse;
     }
 
-    return await httpClient.delete<DeleteResponse>(endpoints.like(userLike[0]._id));
+    const deleteResult = await httpClient.delete<DeleteResponse>(endpoints.like(userLike[0]._id));
+
+    return { ...deleteResult, data: { ...deleteResult.data, _id: userLike[0]._id } } as AxiosResponse<
+        DeleteResponse & { _id: string }
+    >;
 }

@@ -1,6 +1,7 @@
 import React, { FormEvent, useState } from 'react';
 
 import { IconEye, IconEyeOff } from '@tabler/icons-react';
+import { AxiosResponse } from 'axios';
 import classNames from 'classnames';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -9,7 +10,8 @@ import { useAuthContext } from '@contexts/authContext';
 
 import { RegisterUser } from '@models/user/registerUser';
 
-import { register } from '@services/usersService';
+import { ErrorResponse } from '@services/types';
+import { RegisterResponse, register } from '@services/usersService';
 
 import useForm from '@hooks/useForm';
 import useValidation from '@hooks/useValidation';
@@ -32,21 +34,24 @@ function SignUpCard() {
         }
 
         const { terms, ...user } = data;
-        const response = await register(user);
+        let response = await register(user);
         let isSuccessful = true;
 
-        if (response.status === 400) {
+        if (!response.isOk) {
+            response = response as AxiosResponse<ErrorResponse>;
             isSuccessful = false;
-            toast.error('Invalid data.');
-        } else if (response.status === 409) {
-            isSuccessful = false;
-            toast.error('A user with this email exists already.');
-        } else if (!response.isOk) {
-            isSuccessful = false;
-            toast.error('Something went wrong.');
+
+            if (response.status === 400) {
+                toast.error('Invalid data.');
+            } else if (response.status === 409) {
+                toast.error('A user with this email exists already.');
+            } else if (!response.isOk) {
+                toast.error('Something went wrong.');
+            }
         }
 
         if (isSuccessful) {
+            response.data = response.data as RegisterResponse;
             const { _createdOn, ...userData } = response.data;
             setAuth?.(userData);
             navigate('/');
