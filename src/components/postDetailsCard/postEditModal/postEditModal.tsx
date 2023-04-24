@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { FormEvent, useEffect, useRef, useState } from 'react';
 
 import { IconEdit } from '@tabler/icons-react';
 import classNames from 'classnames';
@@ -8,6 +8,9 @@ import { toast } from 'react-toastify';
 import { useAuthContext } from '@contexts/authContext';
 import { usePostContext } from '@contexts/postContext';
 
+import { CreatePost } from '@models/post/createPost';
+import { Post } from '@models/post/post';
+
 import { updatePost } from '@services/postsService';
 
 import Modal from '@components/modal/modal';
@@ -15,16 +18,17 @@ import Modal from '@components/modal/modal';
 import useForm from '@hooks/useForm';
 import useValidation from '@hooks/useValidation';
 
-import { postValidator } from '@validators/post/postValidator';
+import { postValidator } from '@validators/post/createPostValidator';
 
 function PostEditModal() {
     const { postId } = useParams();
     const { post, setPost } = usePostContext();
+    const formRef = useRef<HTMLFormElement>(null);
 
-    const initialValues = { title: post.title, text: post.text };
+    const initialValues: CreatePost = { title: post?.title || '', text: post?.text || '' };
     useEffect(() => {
-        initialValues.title = post.title;
-        initialValues.text = post.text;
+        initialValues.title = post?.title || '';
+        initialValues.text = post?.text || '';
     }, [post]);
 
     const [isVisible, setIsVisible] = useState(true);
@@ -34,8 +38,8 @@ function PostEditModal() {
     const { values, setValues, handleChange, handleSubmit } = useForm(initialValues, handleUpdate);
     const { errors, areValid, handleValidation } = useValidation(initialValues, postValidator);
 
-    async function handleUpdate(_event, data) {
-        if (auth._id !== post?._ownerId) {
+    async function handleUpdate(_event: FormEvent<HTMLFormElement>, data: CreatePost) {
+        if (auth?._id !== post?._ownerId) {
             toast.error('You are not the owner of this post.');
             return;
         }
@@ -44,7 +48,7 @@ function PostEditModal() {
             return;
         }
 
-        const response = await updatePost(postId, { ...post, title: data.title, text: data.text });
+        const response = await updatePost(postId || '', { ...post, title: data.title, text: data.text });
         let isSuccessful = true;
 
         if (!response.isOk) {
@@ -53,7 +57,8 @@ function PostEditModal() {
         }
 
         if (isSuccessful) {
-            setPost(response.data);
+            const updatedPost = response.data as Post;
+            setPost?.((post) => (post ? { ...post, ...updatedPost } : post));
             closeModal();
         } else {
             setValues(initialValues);
@@ -76,13 +81,16 @@ function PostEditModal() {
                     <button className="btn link-secondary" onClick={closeModal} data-bs-dismiss="modal">
                         Cancel
                     </button>
-                    <button type="submit" onClick={handleSubmit} className="btn btn-warning bg-yellow ms-auto">
+                    <button
+                        type="submit"
+                        onClick={() => formRef.current?.submit()}
+                        className="btn btn-warning bg-yellow ms-auto">
                         <IconEdit className="icon" />
                         Edit post
                     </button>
                 </>
             }>
-            <form className="text-start">
+            <form onSubmit={handleSubmit} className="text-start" ref={formRef}>
                 <div className="mb-3">
                     <label className="form-label">Title</label>
                     {post?.title === null ? (

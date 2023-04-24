@@ -1,14 +1,19 @@
 import React, { useEffect } from 'react';
 
 import { IconThumbUp } from '@tabler/icons-react';
+import { AxiosResponse } from 'axios';
 import { Link, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import { useAuthContext } from '@contexts/authContext';
 import { usePostContext } from '@contexts/postContext';
 
+import { Like } from '@models/like/like';
+import { DetailedPost } from '@models/post/detailedPost';
+
 import { getPostLikes, likePost, unLikePost } from '@services/likesService';
 import { getPost } from '@services/postsService';
+import { ErrorResponse } from '@services/types';
 
 import ArticleText from '@components/articleText/articleText';
 
@@ -26,12 +31,13 @@ function PostDetailsCard() {
     const { auth } = useAuthContext();
 
     useEffect(() => {
-        getPost(postId)
+        getPost(postId || '')
             .then((res) => {
                 if (!res.isOk) {
                     toast.error('Something went wrong.');
                 } else {
-                    setPost(res.data);
+                    const post = res.data as DetailedPost;
+                    setPost?.(post);
                 }
             })
             .catch((error) => {
@@ -41,13 +47,13 @@ function PostDetailsCard() {
     }, [postId]);
 
     useEffect(() => {
-        getPostLikes(postId)
+        getPostLikes(postId || '')
             .then((res) => {
                 if (!res.isOk) {
                     toast.error('Something went wrong.');
                 } else {
-                    const likes = Object.values(res.data);
-                    setLikes(likes);
+                    const likes = Object.values(res.data as Like[]);
+                    setLikes?.(likes);
                 }
             })
             .catch((error) => {
@@ -62,19 +68,25 @@ function PostDetailsCard() {
             return;
         }
 
-        const response = await likePost(auth._id, postId);
+        let response = await likePost(auth?._id || '', postId || '');
         let isSuccessful = true;
 
-        if (response.data?.message === "You can't like a post twice.") {
-            toast.warning(response.data.message);
+        if (!response.isOk) {
+            response = response as AxiosResponse<ErrorResponse>;
             isSuccessful = false;
-        } else if (!response.isOk) {
+
+            if (response.data?.message === "You can't like a post twice.") {
+                toast.warning(response.data.message);
+            }
+
             toast.error('Something went wrong.');
-            isSuccessful = false;
         }
 
         if (isSuccessful) {
-            setLikes((likes) => [...likes, response.data]);
+            response = response as AxiosResponse<Like>;
+            const like = response.data;
+
+            setLikes?.((likes) => (likes ? [...likes, like] : likes));
         }
     }
 
@@ -84,19 +96,26 @@ function PostDetailsCard() {
             return;
         }
 
-        const response = await unLikePost(auth._id, postId);
+        let response = await unLikePost(auth?._id || '', postId || '');
         let isSuccessful = true;
 
-        if (response.data?.message === "You can't unlike a post which you have not liked.") {
-            toast.warning(response.data.message);
+        if (!response.isOk) {
+            response = response as AxiosResponse<ErrorResponse>;
             isSuccessful = false;
-        } else if (!response.isOk) {
+
+            if (response.data?.message === "You can't unlike a post which you have not liked.") {
+                toast.warning(response.data.message);
+                isSuccessful = false;
+            }
+
             toast.error('Something went wrong.');
-            isSuccessful = false;
         }
 
         if (isSuccessful) {
-            setLikes((likes) => likes.filter((l) => l._id !== response.data._id));
+            response = response as AxiosResponse<{ _deleteOn: number; _id: string }>;
+            const deletedLikeId = response.data._id;
+
+            setLikes?.((likes) => (likes ? likes.filter((l) => l._id !== deletedLikeId) : likes));
         }
     }
 

@@ -1,13 +1,17 @@
 import React from 'react';
 
 import { IconThumbUp } from '@tabler/icons-react';
+import { AxiosResponse } from 'axios';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import { useAuthContext } from '@contexts/authContext';
 import { usePostsContext } from '@contexts/postsContext';
 
+import { Like } from '@models/like/like';
+
 import { likePost, unLikePost } from '@services/likesService';
+import { ErrorResponse } from '@services/types';
 
 import useLoading from '@hooks/useLoading';
 
@@ -15,7 +19,15 @@ import { debounce, formatDateShort, isAuthenticated } from '@utils/_';
 
 import styles from './post.module.scss';
 
-function Post({ _id, title, text, _createdOn, likes }) {
+interface PostProps {
+    _id: string;
+    title: string;
+    text: string;
+    _createdOn: number;
+    likes: Like[];
+}
+
+function Post({ _id, title, text, _createdOn, likes }: PostProps) {
     const { setLikes } = usePostsContext();
     const { isLoading, watch } = useLoading();
     const { auth } = useAuthContext();
@@ -26,19 +38,25 @@ function Post({ _id, title, text, _createdOn, likes }) {
             return;
         }
 
-        const response = await likePost(auth._id, _id);
+        let response = await likePost(auth?._id || '', _id);
         let isSuccessful = true;
 
-        if (response.data?.message === "You can't like a post twice.") {
-            toast.warning(response.data.message);
+        if (!response.isOk) {
+            response = response as AxiosResponse<ErrorResponse>;
             isSuccessful = false;
-        } else if (!response.isOk) {
+
+            if (response.data.message === "You can't like a post twice.") {
+                toast.warning(response.data.message);
+            }
+
             toast.error('Something went wrong.');
-            isSuccessful = false;
         }
 
         if (isSuccessful) {
-            setLikes((likes) => [...likes, response.data]);
+            response = response as AxiosResponse<Like>;
+            const like = response.data;
+
+            setLikes?.((likes) => (likes ? [...likes, like] : likes));
         }
     }
 
@@ -48,19 +66,25 @@ function Post({ _id, title, text, _createdOn, likes }) {
             return;
         }
 
-        const response = await unLikePost(auth._id, _id);
+        let response = await unLikePost(auth?._id || '', _id);
         let isSuccessful = true;
 
-        if (response.data?.message === "You can't unlike a post which you have not liked.") {
-            toast.warning(response.data.message);
+        if (!response.isOk) {
+            response = response as AxiosResponse<ErrorResponse>;
             isSuccessful = false;
-        } else if (!response.isOk) {
+
+            if (response.data.message === "You can't unlike a post which you have not liked.") {
+                toast.warning(response.data.message);
+            }
+
             toast.error('Something went wrong.');
-            isSuccessful = false;
         }
 
         if (isSuccessful) {
-            setLikes((likes) => likes.filter((l) => l._id !== response.data._id));
+            response = response as AxiosResponse<{ _deleteOn: number; _id: string }>;
+            const deletedLikeId = response.data._id;
+
+            setLikes?.((likes) => (likes ? likes.filter((l) => l._id !== deletedLikeId) : likes));
         }
     }
 
