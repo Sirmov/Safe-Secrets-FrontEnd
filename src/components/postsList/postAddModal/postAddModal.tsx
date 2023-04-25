@@ -1,4 +1,4 @@
-import React, { FormEvent, useRef, useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 
 import { IconPlus } from '@tabler/icons-react';
 import classNames from 'classnames';
@@ -24,8 +24,6 @@ function PostAddModal() {
 
     const [isVisible, setIsVisible] = useState(true);
     const { setPosts } = usePostsContext();
-
-    const formRef = useRef<HTMLFormElement>(null);
     const navigate = useNavigate();
 
     const { values, setValues, handleChange, handleSubmit } = useForm(initialValues, handleCreate);
@@ -69,13 +67,13 @@ function PostAddModal() {
                     <button className="btn link-secondary" onClick={closeModal} data-bs-dismiss="modal">
                         Cancel
                     </button>
-                    <button type="submit" onClick={() => formRef.current?.submit()} className="btn btn-primary ms-auto">
+                    <button form="add-post-form" type="submit" className="btn btn-primary ms-auto">
                         <IconPlus className="icon" />
                         Create new post
                     </button>
                 </>
             }>
-            <form onSubmit={handleSubmit} ref={formRef} className="text-start">
+            <form id="add-post-form" onSubmit={handleSubmit} className="text-start">
                 <div className="mb-3">
                     <label className="form-label">Title</label>
                     <input

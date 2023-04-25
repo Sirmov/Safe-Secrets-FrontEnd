@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect, useRef, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 
 import classNames from 'classnames';
 import CryptoJS from 'crypto-js';
@@ -32,7 +32,6 @@ function SecretDecryptModal() {
     const [isVisible, setIsVisible] = useState(true);
     const navigate = useNavigate();
 
-    const formRef = useRef<HTMLFormElement>(null);
     const { values, setValues, handleChange, handleSubmit } = useForm(initialValues, handleDecrypt);
     const { errors, areValid, handleValidation } = useValidation(initialValues, secretDecryptValidator);
 
@@ -88,9 +87,9 @@ function SecretDecryptModal() {
                         Cancel
                     </button>
                     <button
+                        form="secret-decrypt-form"
                         type="submit"
                         disabled={secret === null}
-                        onClick={() => formRef.current?.submit()}
                         className="btn btn-success ms-auto">
                         Reveal the secret
                     </button>
@@ -99,7 +98,7 @@ function SecretDecryptModal() {
             <h3 className="fw-normal pb-3">
                 By providing a valid key you will expose <b>{secret?.title}</b> secret
             </h3>
-            <form onSubmit={handleSubmit} ref={formRef} className="text-start">
+            <form id="secret-decrypt-form" onSubmit={handleSubmit} className="text-start">
                 <div>
                     <label className="form-label">Key</label>
                     <input

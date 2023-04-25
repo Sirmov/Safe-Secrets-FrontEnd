@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect, useRef, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 
 import { IconEdit } from '@tabler/icons-react';
 import classNames from 'classnames';
@@ -23,7 +23,6 @@ import { createPostValidator } from '@validators/post/createPostValidator';
 function PostEditModal() {
     const { postId } = useParams();
     const { post, setPost } = usePostContext();
-    const formRef = useRef<HTMLFormElement>(null);
 
     const initialValues: CreatePost = { title: post?.title || '', text: post?.text || '' };
     useEffect(() => {
@@ -81,16 +80,13 @@ function PostEditModal() {
                     <button className="btn link-secondary" onClick={closeModal} data-bs-dismiss="modal">
                         Cancel
                     </button>
-                    <button
-                        type="submit"
-                        onClick={() => formRef.current?.submit()}
-                        className="btn btn-warning bg-yellow ms-auto">
+                    <button form="edit-post-form" type="submit" className="btn btn-warning bg-yellow ms-auto">
                         <IconEdit className="icon" />
                         Edit post
                     </button>
                 </>
             }>
-            <form onSubmit={handleSubmit} className="text-start" ref={formRef}>
+            <form id="edit-post-form" onSubmit={handleSubmit} className="text-start">
                 <div className="mb-3">
                     <label className="form-label">Title</label>
                     {post?.title === null ? (

@@ -1,4 +1,4 @@
-import React, { FormEvent, useRef, useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 
 import { IconPlus } from '@tabler/icons-react';
 import classNames from 'classnames';
@@ -27,7 +27,6 @@ function SecretAddModal() {
     const { setSecrets } = useSecretsContext();
     const navigate = useNavigate();
 
-    const formRef = useRef<HTMLFormElement>(null);
     const { values, setValues, handleChange, handleSubmit } = useForm(initialValues, handleCreate);
     const { errors, areValid, handleValidation } = useValidation(initialValues, secretValidator);
 
@@ -77,13 +76,13 @@ function SecretAddModal() {
                     <button className="btn link-secondary" onClick={closeModal} data-bs-dismiss="modal">
                         Cancel
                     </button>
-                    <button type="submit" onClick={() => formRef.current?.submit()} className="btn btn-primary ms-auto">
+                    <button form="add-secret-form" type="submit" className="btn btn-primary ms-auto">
                         <IconPlus className="icon" />
                         Create new secret
                     </button>
                 </>
             }>
-            <form onSubmit={handleSubmit} ref={formRef} className="text-start">
+            <form id="add-secret-form" onSubmit={handleSubmit} className="text-start">
                 <div className="mb-3">
                     <label className="form-label">Title</label>
                     <input
