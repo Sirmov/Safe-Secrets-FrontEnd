@@ -1,6 +1,10 @@
 import { Auth } from '@contexts/authContext';
 
-export function stringToBoolean(string?: string) {
+export function stringToBoolean(string?: string | boolean) {
+    if (typeof string === 'boolean') {
+        return string;
+    }
+
     if (!string) {
         return false;
     }
@@ -33,7 +37,7 @@ export function formatDateShort(unixTimestamp: number) {
 }
 
 export function debounce(func: (...args: any) => any, timeout = 300) {
-    let timer: number;
+    let timer: NodeJS.Timeout;
     return (...args: any) => {
         clearTimeout(timer);
         timer = setTimeout(() => {
