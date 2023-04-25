@@ -25,6 +25,14 @@ export const isValid: IsValidValidationFunction = function (dataKey, dataValue) 
         }
 
         return validationFunction(dataValue);
+    } else if (typeof dataValue === 'boolean') {
+        let validationFunction: ValidationFunction<boolean> = () => '';
+
+        if (dataKey === 'terms') {
+            validationFunction = validateTerms;
+        }
+
+        return validationFunction(dataValue);
     } else {
         return '';
     }
@@ -75,8 +83,10 @@ export function validatePassword(password: string) {
     return errors.join(' ');
 }
 
-export function validateTerms(terms: string) {
-    if (stringToBoolean(terms) == false) {
+export function validateTerms(terms: string | boolean) {
+    const asBoolean = stringToBoolean(terms) as boolean;
+
+    if (asBoolean == false) {
         return 'You should accept the terms and policy.';
     }
 
