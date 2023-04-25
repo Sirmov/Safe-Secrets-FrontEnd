@@ -15,8 +15,8 @@
         "prettier-check": "prettier --check ./src --config .prettierrc.json",
         "prettier-debug": "prettier --debug-check ./src --config .prettierrc.json",
         "prettier-format": "prettier --write ./src --config .prettierrc.json",
-        "lint": "eslint src -c .eslintrc.json --ext .js,.jsx",
-        "lint-fix": "eslint src --fix-dry-run -c .eslintrc.json --ext .js,.jsx"
+        "lint": "eslint src -c .eslintrc.json --ext .js,.jsx,.ts,.tsx",
+        "lint-fix": "eslint src --fix-dry-run -c .eslintrc.json --ext .js,.jsx,.ts,.tsx"
     },
     "dependencies": {
         "@tabler/icons-react": "^2.5.0",
