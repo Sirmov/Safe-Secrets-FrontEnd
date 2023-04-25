@@ -14,7 +14,7 @@ import { ThemeModes } from '@models/enums/themeModes';
 
 import NavigationHeader from './navigationHeader';
 
-let user = userEvent.setup();
+const user = userEvent.setup();
 
 beforeAll(() => {
     vi.mock('@services/usersService.ts', () => usersServiceMock);
@@ -94,7 +94,7 @@ describe('Navigation header layout component tests.', () => {
         await user.click(logoutButton);
 
         // Assert
-        expect(spy, 'Set auth function has not been called with {}.').toHaveBeenCalledWith({});
+        expect(spy, 'Set auth function has not been called with null.').toHaveBeenCalledWith(null);
     });
 
     test.each([{ link: 'home' }, { link: 'posts' }, { link: 'secrets' }])(
