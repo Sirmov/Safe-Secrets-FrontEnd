@@ -1,4 +1,4 @@
 export enum ThemeModes {
-    Light,
-    Dark,
+    Light = 'light',
+    Dark = 'dark',
 }
