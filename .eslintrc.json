@@ -20,6 +20,7 @@
         "sourceType": "module"
     },
     "plugins": ["react", "@typescript-eslint", "import"],
+    "ignorePatterns": ["build", "server", "reports"],
     "settings": {
         "react": {
             "version": "detect"
@@ -62,6 +63,8 @@
                 "tsx": "never"
             }
         ],
-        "import/no-namespace": ["error", { "ignore": ["*.ext"] }]
+        "import/no-namespace": ["error", { "ignore": ["*.ext"] }],
+        "react/jsx-uses-react": "off",
+        "react/react-in-jsx-scope": "off"
     }
 }
