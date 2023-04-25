@@ -21,7 +21,7 @@ export default defineConfig((config) => ({
             '**/.{idea,git,cache,output,temp}/**',
             '**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress,tsup,build}.config.*',
         ],
-        setupFiles: path.resolve(__dirname, './src/tests/setupTests.js'),
+        setupFiles: path.resolve(__dirname, './src/tests/setupTests.ts'),
         globals: true,
         environment: 'jsdom',
         coverage: {
