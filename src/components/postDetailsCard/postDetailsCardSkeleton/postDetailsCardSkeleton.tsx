@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { IconThumbUp } from '@tabler/icons-react';
 
 function PostDetailsCardSkeleton() {

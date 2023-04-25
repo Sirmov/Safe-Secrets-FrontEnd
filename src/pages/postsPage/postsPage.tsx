@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { IconPlus } from '@tabler/icons-react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { Route, Routes } from 'react-router-dom';

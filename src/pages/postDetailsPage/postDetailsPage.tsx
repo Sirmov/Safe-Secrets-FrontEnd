@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { Route, Routes } from 'react-router-dom';
 

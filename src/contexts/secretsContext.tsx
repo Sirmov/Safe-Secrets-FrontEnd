@@ -1,4 +1,4 @@
-import React, { ReactNode, useContext, useState } from 'react';
+import { ReactNode, createContext, useContext, useState } from 'react';
 
 import { SecretViewModel } from '@models/secret/secretViewModel';
 
@@ -7,7 +7,7 @@ interface SecretsContextType {
     setSecrets?: React.Dispatch<React.SetStateAction<Nullable<SecretViewModel[]>>>;
 }
 
-export const SecretsContext = React.createContext<SecretsContextType>({ secrets: null });
+export const SecretsContext = createContext<SecretsContextType>({ secrets: null });
 
 export function SecretsProvider({ children }: { children: ReactNode }) {
     const [secrets, setSecrets] = useState<Nullable<SecretViewModel[]>>(null);

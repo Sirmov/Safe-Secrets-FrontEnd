@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { IconAlertTriangle, IconTrash } from '@tabler/icons-react';
 import { useNavigate, useParams } from 'react-router-dom';

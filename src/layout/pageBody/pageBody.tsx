@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 
 function PageBody({ children }: { children: ReactNode }) {
     return (

@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { IconDots } from '@tabler/icons-react';
 
 function SecretSkeleton() {

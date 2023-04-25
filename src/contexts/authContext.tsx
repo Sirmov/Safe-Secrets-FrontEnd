@@ -1,4 +1,4 @@
-import React, { ReactNode, useContext } from 'react';
+import { ReactNode, createContext, useContext } from 'react';
 
 import useLocalStorage from '@hooks/useLocalStorage';
 
@@ -14,7 +14,7 @@ export interface Auth {
     accessToken: string;
 }
 
-export const AuthContext = React.createContext<AuthContextType>({ auth: null });
+export const AuthContext = createContext<AuthContextType>({ auth: null });
 
 export function AuthProvider({ children }: { children: ReactNode }) {
     const [auth, setAuth] = useLocalStorage<Nullable<Auth>>('auth', null);

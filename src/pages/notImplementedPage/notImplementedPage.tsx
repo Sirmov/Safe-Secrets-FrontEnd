@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { IconArrowLeft, IconHome } from '@tabler/icons-react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';

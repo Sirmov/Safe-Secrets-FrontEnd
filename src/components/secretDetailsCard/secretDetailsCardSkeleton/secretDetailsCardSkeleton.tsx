@@ -1,5 +1,3 @@
-import React from 'react';
-
 function SecretDetailsCardSkeleton() {
     return (
         <div className="card">

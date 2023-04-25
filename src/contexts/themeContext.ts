@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { createContext, useContext } from 'react';
 
 import { ThemeModes } from '@models/enums/themeModes';
 import { Theme } from '@models/theme/theme';
@@ -8,7 +8,7 @@ interface ThemeContextType {
     setTheme?: React.Dispatch<React.SetStateAction<Theme>>;
 }
 
-const ThemeContext = React.createContext<ThemeContextType>({ theme: { mode: ThemeModes.Light } });
+const ThemeContext = createContext<ThemeContextType>({ theme: { mode: ThemeModes.Light } });
 
 export default ThemeContext;
 

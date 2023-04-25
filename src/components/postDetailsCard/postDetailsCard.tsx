@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
 import { IconThumbUp } from '@tabler/icons-react';
 import { AxiosResponse } from 'axios';

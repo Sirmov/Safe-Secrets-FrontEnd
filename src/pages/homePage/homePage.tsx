@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { IconFlask2, IconKey, IconShieldCheck } from '@tabler/icons-react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 

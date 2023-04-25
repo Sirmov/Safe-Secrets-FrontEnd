@@ -1,4 +1,4 @@
-import React, { ReactNode, useContext, useState } from 'react';
+import { ReactNode, createContext, useContext, useState } from 'react';
 
 import { Like } from '@models/like/like';
 import { Post } from '@models/post/post';
@@ -10,7 +10,7 @@ interface PostsContextType {
     setLikes?: React.Dispatch<React.SetStateAction<Nullable<Like[]>>>;
 }
 
-export const PostsContext = React.createContext<PostsContextType>({ posts: null, likes: null });
+export const PostsContext = createContext<PostsContextType>({ posts: null, likes: null });
 
 export function PostsProvider({ children }: { children: ReactNode }) {
     const [posts, setPosts] = useState<Nullable<Post[]>>(null);

@@ -1,4 +1,4 @@
-import React from 'react';
+import { StrictMode } from 'react';
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
@@ -27,7 +27,7 @@ function App() {
     const [theme, setTheme] = useLocalStorage<Theme>('theme', { mode: ThemeModes.Light });
 
     return (
-        <React.StrictMode>
+        <StrictMode>
             <ThemeContext.Provider value={{ theme, setTheme }}>
                 <div className={`page theme-${theme.mode}`}>
                     <BrowserRouter>
@@ -61,7 +61,7 @@ function App() {
                     theme={theme.mode === ThemeModes.Light ? 'light' : 'dark'}
                 />
             </ThemeContext.Provider>
-        </React.StrictMode>
+        </StrictMode>
     );
 }
 

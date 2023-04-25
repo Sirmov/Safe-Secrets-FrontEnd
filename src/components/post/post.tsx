@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { IconThumbUp } from '@tabler/icons-react';
 import { AxiosResponse } from 'axios';
 import { Link } from 'react-router-dom';

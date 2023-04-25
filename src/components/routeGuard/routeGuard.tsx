@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { Navigate, Outlet } from 'react-router-dom';
 import { toast } from 'react-toastify';

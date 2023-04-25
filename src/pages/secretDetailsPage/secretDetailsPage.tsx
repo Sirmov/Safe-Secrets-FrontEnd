@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 import Footer from '@layout/footer/footer';

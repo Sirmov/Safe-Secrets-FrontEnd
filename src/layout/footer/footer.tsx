@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { IconHeart } from '@tabler/icons-react';
 
 function Footer() {

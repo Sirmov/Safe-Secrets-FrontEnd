@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { IconDots, IconStar } from '@tabler/icons-react';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
